@@ -27,7 +27,10 @@ import {
 import "./controls/petkit-litterbox-commands-control";
 import { isCommandsControlVisible } from "./controls/petkit-litterbox-commands-control";
 import { isCleaningState } from "./utils";
-import { PetkitLitterboxCardConfig } from "./petkit-litterbox-card-config";
+import {
+  PetkitFooterItemConfig,
+  PetkitLitterboxCardConfig,
+} from "./petkit-litterbox-card-config";
 
 registerCustomCard({
   type: PETKIT_LITTERBOX_CARD_NAME,
@@ -132,33 +135,68 @@ export class PetkitLitterboxCard
 
   protected renderFooter(): TemplateResult | typeof nothing {
     if (!this._config || !this.hass) return nothing;
-    const { footer_entity_1, footer_entity_2 } = this._config;
-    if (!footer_entity_1 && !footer_entity_2) return nothing;
+    const { footer_1, footer_2 } = this._config;
+    if (!footer_1 && !footer_2) return nothing;
 
-    const renderChip = (entityId: string) => {
-      const stateObj = this.hass!.states[entityId];
-      if (!stateObj) return nothing;
-      const name = stateObj.attributes.friendly_name ?? entityId;
-      const unit = stateObj.attributes.unit_of_measurement as string | undefined;
-      const stateText = unit ? `${stateObj.state} ${unit}` : stateObj.state;
-      return html`
-        <div class="footer-chip">
-          <ha-state-icon
-            .hass=${this.hass}
-            .stateObj=${stateObj}
-          ></ha-state-icon>
-          <div class="footer-chip-info">
-            <span class="footer-chip-name">${name}</span>
-            <span class="footer-chip-state">${stateText}</span>
-          </div>
-        </div>
-      `;
-    };
+    const items = [footer_1, footer_2].filter(
+      (i): i is PetkitFooterItemConfig => Boolean(i)
+    );
 
     return html`
       <div class="footer">
-        ${footer_entity_1 ? renderChip(footer_entity_1) : nothing}
-        ${footer_entity_2 ? renderChip(footer_entity_2) : nothing}
+        ${items.map((item) => this.renderFooterChip(item))}
+      </div>
+    `;
+  }
+
+  private _handleFooterAction(item: PetkitFooterItemConfig) {
+    return (ev: ActionHandlerEvent) => {
+      handleAction(
+        this,
+        this.hass!,
+        {
+          entity: item.entity,
+          tap_action: item.tap_action ?? { action: "more-info" },
+        },
+        ev.detail.action!
+      );
+    };
+  }
+
+  protected renderFooterChip(
+    item: PetkitFooterItemConfig
+  ): TemplateResult | typeof nothing {
+    const stateObj = this.hass!.states[item.entity];
+    const name =
+      item.name ??
+      (stateObj?.attributes.friendly_name as string | undefined) ??
+      item.entity;
+    const unit = stateObj?.attributes.unit_of_measurement as string | undefined;
+    const stateText = stateObj
+      ? unit
+        ? `${stateObj.state} ${unit}`
+        : stateObj.state
+      : "unavailable";
+    return html`
+      <div
+        class="footer-chip"
+        role="button"
+        tabindex="0"
+        @action=${this._handleFooterAction(item)}
+        .actionHandler=${actionHandler({
+          hasHold: false,
+          hasDoubleClick: false,
+        })}
+      >
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${item.icon}
+        ></ha-state-icon>
+        <div class="footer-chip-info">
+          <span class="footer-chip-name">${name}</span>
+          <span class="footer-chip-state">${stateText}</span>
+        </div>
       </div>
     `;
   }
@@ -227,6 +265,11 @@ export class PetkitLitterboxCard
           gap: 10px;
           padding: 16px 14px;
           background: var(--primary-background-color);
+          cursor: pointer;
+        }
+        .footer-chip:focus-visible {
+          outline: 2px solid var(--primary-color);
+          outline-offset: -2px;
         }
         .footer-chip ha-state-icon {
           --mdc-icon-size: 20px;

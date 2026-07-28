@@ -29,8 +29,8 @@ const PETKIT_LITTERBOX_LABELS = [
   "deodorize_entity",
   "level_litter_entity",
   "maintenance_entity",
-  "footer_entity_1",
-  "footer_entity_2",
+  "footer_1",
+  "footer_2",
 ];
 
 const computeSchema = memoizeOne(
@@ -117,11 +117,35 @@ const computeSchema = memoizeOne(
       },
     },
     {
-      type: "grid",
-      name: "",
+      type: "expandable",
+      name: "footer_1",
+      title: customLocalize("editor.card.petkit_litterbox.footer_1"),
+      icon: "mdi:view-headline",
       schema: [
-        { name: "footer_entity_1", selector: { entity: {} } },
-        { name: "footer_entity_2", selector: { entity: {} } },
+        { name: "entity", selector: { entity: {} } },
+        { name: "name", selector: { text: {} } },
+        {
+          name: "icon",
+          selector: { icon: {} },
+          context: { icon_entity: "entity" },
+        },
+        { name: "tap_action", selector: { ui_action: {} } },
+      ],
+    },
+    {
+      type: "expandable",
+      name: "footer_2",
+      title: customLocalize("editor.card.petkit_litterbox.footer_2"),
+      icon: "mdi:view-headline",
+      schema: [
+        { name: "entity", selector: { entity: {} } },
+        { name: "name", selector: { text: {} } },
+        {
+          name: "icon",
+          selector: { icon: {} },
+          context: { icon_entity: "entity" },
+        },
+        { name: "tap_action", selector: { ui_action: {} } },
       ],
     },
     ...computeActionsFormSchema(),

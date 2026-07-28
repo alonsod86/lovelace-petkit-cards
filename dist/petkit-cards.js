@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_entity_1": "Footer — left / full entity", "footer_entity_2": "Footer — right entity (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -8425,31 +8425,55 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
   }
   renderFooter() {
     if (!this._config || !this.hass) return A;
-    const { footer_entity_1, footer_entity_2 } = this._config;
-    if (!footer_entity_1 && !footer_entity_2) return A;
-    const renderChip = (entityId) => {
-      const stateObj = this.hass.states[entityId];
-      if (!stateObj) return A;
-      const name = stateObj.attributes.friendly_name ?? entityId;
-      const unit = stateObj.attributes.unit_of_measurement;
-      const stateText = unit ? `${stateObj.state} ${unit}` : stateObj.state;
-      return b`
-        <div class="footer-chip">
-          <ha-state-icon
-            .hass=${this.hass}
-            .stateObj=${stateObj}
-          ></ha-state-icon>
-          <div class="footer-chip-info">
-            <span class="footer-chip-name">${name}</span>
-            <span class="footer-chip-state">${stateText}</span>
-          </div>
-        </div>
-      `;
-    };
+    const { footer_1, footer_2 } = this._config;
+    if (!footer_1 && !footer_2) return A;
+    const items = [footer_1, footer_2].filter(
+      (i3) => Boolean(i3)
+    );
     return b`
       <div class="footer">
-        ${footer_entity_1 ? renderChip(footer_entity_1) : A}
-        ${footer_entity_2 ? renderChip(footer_entity_2) : A}
+        ${items.map((item) => this.renderFooterChip(item))}
+      </div>
+    `;
+  }
+  _handleFooterAction(item) {
+    return (ev) => {
+      handleAction(
+        this,
+        this.hass,
+        {
+          entity: item.entity,
+          tap_action: item.tap_action ?? { action: "more-info" }
+        },
+        ev.detail.action
+      );
+    };
+  }
+  renderFooterChip(item) {
+    const stateObj = this.hass.states[item.entity];
+    const name = item.name ?? stateObj?.attributes.friendly_name ?? item.entity;
+    const unit = stateObj?.attributes.unit_of_measurement;
+    const stateText = stateObj ? unit ? `${stateObj.state} ${unit}` : stateObj.state : "unavailable";
+    return b`
+      <div
+        class="footer-chip"
+        role="button"
+        tabindex="0"
+        @action=${this._handleFooterAction(item)}
+        .actionHandler=${actionHandler({
+      hasHold: false,
+      hasDoubleClick: false
+    })}
+      >
+        <ha-state-icon
+          .hass=${this.hass}
+          .stateObj=${stateObj}
+          .icon=${item.icon}
+        ></ha-state-icon>
+        <div class="footer-chip-info">
+          <span class="footer-chip-name">${name}</span>
+          <span class="footer-chip-state">${stateText}</span>
+        </div>
       </div>
     `;
   }
@@ -8513,6 +8537,11 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
           gap: 10px;
           padding: 16px 14px;
           background: var(--primary-background-color);
+          cursor: pointer;
+        }
+        .footer-chip:focus-visible {
+          outline: 2px solid var(--primary-color);
+          outline-offset: -2px;
         }
         .footer-chip ha-state-icon {
           --mdc-icon-size: 20px;
@@ -8724,6 +8753,12 @@ const PETKIT_LITTERBOX_ACTIONS = [
   "level_litter",
   "maintenance"
 ];
+const petkitFooterItemStruct = object({
+  entity: string(),
+  name: optional(string()),
+  icon: optional(string()),
+  tap_action: optional(actionConfigStruct)
+});
 const petkitLitterboxCardConfigStruct = assign(
   lovelaceCardConfigStruct,
   assign(
@@ -8739,8 +8774,8 @@ const petkitLitterboxCardConfigStruct = assign(
     level_litter_entity: optional(string()),
     maintenance_entity: optional(string()),
     active_states: optional(array(string())),
-    footer_entity_1: optional(string()),
-    footer_entity_2: optional(string())
+    footer_1: optional(petkitFooterItemStruct),
+    footer_2: optional(petkitFooterItemStruct)
   })
 );
 var __defProp = Object.defineProperty;
@@ -8761,8 +8796,8 @@ const PETKIT_LITTERBOX_LABELS = [
   "deodorize_entity",
   "level_litter_entity",
   "maintenance_entity",
-  "footer_entity_1",
-  "footer_entity_2"
+  "footer_1",
+  "footer_2"
 ];
 const computeSchema = memoizeOne(
   (localize, customLocalize, version) => [
@@ -8844,11 +8879,35 @@ const computeSchema = memoizeOne(
       }
     },
     {
-      type: "grid",
-      name: "",
+      type: "expandable",
+      name: "footer_1",
+      title: customLocalize("editor.card.petkit_litterbox.footer_1"),
+      icon: "mdi:view-headline",
       schema: [
-        { name: "footer_entity_1", selector: { entity: {} } },
-        { name: "footer_entity_2", selector: { entity: {} } }
+        { name: "entity", selector: { entity: {} } },
+        { name: "name", selector: { text: {} } },
+        {
+          name: "icon",
+          selector: { icon: {} },
+          context: { icon_entity: "entity" }
+        },
+        { name: "tap_action", selector: { ui_action: {} } }
+      ]
+    },
+    {
+      type: "expandable",
+      name: "footer_2",
+      title: customLocalize("editor.card.petkit_litterbox.footer_2"),
+      icon: "mdi:view-headline",
+      schema: [
+        { name: "entity", selector: { entity: {} } },
+        { name: "name", selector: { text: {} } },
+        {
+          name: "icon",
+          selector: { icon: {} },
+          context: { icon_entity: "entity" }
+        },
+        { name: "tap_action", selector: { ui_action: {} } }
       ]
     },
     ...computeActionsFormSchema()

@@ -6,6 +6,7 @@ import {
   optional,
   string,
 } from "superstruct";
+import { ActionConfig, actionConfigStruct } from "../ha";
 import { LovelaceCardConfig } from "../shared/config/lovelace-card-config";
 import {
   ActionsSharedConfig,
@@ -31,6 +32,20 @@ export const PETKIT_LITTERBOX_ACTIONS = [
 export type PetkitLitterboxActionKey =
   (typeof PETKIT_LITTERBOX_ACTIONS)[number];
 
+export interface PetkitFooterItemConfig {
+  entity: string;
+  name?: string;
+  icon?: string;
+  tap_action?: ActionConfig;
+}
+
+export const petkitFooterItemStruct = object({
+  entity: string(),
+  name: optional(string()),
+  icon: optional(string()),
+  tap_action: optional(actionConfigStruct),
+});
+
 export type PetkitLitterboxCardConfig = LovelaceCardConfig &
   EntitySharedConfig &
   AppearanceSharedConfig &
@@ -42,8 +57,8 @@ export type PetkitLitterboxCardConfig = LovelaceCardConfig &
     level_litter_entity?: string;
     maintenance_entity?: string;
     active_states?: string[];
-    footer_entity_1?: string;
-    footer_entity_2?: string;
+    footer_1?: PetkitFooterItemConfig;
+    footer_2?: PetkitFooterItemConfig;
   };
 
 export const petkitLitterboxCardConfigStruct = assign(
@@ -61,7 +76,7 @@ export const petkitLitterboxCardConfigStruct = assign(
     level_litter_entity: optional(string()),
     maintenance_entity: optional(string()),
     active_states: optional(array(string())),
-    footer_entity_1: optional(string()),
-    footer_entity_2: optional(string()),
+    footer_1: optional(petkitFooterItemStruct),
+    footer_2: optional(petkitFooterItemStruct),
   })
 );
