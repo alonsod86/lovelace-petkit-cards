@@ -1,0 +1,29 @@
+{
+  "name": "lovelace-petkit-cards",
+  "version": "1.0.0",
+  "description": "Lovelace cards for Petkit smart devices (mushroom style)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dgutierrez/lovelace-petkit-cards"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "vite build",
+    "start": "vite build --watch"
+  },
+  "dependencies": {
+    "culori": "^4.0.1",
+    "home-assistant-js-websocket": "^9.6.0",
+    "intl-messageformat": "^11.2.4",
+    "lit": "^3.3.2",
+    "memoize-one": "^6.0.0",
+    "superstruct": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/culori": "^4.0.1",
+    "browserslist-to-esbuild": "^2.1.1",
+    "terser": "^5.39.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
+}
