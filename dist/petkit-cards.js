@@ -8418,8 +8418,8 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
                   </mushroom-petkit-litterbox-commands-control>
                 </div>
               ` : A}
-          ${this.renderFooter()}
         </mushroom-card>
+        ${this.renderFooter()}
       </ha-card>
     `;
   }
@@ -8492,14 +8492,17 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
             transform: rotate(360deg);
           }
         }
+        ha-card {
+          overflow: hidden;
+        }
         mushroom-petkit-litterbox-commands-control {
           flex: 1;
         }
         .footer {
           display: flex;
           flex-direction: row;
-          gap: var(--spacing);
-          padding: 0 var(--spacing) var(--spacing);
+          gap: 1px;
+          background: var(--divider-color);
         }
         .footer-chip {
           flex: 1;
@@ -8508,10 +8511,8 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
           flex-direction: row;
           align-items: center;
           gap: 8px;
-          padding: 10px 12px;
-          border-radius: 8px;
+          padding: var(--spacing) calc(var(--spacing) + 4px);
           background: var(--primary-background-color);
-          box-sizing: border-box;
           overflow: hidden;
         }
         .footer-chip ha-state-icon {
