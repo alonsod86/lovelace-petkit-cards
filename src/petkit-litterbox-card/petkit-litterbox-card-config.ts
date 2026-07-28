@@ -42,6 +42,8 @@ export type PetkitLitterboxCardConfig = LovelaceCardConfig &
     level_litter_entity?: string;
     maintenance_entity?: string;
     active_states?: string[];
+    footer_entity_1?: string;
+    footer_entity_2?: string;
   };
 
 export const petkitLitterboxCardConfigStruct = assign(
@@ -59,5 +61,7 @@ export const petkitLitterboxCardConfigStruct = assign(
     level_litter_entity: optional(string()),
     maintenance_entity: optional(string()),
     active_states: optional(array(string())),
+    footer_entity_1: optional(string()),
+    footer_entity_2: optional(string()),
   })
 );

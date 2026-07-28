@@ -29,6 +29,8 @@ const PETKIT_LITTERBOX_LABELS = [
   "deodorize_entity",
   "level_litter_entity",
   "maintenance_entity",
+  "footer_entity_1",
+  "footer_entity_2",
 ];
 
 const computeSchema = memoizeOne(
@@ -113,6 +115,14 @@ const computeSchema = memoizeOne(
           ].map((s) => ({ value: s, label: s })),
         },
       },
+    },
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        { name: "footer_entity_1", selector: { entity: {} } },
+        { name: "footer_entity_2", selector: { entity: {} } },
+      ],
     },
     ...computeActionsFormSchema(),
   ]

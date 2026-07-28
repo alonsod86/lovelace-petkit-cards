@@ -27,6 +27,8 @@
         "deodorize_entity": "Deodorize (button or script)",
         "level_litter_entity": "Level litter (button or script)",
         "maintenance_entity": "Maintenance (button or script)",
+        "footer_entity_1": "Footer — left / full entity",
+        "footer_entity_2": "Footer — right entity (optional)",
         "actions_list": {
           "scoop": "Scoop",
           "deodorize": "Deodorize",

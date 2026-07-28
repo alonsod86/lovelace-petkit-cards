@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_entity_1": "Footer — left / full entity", "footer_entity_2": "Footer — right entity (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -8418,8 +8418,39 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
                   </mushroom-petkit-litterbox-commands-control>
                 </div>
               ` : A}
+          ${this.renderFooter()}
         </mushroom-card>
       </ha-card>
+    `;
+  }
+  renderFooter() {
+    if (!this._config || !this.hass) return A;
+    const { footer_entity_1, footer_entity_2 } = this._config;
+    if (!footer_entity_1 && !footer_entity_2) return A;
+    const renderChip = (entityId) => {
+      const stateObj = this.hass.states[entityId];
+      if (!stateObj) return A;
+      const name = stateObj.attributes.friendly_name ?? entityId;
+      const unit = stateObj.attributes.unit_of_measurement;
+      const stateText = unit ? `${stateObj.state} ${unit}` : stateObj.state;
+      return b`
+        <div class="footer-chip">
+          <ha-state-icon
+            .hass=${this.hass}
+            .stateObj=${stateObj}
+          ></ha-state-icon>
+          <div class="footer-chip-info">
+            <span class="footer-chip-name">${name}</span>
+            <span class="footer-chip-state">${stateText}</span>
+          </div>
+        </div>
+      `;
+    };
+    return b`
+      <div class="footer">
+        ${footer_entity_1 ? renderChip(footer_entity_1) : A}
+        ${footer_entity_2 ? renderChip(footer_entity_2) : A}
+      </div>
     `;
   }
   renderIcon(stateObj, icon) {
@@ -8463,6 +8494,59 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
         }
         mushroom-petkit-litterbox-commands-control {
           flex: 1;
+        }
+        .footer {
+          display: flex;
+          flex-direction: row;
+          gap: var(--spacing);
+          padding: 0 var(--spacing) var(--spacing);
+        }
+        .footer-chip {
+          flex: 1;
+          min-width: 0;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 8px;
+          padding: 0 12px;
+          height: 32px;
+          border-radius: 16px;
+          background: var(
+            --ha-card-background,
+            var(--card-background-color, white)
+          );
+          border: var(--ha-card-border-width, 1px) solid
+            var(--ha-card-border-color, var(--divider-color));
+          box-sizing: border-box;
+          overflow: hidden;
+        }
+        .footer-chip ha-state-icon {
+          --mdc-icon-size: 16px;
+          flex-shrink: 0;
+          color: var(--secondary-text-color);
+        }
+        .footer-chip-info {
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+          flex: 1;
+        }
+        .footer-chip-name {
+          font-size: 10px;
+          line-height: 1.3;
+          color: var(--secondary-text-color);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .footer-chip-state {
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 1.2;
+          color: var(--primary-text-color);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       `
     ];
@@ -8660,7 +8744,9 @@ const petkitLitterboxCardConfigStruct = assign(
     deodorize_entity: optional(string()),
     level_litter_entity: optional(string()),
     maintenance_entity: optional(string()),
-    active_states: optional(array(string()))
+    active_states: optional(array(string())),
+    footer_entity_1: optional(string()),
+    footer_entity_2: optional(string())
   })
 );
 var __defProp = Object.defineProperty;
@@ -8680,7 +8766,9 @@ const PETKIT_LITTERBOX_LABELS = [
   "scoop_entity",
   "deodorize_entity",
   "level_litter_entity",
-  "maintenance_entity"
+  "maintenance_entity",
+  "footer_entity_1",
+  "footer_entity_2"
 ];
 const computeSchema = memoizeOne(
   (localize, customLocalize, version) => [
@@ -8760,6 +8848,14 @@ const computeSchema = memoizeOne(
           ].map((s2) => ({ value: s2, label: s2 }))
         }
       }
+    },
+    {
+      type: "grid",
+      name: "",
+      schema: [
+        { name: "footer_entity_1", selector: { entity: {} } },
+        { name: "footer_entity_2", selector: { entity: {} } }
+      ]
     },
     ...computeActionsFormSchema()
   ]

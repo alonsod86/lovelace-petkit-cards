@@ -124,8 +124,42 @@ export class PetkitLitterboxCard
                 </div>
               `
             : nothing}
+          ${this.renderFooter()}
         </mushroom-card>
       </ha-card>
+    `;
+  }
+
+  protected renderFooter(): TemplateResult | typeof nothing {
+    if (!this._config || !this.hass) return nothing;
+    const { footer_entity_1, footer_entity_2 } = this._config;
+    if (!footer_entity_1 && !footer_entity_2) return nothing;
+
+    const renderChip = (entityId: string) => {
+      const stateObj = this.hass!.states[entityId];
+      if (!stateObj) return nothing;
+      const name = stateObj.attributes.friendly_name ?? entityId;
+      const unit = stateObj.attributes.unit_of_measurement as string | undefined;
+      const stateText = unit ? `${stateObj.state} ${unit}` : stateObj.state;
+      return html`
+        <div class="footer-chip">
+          <ha-state-icon
+            .hass=${this.hass}
+            .stateObj=${stateObj}
+          ></ha-state-icon>
+          <div class="footer-chip-info">
+            <span class="footer-chip-name">${name}</span>
+            <span class="footer-chip-state">${stateText}</span>
+          </div>
+        </div>
+      `;
+    };
+
+    return html`
+      <div class="footer">
+        ${footer_entity_1 ? renderChip(footer_entity_1) : nothing}
+        ${footer_entity_2 ? renderChip(footer_entity_2) : nothing}
+      </div>
     `;
   }
 
@@ -174,6 +208,59 @@ export class PetkitLitterboxCard
         }
         mushroom-petkit-litterbox-commands-control {
           flex: 1;
+        }
+        .footer {
+          display: flex;
+          flex-direction: row;
+          gap: var(--spacing);
+          padding: 0 var(--spacing) var(--spacing);
+        }
+        .footer-chip {
+          flex: 1;
+          min-width: 0;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 8px;
+          padding: 0 12px;
+          height: 32px;
+          border-radius: 16px;
+          background: var(
+            --ha-card-background,
+            var(--card-background-color, white)
+          );
+          border: var(--ha-card-border-width, 1px) solid
+            var(--ha-card-border-color, var(--divider-color));
+          box-sizing: border-box;
+          overflow: hidden;
+        }
+        .footer-chip ha-state-icon {
+          --mdc-icon-size: 16px;
+          flex-shrink: 0;
+          color: var(--secondary-text-color);
+        }
+        .footer-chip-info {
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+          flex: 1;
+        }
+        .footer-chip-name {
+          font-size: 10px;
+          line-height: 1.3;
+          color: var(--secondary-text-color);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .footer-chip-state {
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 1.2;
+          color: var(--primary-text-color);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       `,
     ];
