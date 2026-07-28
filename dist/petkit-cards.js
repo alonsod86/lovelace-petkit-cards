@@ -8508,20 +8508,14 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
           flex-direction: row;
           align-items: center;
           gap: 8px;
-          padding: 0 12px;
-          height: 32px;
-          border-radius: 16px;
-          background: var(
-            --ha-card-background,
-            var(--card-background-color, white)
-          );
-          border: var(--ha-card-border-width, 1px) solid
-            var(--ha-card-border-color, var(--divider-color));
+          padding: 10px 12px;
+          border-radius: 8px;
+          background: var(--primary-background-color);
           box-sizing: border-box;
           overflow: hidden;
         }
         .footer-chip ha-state-icon {
-          --mdc-icon-size: 16px;
+          --mdc-icon-size: 18px;
           flex-shrink: 0;
           color: var(--secondary-text-color);
         }
@@ -8541,7 +8535,7 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
         }
         .footer-chip-state {
           font-size: 12px;
-          font-weight: bold;
+          font-weight: 500;
           line-height: 1.2;
           color: var(--primary-text-color);
           white-space: nowrap;
