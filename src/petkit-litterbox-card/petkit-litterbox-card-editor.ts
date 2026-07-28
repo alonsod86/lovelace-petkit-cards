@@ -61,19 +61,19 @@ const computeSchema = memoizeOne(
       schema: [
         {
           name: "scoop_entity",
-          selector: { entity: { domain: ["button"] } },
+          selector: { entity: { domain: ["button", "script"] } },
         },
         {
           name: "deodorize_entity",
-          selector: { entity: { domain: ["button"] } },
+          selector: { entity: { domain: ["button", "script"] } },
         },
         {
           name: "level_litter_entity",
-          selector: { entity: { domain: ["button"] } },
+          selector: { entity: { domain: ["button", "script"] } },
         },
         {
           name: "maintenance_entity",
-          selector: { entity: { domain: ["button"] } },
+          selector: { entity: { domain: ["button", "script"] } },
         },
       ],
     },

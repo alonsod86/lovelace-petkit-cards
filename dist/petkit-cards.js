@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop button entity", "deodorize_entity": "Deodorize button entity", "level_litter_entity": "Level litter button entity", "maintenance_entity": "Maintenance mode button entity", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -8288,7 +8288,12 @@ let PetkitLitterboxCommandsControl = class extends i$1 {
     e2.stopPropagation();
     const entityId = e2.target._entityId;
     if (!entityId) return;
-    this.hass.callService("button", "press", { entity_id: entityId });
+    const domain = entityId.split(".")[0];
+    if (domain === "script") {
+      this.hass.callService("script", "turn_on", { entity_id: entityId });
+    } else {
+      this.hass.callService("button", "press", { entity_id: entityId });
+    }
   }
   render() {
     const rtl = computeRTL(this.hass);
@@ -8703,19 +8708,19 @@ const computeSchema = memoizeOne(
       schema: [
         {
           name: "scoop_entity",
-          selector: { entity: { domain: ["button"] } }
+          selector: { entity: { domain: ["button", "script"] } }
         },
         {
           name: "deodorize_entity",
-          selector: { entity: { domain: ["button"] } }
+          selector: { entity: { domain: ["button", "script"] } }
         },
         {
           name: "level_litter_entity",
-          selector: { entity: { domain: ["button"] } }
+          selector: { entity: { domain: ["button", "script"] } }
         },
         {
           name: "maintenance_entity",
-          selector: { entity: { domain: ["button"] } }
+          selector: { entity: { domain: ["button", "script"] } }
         }
       ]
     },

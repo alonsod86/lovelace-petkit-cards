@@ -71,7 +71,12 @@ export class PetkitLitterboxCommandsControl extends LitElement {
     e.stopPropagation();
     const entityId = (e.target! as any)._entityId as string;
     if (!entityId) return;
-    this.hass.callService("button", "press", { entity_id: entityId });
+    const domain = entityId.split(".")[0];
+    if (domain === "script") {
+      this.hass.callService("script", "turn_on", { entity_id: entityId });
+    } else {
+      this.hass.callService("button", "press", { entity_id: entityId });
+    }
   }
 
   protected render(): TemplateResult {
