@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petkit Card Preview</title>
+  <style>
+    /* ── HA dark theme CSS variables ─────────────────────────────────── */
+    :root {
+      --primary-background-color: #111318;
+      --secondary-background-color: #1c1c27;
+      --ha-card-background: #1e2029;
+      --card-background-color: #1e2029;
+      --ha-card-border-radius: 12px;
+      --ha-card-border-width: 1px;
+      --ha-card-border-color: rgba(255,255,255,0.08);
+      --ha-card-box-shadow: none;
+      --primary-text-color: #e5e5e5;
+      --secondary-text-color: #9da0a8;
+      --divider-color: rgba(255,255,255,0.10);
+      --mush-spacing: 10px;
+      --spacing: 10px;
+      --control-spacing: 12px;
+      --mush-control-spacing: 12px;
+      --rgb-state-vacuum: 100, 181, 246;
+      --mdc-icon-size: 24px;
+      --icon-color: var(--primary-text-color);
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: var(--primary-background-color);
+      font-family: var(--paper-font-body1_-_font-family, Roboto, sans-serif);
+      color: var(--primary-text-color);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      max-width: 700px;
+    }
+
+    h2 { color: #aaa; font-size: 13px; font-weight: 400; margin: 24px 0 8px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+    /* ── Light theme toggle ──────────────────────────────────────────── */
+    .theme-toggle {
+      position: fixed;
+      top: 16px; right: 16px;
+      background: var(--ha-card-background);
+      border: 1px solid var(--ha-card-border-color);
+      color: var(--primary-text-color);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">Toggle light/dark</button>
+
+<h2>Petkit Litterbox Card — Preview</h2>
+<div class="grid">
+  <mushroom-petkit-litterbox-card id="card1"></mushroom-petkit-litterbox-card>
+  <mushroom-petkit-litterbox-card id="card2"></mushroom-petkit-litterbox-card>
+  <mushroom-petkit-litterbox-card id="card3"></mushroom-petkit-litterbox-card>
+  <mushroom-petkit-litterbox-card id="card4"></mushroom-petkit-litterbox-card>
+</div>
+
+<script>
+/* ── Mock HA custom elements (stubs for elements not in our bundle) ── */
+
+function stub(name, renderFn) {
+  if (!customElements.get(name)) {
+    customElements.define(name, class extends HTMLElement {
+      connectedCallback() { this.style.display = 'block'; }
+      updated() { if (renderFn) renderFn(this); }
+    });
+  }
+}
+
+/* ha-card — styled card wrapper */
+if (!customElements.get('ha-card')) {
+  customElements.define('ha-card', class extends HTMLElement {
+    connectedCallback() {
+      this.style.cssText = `
+        display:block; box-sizing:border-box;
+        border-radius:var(--ha-card-border-radius,12px);
+        background:var(--ha-card-background,var(--card-background-color,white));
+        border:var(--ha-card-border-width,1px) solid var(--ha-card-border-color,transparent);
+        box-shadow:var(--ha-card-box-shadow,none);
+        overflow:hidden;
+      `;
+    }
+  });
+}
+
+/* mushroom-card — flex column with spacing padding */
+if (!customElements.get('mushroom-card')) {
+  customElements.define('mushroom-card', class extends HTMLElement {
+    connectedCallback() {
+      this.style.cssText = `
+        display:flex; flex-direction:column;
+        padding:var(--spacing,10px);
+      `;
+    }
+  });
+}
+
+/* mushroom-state-item — icon + info row */
+if (!customElements.get('mushroom-state-item')) {
+  customElements.define('mushroom-state-item', class extends HTMLElement {
+    connectedCallback() {
+      this.style.cssText = `
+        display:flex; flex-direction:row; align-items:center;
+        gap:12px; cursor:pointer; padding:2px 0;
+      `;
+    }
+  });
+}
+
+/* mushroom-shape-icon — circular icon */
+if (!customElements.get('mushroom-shape-icon')) {
+  customElements.define('mushroom-shape-icon', class extends HTMLElement {
+    connectedCallback() {
+      this.style.cssText = `
+        display:flex; align-items:center; justify-content:center;
+        width:42px; height:42px; border-radius:50%; flex-shrink:0;
+        background:rgba(var(--rgb-state-vacuum,100,181,246),0.2);
+        color:rgb(var(--rgb-state-vacuum,100,181,246));
+        font-size:20px;
+      `;
+    }
+  });
+}
+
+/* mushroom-state-info — name + state text */
+if (!customElements.get('mushroom-state-info')) {
+  customElements.define('mushroom-state-info', class extends HTMLElement {
+    connectedCallback() {
+      this.style.cssText = `display:flex; flex-direction:column; flex:1; min-width:0;`;
+    }
+  });
+}
+
+/* mushroom-badge-icon */
+stub('mushroom-badge-icon', null);
+
+/* mushroom-button-group — action buttons container */
+if (!customElements.get('mushroom-button-group')) {
+  customElements.define('mushroom-button-group', class extends HTMLElement {
+    connectedCallback() {
+      this.style.cssText = `
+        display:flex; flex-direction:row; gap:var(--control-spacing,12px);
+        flex:1;
+      `;
+    }
+  });
+}
+
+/* mushroom-button — single action button */
+if (!customElements.get('mushroom-button')) {
+  customElements.define('mushroom-button', class extends HTMLElement {
+    connectedCallback() {
+      this.style.cssText = `
+        display:flex; align-items:center; justify-content:center;
+        flex:1; height:42px; border-radius:var(--control-border-radius,12px);
+        background:rgba(255,255,255,0.05); cursor:pointer;
+        color:var(--primary-text-color);
+        font-size:20px;
+      `;
+    }
+  });
+}
+
+/* ha-state-icon — icon based on entity state */
+if (!customElements.get('ha-state-icon')) {
+  customElements.define('ha-state-icon', class extends HTMLElement {
+    set stateObj(v) { this._stateObj = v; this._render(); }
+    set icon(v) { this._icon = v; this._render(); }
+    connectedCallback() { this.style.display = 'inline-flex'; this._render(); }
+    _render() {
+      const icon = this._icon || this._stateObj?.attributes?.icon || 'mdi:help-circle';
+      this.innerHTML = `<ha-icon icon="${icon}"></ha-icon>`;
+    }
+  });
+}
+
+/* ha-icon — renders Material Design icon via CSS mask or simple text */
+if (!customElements.get('ha-icon')) {
+  // Load MDI icons from CDN
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://cdn.jsdelivr.net/npm/@mdi/font@7/css/materialdesignicons.min.css';
+  document.head.appendChild(link);
+
+  customElements.define('ha-icon', class extends HTMLElement {
+    static get observedAttributes() { return ['icon']; }
+    connectedCallback() { this._render(); }
+    attributeChangedCallback() { this._render(); }
+    set icon(v) { this.setAttribute('icon', v); }
+    _render() {
+      const raw = this.getAttribute('icon') || '';
+      const name = raw.replace('mdi:', '');
+      this.style.cssText = `display:inline-flex; align-items:center; justify-content:center; width:var(--mdc-icon-size,24px); height:var(--mdc-icon-size,24px); color:inherit;`;
+      this.innerHTML = `<i class="mdi mdi-${name}" style="font-size:var(--mdc-icon-size,24px);color:inherit;"></i>`;
+    }
+  });
+}
+
+/* ── Mock hass object ─────────────────────────────────────────────── */
+const hass = {
+  localize: (key, ...args) => key,
+  language: 'en',
+  config: { version: '2025.10.0' },
+  themes: { darkMode: true },
+  states: {
+    'sensor.turbo_cagadero_state': {
+      entity_id: 'sensor.turbo_cagadero_state',
+      state: 'idle',
+      attributes: { friendly_name: 'TURBO CAGADERO', icon: 'mdi:cat' },
+    },
+    'button.turbo_cagadero_scoop': {
+      entity_id: 'button.turbo_cagadero_scoop',
+      state: 'unknown',
+      attributes: { friendly_name: 'Scoop' },
+    },
+    'button.turbo_cagadero_deodorize': {
+      entity_id: 'button.turbo_cagadero_deodorize',
+      state: 'unknown',
+      attributes: { friendly_name: 'Deodorize' },
+    },
+    'button.turbo_cagadero_maintenance': {
+      entity_id: 'button.turbo_cagadero_maintenance',
+      state: 'unknown',
+      attributes: { friendly_name: 'Maintenance' },
+    },
+    'binary_sensor.turbo_cagadero_camera_light': {
+      entity_id: 'binary_sensor.turbo_cagadero_camera_light',
+      state: 'on',
+      attributes: { friendly_name: 'TURBO CAGADERO Camera light indicator', icon: 'mdi:lightbulb-outline', device_class: 'light' },
+    },
+    'binary_sensor.turbo_cagadero_sand_lack': {
+      entity_id: 'binary_sensor.turbo_cagadero_sand_lack',
+      state: 'off',
+      attributes: { friendly_name: 'TURBO CAGADERO Sand lack', icon: 'mdi:check-circle-outline', device_class: 'problem' },
+    },
+    'sensor.turbo_cagadero_cleaning': {
+      entity_id: 'sensor.turbo_cagadero_cleaning',
+      state: 'cleaning',
+      attributes: { friendly_name: 'TURBO CAGADERO (cleaning)', icon: 'mdi:cat' },
+    },
+  },
+  callService: (domain, service, data) => {
+    console.log('callService', domain, service, data);
+  },
+};
+
+/* ── Card configurations ──────────────────────────────────────────── */
+const baseConfig = {
+  type: 'custom:mushroom-petkit-litterbox-card',
+  entity: 'sensor.turbo_cagadero_state',
+  name: 'TURBO CAGADERO',
+  icon: 'mdi:cat',
+  scoop_entity: 'button.turbo_cagadero_scoop',
+  deodorize_entity: 'button.turbo_cagadero_deodorize',
+  maintenance_entity: 'button.turbo_cagadero_maintenance',
+};
+
+// 1. Idle, no footer
+document.getElementById('card1').setConfig({ ...baseConfig });
+document.getElementById('card1').hass = hass;
+
+// 2. Idle, 2 footer entities
+document.getElementById('card2').setConfig({
+  ...baseConfig,
+  footer_entity_1: 'binary_sensor.turbo_cagadero_camera_light',
+  footer_entity_2: 'binary_sensor.turbo_cagadero_sand_lack',
+});
+document.getElementById('card2').hass = hass;
+
+// 3. Active / cleaning state + 2 footer, icon_animation
+document.getElementById('card3').setConfig({
+  ...baseConfig,
+  entity: 'sensor.turbo_cagadero_cleaning',
+  name: 'TURBO CAGADERO',
+  icon_animation: true,
+  footer_entity_1: 'binary_sensor.turbo_cagadero_camera_light',
+  footer_entity_2: 'binary_sensor.turbo_cagadero_sand_lack',
+});
+document.getElementById('card3').hass = hass;
+
+// 4. Single footer entity (full width)
+document.getElementById('card4').setConfig({
+  ...baseConfig,
+  footer_entity_1: 'binary_sensor.turbo_cagadero_camera_light',
+});
+document.getElementById('card4').hass = hass;
+
+/* ── Theme toggle ─────────────────────────────────────────────────── */
+let dark = true;
+function toggleTheme() {
+  dark = !dark;
+  const r = document.documentElement.style;
+  if (dark) {
+    r.setProperty('--primary-background-color', '#111318');
+    r.setProperty('--ha-card-background', '#1e2029');
+    r.setProperty('--primary-text-color', '#e5e5e5');
+    r.setProperty('--secondary-text-color', '#9da0a8');
+    r.setProperty('--ha-card-border-color', 'rgba(255,255,255,0.08)');
+    r.setProperty('--divider-color', 'rgba(255,255,255,0.10)');
+  } else {
+    r.setProperty('--primary-background-color', '#f0f2f7');
+    r.setProperty('--ha-card-background', '#ffffff');
+    r.setProperty('--primary-text-color', '#212121');
+    r.setProperty('--secondary-text-color', '#757575');
+    r.setProperty('--ha-card-border-color', 'rgba(0,0,0,0.12)');
+    r.setProperty('--divider-color', 'rgba(0,0,0,0.12)');
+  }
+}
+</script>
+
+<!-- Load our built card bundle AFTER all stubs are defined -->
+<script type="module" src="../dist/petkit-cards.js"></script>
+
+</body>
+</html>

@@ -224,13 +224,12 @@ export class PetkitLitterboxCard
           display: flex;
           flex-direction: row;
           align-items: center;
-          gap: 8px;
-          padding: var(--spacing) calc(var(--spacing) + 4px);
+          gap: 10px;
+          padding: 16px 14px;
           background: var(--primary-background-color);
-          overflow: hidden;
         }
         .footer-chip ha-state-icon {
-          --mdc-icon-size: 18px;
+          --mdc-icon-size: 20px;
           flex-shrink: 0;
           color: var(--secondary-text-color);
         }
@@ -241,17 +240,17 @@ export class PetkitLitterboxCard
           flex: 1;
         }
         .footer-chip-name {
-          font-size: 10px;
-          line-height: 1.3;
+          font-size: 11px;
+          line-height: 1.4;
           color: var(--secondary-text-color);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
         .footer-chip-state {
-          font-size: 12px;
+          font-size: 13px;
           font-weight: 500;
-          line-height: 1.2;
+          line-height: 1.3;
           color: var(--primary-text-color);
           white-space: nowrap;
           overflow: hidden;
