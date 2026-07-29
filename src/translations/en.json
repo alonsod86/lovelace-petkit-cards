@@ -62,6 +62,11 @@
       "petkit_litterbox_dashboard": {
         "picture": "Device image URL",
         "show_name": "Show entity name",
+        "camera_section": "Camera panel",
+        "camera_entity": "Camera entity",
+        "camera_mode": "Camera mode",
+        "camera_mode_snapshot": "Snapshot (latest image)",
+        "camera_mode_stream": "Live stream",
         "sensor_1_section": "Sensor slot 1",
         "sensor_1_entity": "Entity",
         "sensor_1_name": "Label override",

@@ -178,17 +178,71 @@ export class PetkitLitterboxDashboardCard
     picture: string | undefined,
     stateObj: HassEntity | undefined
   ): TemplateResult {
-    // Fall back to the built-in device image when no picture URL is configured.
     const imgUrl = picture ?? PETKIT_DEVICE_IMAGE_URL;
-    const heroStyles = { backgroundImage: `url('${imgUrl}')` };
+    const cameraEntity = this._config.camera_entity;
+    const cameraStateObj = cameraEntity
+      ? (this.hass.states[cameraEntity] as HassEntity | undefined)
+      : undefined;
+
+    if (cameraStateObj) {
+      return this._renderSplitHero(imgUrl, stateObj, cameraStateObj);
+    }
 
     return html`
-      <div
-        class="hero has-picture"
-        style=${styleMap(heroStyles)}
-      >
+      <div class="hero" style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}>
         <div class="hero-gradient"></div>
         ${stateObj ? this._renderStateBadge(stateObj) : nothing}
+      </div>
+    `;
+  }
+
+  private _renderSplitHero(
+    imgUrl: string,
+    stateObj: HassEntity | undefined,
+    cameraStateObj: HassEntity
+  ): TemplateResult {
+    const isStream = this._config.camera_mode === "stream";
+    // Cache-bust snapshot with last_changed so new frames load on state updates
+    const snapshotUrl = `${cameraStateObj.attributes.entity_picture as string}&_t=${cameraStateObj.last_changed}`;
+
+    return html`
+      <div class="hero hero-split">
+        <!-- Camera panel -->
+        <div class="hero-camera">
+          ${isStream
+            ? html`
+                <ha-camera-stream
+                  .hass=${this.hass}
+                  .stateObj=${cameraStateObj}
+                  muted
+                ></ha-camera-stream>
+              `
+            : html`
+                <img
+                  class="camera-img"
+                  src=${snapshotUrl}
+                  alt="camera"
+                  loading="lazy"
+                />
+              `}
+          <div class="camera-gradient"></div>
+        </div>
+
+        <!-- Elegant connector -->
+        <div class="hero-connector">
+          <div class="connector-node">
+            <ha-icon icon="mdi:paw"></ha-icon>
+          </div>
+        </div>
+
+        <!-- Device image panel -->
+        <div
+          class="hero-device"
+          style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
+        >
+          <div class="hero-gradient"></div>
+          ${stateObj ? this._renderStateBadge(stateObj) : nothing}
+        </div>
       </div>
     `;
   }
@@ -327,6 +381,121 @@ export class PetkitLitterboxDashboardCard
         background-color: var(--secondary-background-color, rgba(0, 0, 0, 0.03));
         overflow: hidden;
       }
+
+      /* ── Split layout (camera + device) ── */
+      .hero.hero-split {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        background: none;
+      }
+
+      .hero-camera {
+        flex: 1 1 0;
+        position: relative;
+        overflow: hidden;
+        background: #111;
+      }
+
+      .camera-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .hero-camera ha-camera-stream {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      /* Right-side fade so camera bleeds into connector */
+      .camera-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          transparent 55%,
+          rgba(0, 0, 0, 0.55) 100%
+        );
+        pointer-events: none;
+      }
+
+      /* ── Connector strip ── */
+      .hero-connector {
+        flex: 0 0 40px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--secondary-background-color, rgba(0, 0, 0, 0.03));
+        z-index: 2;
+      }
+
+      /* Vertical line behind the icon */
+      .hero-connector::before {
+        content: '';
+        position: absolute;
+        top: 15%;
+        bottom: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(255, 255, 255, 0.25) 25%,
+          rgba(255, 255, 255, 0.25) 75%,
+          transparent
+        );
+      }
+
+      .connector-node {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(10, 10, 20, 0.65);
+        backdrop-filter: blur(10px) saturate(1.4);
+        -webkit-backdrop-filter: blur(10px) saturate(1.4);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .connector-node ha-icon {
+        --mdc-icon-size: 14px;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      /* ── Device panel (right side in split, full in single) ── */
+      .hero-device {
+        flex: 1 1 0;
+        position: relative;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: var(--secondary-background-color, rgba(0, 0, 0, 0.03));
+      }
+
+      /* Left-side fade so device panel bleeds into connector */
+      .hero-device .hero-gradient {
+        background: linear-gradient(
+          to left,
+          transparent 55%,
+          rgba(0, 0, 0, 0.3) 100%
+        ),
+        linear-gradient(
+          to bottom,
+          transparent 40%,
+          rgba(0, 0, 0, 0.32) 100%
+        );
+      }
+
+      /* State badge sits inside .hero or .hero-device (both position:relative) */
 
       .hero-gradient {
         position: absolute;

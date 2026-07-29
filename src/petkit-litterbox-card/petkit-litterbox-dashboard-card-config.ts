@@ -1,19 +1,26 @@
 import {
   assign,
   boolean,
+  literal,
   object,
   optional,
   string,
+  union,
 } from "superstruct";
 import {
   lovelaceCardConfigStruct,
   LovelaceCardConfig,
 } from "../shared/config/lovelace-card-config";
 
+export type CameraMode = "snapshot" | "stream";
+
 export interface PetkitLitterboxDashboardCardConfig extends LovelaceCardConfig {
   entity: string;
   picture?: string;
   show_name?: boolean;
+  // Optional camera panel (left side of hero)
+  camera_entity?: string;
+  camera_mode?: CameraMode;
   // Sensor chip slots 1–4 (flat prefixed fields)
   sensor_1_entity?: string;
   sensor_1_name?: string;
@@ -35,6 +42,8 @@ export const petkitLitterboxDashboardCardConfigStruct = assign(
     entity: string(),
     picture: optional(string()),
     show_name: optional(boolean()),
+    camera_entity: optional(string()),
+    camera_mode: optional(union([literal("snapshot"), literal("stream")])),
     sensor_1_entity: optional(string()),
     sensor_1_name: optional(string()),
     sensor_1_icon: optional(string()),

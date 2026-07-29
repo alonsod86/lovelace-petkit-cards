@@ -20,6 +20,8 @@ import {
 const DASHBOARD_LABELS = [
   "picture",
   "show_name",
+  "camera_entity",
+  "camera_mode",
   "sensor_1_entity",
   "sensor_1_name",
   "sensor_1_icon",
@@ -45,6 +47,41 @@ const computeSchema = memoizeOne(
     },
     { name: "picture", selector: { text: {} } },
     { name: "show_name", selector: { boolean: {} } },
+    // ── Camera panel ──────────────────────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "camera_section",
+      flatten: true,
+      icon: "mdi:camera",
+      title: customLocalize(
+        "editor.card.petkit_litterbox_dashboard.camera_section"
+      ),
+      schema: [
+        { name: "camera_entity", selector: { entity: { domain: ["camera"] } } },
+        {
+          name: "camera_mode",
+          selector: {
+            select: {
+              mode: "list" as const,
+              options: [
+                {
+                  value: "snapshot",
+                  label: customLocalize(
+                    "editor.card.petkit_litterbox_dashboard.camera_mode_snapshot"
+                  ),
+                },
+                {
+                  value: "stream",
+                  label: customLocalize(
+                    "editor.card.petkit_litterbox_dashboard.camera_mode_stream"
+                  ),
+                },
+              ],
+            },
+          },
+        },
+      ],
+    },
     // ── Sensor 1 ──────────────────────────────────────────────────────────────
     {
       type: "expandable",
