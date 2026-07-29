@@ -9,6 +9,7 @@ import {
 } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { assert } from "superstruct";
 import { HomeAssistant, LovelaceCard, LovelaceCardEditor } from "../ha";
 import { registerCustomCard } from "../utils/custom-cards";
@@ -21,6 +22,7 @@ import {
   PetkitLitterboxDashboardCardConfig,
   petkitLitterboxDashboardCardConfigStruct,
 } from "./petkit-litterbox-dashboard-card-config";
+import { PETKIT_DEVICE_SVG } from "./assets/petkit-device-svg";
 
 // ─── State metadata ───────────────────────────────────────────────────────────
 
@@ -188,11 +190,7 @@ export class PetkitLitterboxDashboardCard
       >
         <div class="hero-gradient"></div>
         ${!picture
-          ? html`
-              <div class="placeholder-icon">
-                <ha-icon icon="mdi:cat"></ha-icon>
-              </div>
-            `
+          ? html`<div class="device-svg">${unsafeHTML(PETKIT_DEVICE_SVG)}</div>`
           : nothing}
         ${stateObj ? this._renderStateBadge(stateObj) : nothing}
       </div>
@@ -335,14 +333,27 @@ export class PetkitLitterboxDashboardCard
       }
 
       .hero.no-picture {
-        background: linear-gradient(
-          135deg,
-          rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.08) 0%,
-          rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.02) 100%
-        );
+        background: var(--secondary-background-color, #f5f5f5);
         display: flex;
         align-items: center;
         justify-content: center;
+      }
+
+      .device-svg {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 0;
+        box-sizing: border-box;
+      }
+
+      .device-svg svg {
+        width: auto;
+        height: 100%;
+        max-height: 204px;
+        display: block;
       }
 
       .hero-gradient {
@@ -354,18 +365,6 @@ export class PetkitLitterboxDashboardCard
           rgba(0, 0, 0, 0.32) 100%
         );
         pointer-events: none;
-      }
-
-      .placeholder-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0.22;
-      }
-
-      .placeholder-icon ha-icon {
-        --mdc-icon-size: 96px;
-        color: rgb(var(--rgb-state-vacuum, 3, 155, 229));
       }
 
       /* ── Glass state badge ── */

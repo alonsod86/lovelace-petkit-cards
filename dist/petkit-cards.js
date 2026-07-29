@@ -3,7 +3,7 @@
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t$3 = globalThis, e$6 = t$3.ShadowRoot && (void 0 === t$3.ShadyCSS || t$3.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, s$2 = Symbol(), o$5 = /* @__PURE__ */ new WeakMap();
+const t$3 = globalThis, e$7 = t$3.ShadowRoot && (void 0 === t$3.ShadyCSS || t$3.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, s$2 = Symbol(), o$6 = /* @__PURE__ */ new WeakMap();
 let n$4 = class n {
   constructor(t2, e2, o2) {
     if (this._$cssResult$ = true, o2 !== s$2) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
@@ -12,9 +12,9 @@ let n$4 = class n {
   get styleSheet() {
     let t2 = this.o;
     const s2 = this.t;
-    if (e$6 && void 0 === t2) {
+    if (e$7 && void 0 === t2) {
       const e2 = void 0 !== s2 && 1 === s2.length;
-      e2 && (t2 = o$5.get(s2)), void 0 === t2 && ((this.o = t2 = new CSSStyleSheet()).replaceSync(this.cssText), e2 && o$5.set(s2, t2));
+      e2 && (t2 = o$6.get(s2)), void 0 === t2 && ((this.o = t2 = new CSSStyleSheet()).replaceSync(this.cssText), e2 && o$6.set(s2, t2));
     }
     return t2;
   }
@@ -30,12 +30,12 @@ const r$4 = (t2) => new n$4("string" == typeof t2 ? t2 : t2 + "", void 0, s$2), 
   })(s2) + t2[o3 + 1], t2[0]);
   return new n$4(o2, t2, s$2);
 }, S$1 = (s2, o2) => {
-  if (e$6) s2.adoptedStyleSheets = o2.map((t2) => t2 instanceof CSSStyleSheet ? t2 : t2.styleSheet);
+  if (e$7) s2.adoptedStyleSheets = o2.map((t2) => t2 instanceof CSSStyleSheet ? t2 : t2.styleSheet);
   else for (const e2 of o2) {
     const o3 = document.createElement("style"), n3 = t$3.litNonce;
     void 0 !== n3 && o3.setAttribute("nonce", n3), o3.textContent = e2.cssText, s2.appendChild(o3);
   }
-}, c$3 = e$6 ? (t2) => t2 : (t2) => t2 instanceof CSSStyleSheet ? ((t3) => {
+}, c$3 = e$7 ? (t2) => t2 : (t2) => t2 instanceof CSSStyleSheet ? ((t3) => {
   let e2 = "";
   for (const s2 of t3.cssRules) e2 += s2.cssText;
   return r$4(e2);
@@ -45,7 +45,7 @@ const r$4 = (t2) => new n$4("string" == typeof t2 ? t2 : t2 + "", void 0, s$2), 
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const { is: i$4, defineProperty: e$5, getOwnPropertyDescriptor: h$1, getOwnPropertyNames: r$3, getOwnPropertySymbols: o$4, getPrototypeOf: n$3 } = Object, a$1 = globalThis, c$2 = a$1.trustedTypes, l$1 = c$2 ? c$2.emptyScript : "", p$3 = a$1.reactiveElementPolyfillSupport, d$1 = (t2, s2) => t2, u$1 = { toAttribute(t2, s2) {
+const { is: i$4, defineProperty: e$6, getOwnPropertyDescriptor: h$1, getOwnPropertyNames: r$3, getOwnPropertySymbols: o$5, getPrototypeOf: n$3 } = Object, a$1 = globalThis, c$2 = a$1.trustedTypes, l$1 = c$2 ? c$2.emptyScript : "", p$3 = a$1.reactiveElementPolyfillSupport, d$1 = (t2, s2) => t2, u$1 = { toAttribute(t2, s2) {
   switch (s2) {
     case Boolean:
       t2 = t2 ? l$1 : null;
@@ -85,7 +85,7 @@ let y$1 = class y extends HTMLElement {
   static createProperty(t2, s2 = b$1) {
     if (s2.state && (s2.attribute = false), this._$Ei(), this.prototype.hasOwnProperty(t2) && ((s2 = Object.create(s2)).wrapped = true), this.elementProperties.set(t2, s2), !s2.noAccessor) {
       const i4 = Symbol(), h2 = this.getPropertyDescriptor(t2, i4, s2);
-      void 0 !== h2 && e$5(this.prototype, t2, h2);
+      void 0 !== h2 && e$6(this.prototype, t2, h2);
     }
   }
   static getPropertyDescriptor(t2, s2, i4) {
@@ -110,7 +110,7 @@ let y$1 = class y extends HTMLElement {
   static finalize() {
     if (this.hasOwnProperty(d$1("finalized"))) return;
     if (this.finalized = true, this._$Ei(), this.hasOwnProperty(d$1("properties"))) {
-      const t3 = this.properties, s2 = [...r$3(t3), ...o$4(t3)];
+      const t3 = this.properties, s2 = [...r$3(t3), ...o$5(t3)];
       for (const i4 of s2) this.createProperty(i4, t3[i4]);
     }
     const t2 = this[Symbol.metadata];
@@ -262,11 +262,11 @@ y$1.elementStyles = [], y$1.shadowRootOptions = { mode: "open" }, y$1[d$1("eleme
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t$2 = globalThis, i$3 = (t2) => t2, s$1 = t$2.trustedTypes, e$4 = s$1 ? s$1.createPolicy("lit-html", { createHTML: (t2) => t2 }) : void 0, h = "$lit$", o$3 = `lit$${Math.random().toFixed(9).slice(2)}$`, n$2 = "?" + o$3, r$2 = `<${n$2}>`, l = document, c$1 = () => l.createComment(""), a = (t2) => null === t2 || "object" != typeof t2 && "function" != typeof t2, u = Array.isArray, d = (t2) => u(t2) || "function" == typeof t2?.[Symbol.iterator], f$2 = "[ 	\n\f\r]", v = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, _ = /-->/g, m = />/g, p$2 = RegExp(`>|${f$2}(?:([^\\s"'>=/]+)(${f$2}*=${f$2}*(?:[^ 	
+const t$2 = globalThis, i$3 = (t2) => t2, s$1 = t$2.trustedTypes, e$5 = s$1 ? s$1.createPolicy("lit-html", { createHTML: (t2) => t2 }) : void 0, h = "$lit$", o$4 = `lit$${Math.random().toFixed(9).slice(2)}$`, n$2 = "?" + o$4, r$2 = `<${n$2}>`, l = document, c$1 = () => l.createComment(""), a = (t2) => null === t2 || "object" != typeof t2 && "function" != typeof t2, u = Array.isArray, d = (t2) => u(t2) || "function" == typeof t2?.[Symbol.iterator], f$2 = "[ 	\n\f\r]", v = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, _ = /-->/g, m = />/g, p$2 = RegExp(`>|${f$2}(?:([^\\s"'>=/]+)(${f$2}*=${f$2}*(?:[^ 	
 \f\r"'\`<>=]|("|')|))|$)`, "g"), g = /'/g, $ = /"/g, y2 = /^(?:script|style|textarea|title)$/i, x = (t2) => (i4, ...s2) => ({ _$litType$: t2, strings: i4, values: s2 }), b = x(1), E = Symbol.for("lit-noChange"), A = Symbol.for("lit-nothing"), C = /* @__PURE__ */ new WeakMap(), P = l.createTreeWalker(l, 129);
 function V(t2, i4) {
   if (!u(t2) || !t2.hasOwnProperty("raw")) throw Error("invalid template strings array");
-  return void 0 !== e$4 ? e$4.createHTML(i4) : i4;
+  return void 0 !== e$5 ? e$5.createHTML(i4) : i4;
 }
 const N = (t2, i4) => {
   const s2 = t2.length - 1, e2 = [];
@@ -276,7 +276,7 @@ const N = (t2, i4) => {
     let a2, u2, d2 = -1, f2 = 0;
     for (; f2 < s3.length && (c2.lastIndex = f2, u2 = c2.exec(s3), null !== u2); ) f2 = c2.lastIndex, c2 === v ? "!--" === u2[1] ? c2 = _ : void 0 !== u2[1] ? c2 = m : void 0 !== u2[2] ? (y2.test(u2[2]) && (n3 = RegExp("</" + u2[2], "g")), c2 = p$2) : void 0 !== u2[3] && (c2 = p$2) : c2 === p$2 ? ">" === u2[0] ? (c2 = n3 ?? v, d2 = -1) : void 0 === u2[1] ? d2 = -2 : (d2 = c2.lastIndex - u2[2].length, a2 = u2[1], c2 = void 0 === u2[3] ? p$2 : '"' === u2[3] ? $ : g) : c2 === $ || c2 === g ? c2 = p$2 : c2 === _ || c2 === m ? c2 = v : (c2 = p$2, n3 = void 0);
     const x2 = c2 === p$2 && t2[i5 + 1].startsWith("/>") ? " " : "";
-    l2 += c2 === v ? s3 + r$2 : d2 >= 0 ? (e2.push(a2), s3.slice(0, d2) + h + s3.slice(d2) + o$3 + x2) : s3 + o$3 + (-2 === d2 ? i5 : x2);
+    l2 += c2 === v ? s3 + r$2 : d2 >= 0 ? (e2.push(a2), s3.slice(0, d2) + h + s3.slice(d2) + o$4 + x2) : s3 + o$4 + (-2 === d2 ? i5 : x2);
   }
   return [V(t2, l2 + (t2[s2] || "<?>") + (2 === i4 ? "</svg>" : 3 === i4 ? "</math>" : "")), e2];
 };
@@ -293,11 +293,11 @@ class S {
     for (; null !== (r2 = P.nextNode()) && d2.length < u2; ) {
       if (1 === r2.nodeType) {
         if (r2.hasAttributes()) for (const t3 of r2.getAttributeNames()) if (t3.endsWith(h)) {
-          const i5 = v2[a2++], s2 = r2.getAttribute(t3).split(o$3), e3 = /([.?@])?(.*)/.exec(i5);
+          const i5 = v2[a2++], s2 = r2.getAttribute(t3).split(o$4), e3 = /([.?@])?(.*)/.exec(i5);
           d2.push({ type: 1, index: l2, name: e3[2], strings: s2, ctor: "." === e3[1] ? I : "?" === e3[1] ? L : "@" === e3[1] ? z : H }), r2.removeAttribute(t3);
-        } else t3.startsWith(o$3) && (d2.push({ type: 6, index: l2 }), r2.removeAttribute(t3));
+        } else t3.startsWith(o$4) && (d2.push({ type: 6, index: l2 }), r2.removeAttribute(t3));
         if (y2.test(r2.tagName)) {
-          const t3 = r2.textContent.split(o$3), i5 = t3.length - 1;
+          const t3 = r2.textContent.split(o$4), i5 = t3.length - 1;
           if (i5 > 0) {
             r2.textContent = s$1 ? s$1.emptyScript : "";
             for (let s2 = 0; s2 < i5; s2++) r2.append(t3[s2], c$1()), P.nextNode(), d2.push({ type: 2, index: ++l2 });
@@ -307,7 +307,7 @@ class S {
       } else if (8 === r2.nodeType) if (r2.data === n$2) d2.push({ type: 2, index: l2 });
       else {
         let t3 = -1;
-        for (; -1 !== (t3 = r2.data.indexOf(o$3, t3 + 1)); ) d2.push({ type: 7, index: l2 }), t3 += o$3.length - 1;
+        for (; -1 !== (t3 = r2.data.indexOf(o$4, t3 + 1)); ) d2.push({ type: 7, index: l2 }), t3 += o$4.length - 1;
       }
       l2++;
     }
@@ -515,8 +515,8 @@ let i$2 = class i extends y$1 {
   }
 };
 i$2._$litElement$ = true, i$2["finalized"] = true, s.litElementHydrateSupport?.({ LitElement: i$2 });
-const o$2 = s.litElementPolyfillSupport;
-o$2?.({ LitElement: i$2 });
+const o$3 = s.litElementPolyfillSupport;
+o$3?.({ LitElement: i$2 });
 (s.litElementVersions ??= []).push("4.2.2");
 /**
  * @license
@@ -533,7 +533,7 @@ const t$1 = (t2) => (e2, o2) => {
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const o$1 = { attribute: true, type: String, converter: u$1, reflect: false, hasChanged: f$3 }, r$1 = (t2 = o$1, e2, r2) => {
+const o$2 = { attribute: true, type: String, converter: u$1, reflect: false, hasChanged: f$3 }, r$1 = (t2 = o$2, e2, r2) => {
   const { kind: n3, metadata: i4 } = r2;
   let s2 = globalThis.litPropertyMetadata.get(i4);
   if (void 0 === s2 && globalThis.litPropertyMetadata.set(i4, s2 = /* @__PURE__ */ new Map()), "setter" === n3 && ((t2 = Object.create(t2)).wrapped = true), s2.set(r2.name, t2), "accessor" === n3) {
@@ -573,7 +573,7 @@ function r(r2) {
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t = { ATTRIBUTE: 1 }, e$3 = (t2) => (...e2) => ({ _$litDirective$: t2, values: e2 });
+const t = { ATTRIBUTE: 1, CHILD: 2 }, e$4 = (t2) => (...e2) => ({ _$litDirective$: t2, values: e2 });
 let i$1 = class i2 {
   constructor(t2) {
   }
@@ -595,7 +595,7 @@ let i$1 = class i2 {
  * Copyright 2018 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const e$2 = e$3(class extends i$1 {
+const e$3 = e$4(class extends i$1 {
   constructor(t$12) {
     if (super(t$12), t$12.type !== t.ATTRIBUTE || "class" !== t$12.name || t$12.strings?.length > 2) throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.");
   }
@@ -1429,7 +1429,7 @@ const actionHandlerBind = (element, options) => {
   }
   actionhandler.bind(element, options);
 };
-const actionHandler = e$3(
+const actionHandler = e$4(
   class extends i$1 {
     update(part, [options]) {
       actionHandlerBind(part.element, options);
@@ -5516,7 +5516,7 @@ const convertLchToLab = ({ l: l2, c: c2, h: h2, alpha }, mode = "lab") => {
   return res;
 };
 const k$1 = Math.pow(29, 3) / Math.pow(3, 3);
-const e$1 = Math.pow(6, 3) / Math.pow(29, 3);
+const e$2 = Math.pow(6, 3) / Math.pow(29, 3);
 const D50 = {
   X: 0.3457 / 0.3585,
   Y: 1,
@@ -5527,7 +5527,7 @@ const D65 = {
   Y: 1,
   Z: (1 - 0.3127 - 0.329) / 0.329
 };
-let fn$1 = (v2) => Math.pow(v2, 3) > e$1 ? Math.pow(v2, 3) : (116 * v2 - 16) / k$1;
+let fn$1 = (v2) => Math.pow(v2, 3) > e$2 ? Math.pow(v2, 3) : (116 * v2 - 16) / k$1;
 const convertLab65ToXyz65 = ({ l: l2, a: a2, b: b2, alpha }) => {
   if (l2 === void 0) l2 = 0;
   if (a2 === void 0) a2 = 0;
@@ -5547,7 +5547,7 @@ const convertLab65ToXyz65 = ({ l: l2, a: a2, b: b2, alpha }) => {
   return res;
 };
 const convertLab65ToRgb = (lab) => convertXyz65ToRgb(convertLab65ToXyz65(lab));
-const f$1 = (value) => value > e$1 ? Math.cbrt(value) : (k$1 * value + 16) / 116;
+const f$1 = (value) => value > e$2 ? Math.cbrt(value) : (k$1 * value + 16) / 116;
 const convertXyz65ToLab65 = ({ x: x2, y: y3, z: z2, alpha }) => {
   if (x2 === void 0) x2 = 0;
   if (y3 === void 0) y3 = 0;
@@ -6344,8 +6344,8 @@ const definition$g = {
   }
 };
 const k2 = Math.pow(29, 3) / Math.pow(3, 3);
-const e = Math.pow(6, 3) / Math.pow(29, 3);
-let fn = (v2) => Math.pow(v2, 3) > e ? Math.pow(v2, 3) : (116 * v2 - 16) / k2;
+const e$1 = Math.pow(6, 3) / Math.pow(29, 3);
+let fn = (v2) => Math.pow(v2, 3) > e$1 ? Math.pow(v2, 3) : (116 * v2 - 16) / k2;
 const convertLabToXyz50 = ({ l: l2, a: a2, b: b2, alpha }) => {
   if (l2 === void 0) l2 = 0;
   if (a2 === void 0) a2 = 0;
@@ -6392,7 +6392,7 @@ const convertRgbToXyz50 = (rgb) => {
   }
   return res;
 };
-const f = (value) => value > e ? Math.cbrt(value) : (k2 * value + 16) / 116;
+const f = (value) => value > e$1 ? Math.cbrt(value) : (k2 * value + 16) / 116;
 const convertXyz50ToLab = ({ x: x2, y: y3, z: z2, alpha }) => {
   if (x2 === void 0) x2 = 0;
   if (y3 === void 0) y3 = 0;
@@ -6610,7 +6610,7 @@ const u_fn$1 = (x2, y3, z2) => 4 * x2 / (x2 + 15 * y3 + 3 * z2);
 const v_fn$1 = (x2, y3, z2) => 9 * y3 / (x2 + 15 * y3 + 3 * z2);
 const un$1 = u_fn$1(D50.X, D50.Y, D50.Z);
 const vn$1 = v_fn$1(D50.X, D50.Y, D50.Z);
-const l_fn = (value) => value <= e ? k2 * value : 116 * Math.cbrt(value) - 16;
+const l_fn = (value) => value <= e$1 ? k2 * value : 116 * Math.cbrt(value) - 16;
 const convertXyz50ToLuv = ({ x: x2, y: y3, z: z2, alpha }) => {
   if (x2 === void 0) x2 = 0;
   if (y3 === void 0) y3 = 0;
@@ -8097,7 +8097,7 @@ class MushroomBaseCard extends MushroomBaseElement {
     const customLocalize = setupCustomlocalize(this.hass);
     return b`
       <ha-card
-        class=${e$2({ "fill-container": appearance.fill_container })}
+        class=${e$3({ "fill-container": appearance.fill_container })}
       >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item ?rtl=${rtl} .appearance=${appearance} disabled>
@@ -8453,7 +8453,7 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
     const rtl = computeRTL(this.hass);
     return b`
       <ha-card
-        class=${e$2({ "fill-container": appearance.fill_container })}
+        class=${e$3({ "fill-container": appearance.fill_container })}
       >
         <mushroom-card .appearance=${appearance} ?rtl=${rtl}>
           <mushroom-state-item
@@ -8556,7 +8556,7 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
     return b`
       <mushroom-shape-icon
         slot="icon"
-        class=${e$2({ cleaning })}
+        class=${e$3({ cleaning })}
         .disabled=${!isActive(stateObj)}
       >
         <ha-state-icon
@@ -9210,7 +9210,7 @@ PetkitLitterboxTimelineCard = __decorateClass$4([
  * Copyright 2018 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const n2 = "important", i3 = " !" + n2, o = e$3(class extends i$1 {
+const n2 = "important", i3 = " !" + n2, o$1 = e$4(class extends i$1 {
   constructor(t$12) {
     if (super(t$12), t$12.type !== t.ATTRIBUTE || "style" !== t$12.name || t$12.strings?.length > 2) throw Error("The `styleMap` directive must be used in the `style` attribute and must be the only part in the attribute.");
   }
@@ -9235,6 +9235,27 @@ const n2 = "important", i3 = " !" + n2, o = e$3(class extends i$1 {
     return E;
   }
 });
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+class e extends i$1 {
+  constructor(i4) {
+    if (super(i4), this.it = A, i4.type !== t.CHILD) throw Error(this.constructor.directiveName + "() can only be used in child bindings");
+  }
+  render(r2) {
+    if (r2 === A || null == r2) return this._t = void 0, this.it = r2;
+    if (r2 === E) return r2;
+    if ("string" != typeof r2) throw Error(this.constructor.directiveName + "() called with a non-string value");
+    if (r2 === this.it) return this._t;
+    this.it = r2;
+    const s2 = [r2];
+    return s2.raw = s2, this._t = { _$litType$: this.constructor.resultType, strings: s2, values: [] };
+  }
+}
+e.directiveName = "unsafeHTML", e.resultType = 1;
+const o = e$4(e);
 const petkitLitterboxDashboardCardConfigStruct = assign(
   lovelaceCardConfigStruct,
   object({
@@ -9255,6 +9276,125 @@ const petkitLitterboxDashboardCardConfigStruct = assign(
     sensor_4_icon: optional(string())
   })
 );
+const PETKIT_DEVICE_SVG = `<svg viewBox="0 0 320 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Petkit litterbox">
+  <defs>
+    <!-- Sphere body: radial gradient from bright top-left to shadowed bottom-right -->
+    <radialGradient id="pk-sphere" cx="38%" cy="32%" r="62%">
+      <stop offset="0%"   stop-color="#ffffff"/>
+      <stop offset="35%"  stop-color="#f7f7f8"/>
+      <stop offset="75%"  stop-color="#e2e2e5"/>
+      <stop offset="100%" stop-color="#c8c8cc"/>
+    </radialGradient>
+
+    <!-- Entrance hole dark interior -->
+    <radialGradient id="pk-hole" cx="42%" cy="40%" r="58%">
+      <stop offset="0%"   stop-color="#3d3d3d"/>
+      <stop offset="60%"  stop-color="#1e1e1e"/>
+      <stop offset="100%" stop-color="#111111"/>
+    </radialGradient>
+
+    <!-- Base tray top face -->
+    <linearGradient id="pk-base" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#e6e6ea"/>
+      <stop offset="100%" stop-color="#c4c4c8"/>
+    </linearGradient>
+
+    <!-- Base tray front face (slightly darker) -->
+    <linearGradient id="pk-base-front" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#d0d0d4"/>
+      <stop offset="100%" stop-color="#b8b8bc"/>
+    </linearGradient>
+
+    <!-- LED strip -->
+    <linearGradient id="pk-led" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#00acc1" stop-opacity="0.6"/>
+      <stop offset="40%"  stop-color="#29b6f6"/>
+      <stop offset="60%"  stop-color="#29b6f6"/>
+      <stop offset="100%" stop-color="#00acc1" stop-opacity="0.6"/>
+    </linearGradient>
+
+    <!-- Cast shadow below tray -->
+    <radialGradient id="pk-shadow" cx="50%" cy="20%" r="50%">
+      <stop offset="0%"   stop-color="rgba(0,0,0,0.18)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </radialGradient>
+
+    <!-- Clip to sphere outline for bottom ambient shadow overlay -->
+    <clipPath id="pk-sphere-clip">
+      <ellipse cx="158" cy="136" rx="106" ry="100"/>
+    </clipPath>
+  </defs>
+
+  <!-- ── Cast shadow ── -->
+  <ellipse cx="158" cy="243" rx="105" ry="11" fill="url(#pk-shadow)"/>
+
+  <!-- ── Base tray ── -->
+  <!-- Top face -->
+  <rect x="52" y="225" width="212" height="18" rx="7" fill="url(#pk-base)"/>
+  <!-- Front face (slight depth) -->
+  <rect x="54" y="239" width="208" height="10" rx="4" fill="url(#pk-base-front)"/>
+  <!-- Tray trim line -->
+  <rect x="52" y="225" width="212" height="4" rx="3" fill="rgba(255,255,255,0.6)"/>
+
+  <!-- ── Globe body ── -->
+  <!-- Outer edge shadow ring (ambient occlusion) -->
+  <ellipse cx="158" cy="136" rx="109" ry="103" fill="rgba(0,0,0,0.10)"/>
+  <!-- Main sphere -->
+  <ellipse cx="158" cy="136" rx="106" ry="100" fill="url(#pk-sphere)"/>
+
+  <!-- ── Bottom ambient occlusion (inside sphere, near base) ── -->
+  <ellipse cx="158" cy="232" rx="106" ry="28"
+           fill="rgba(0,0,0,0.07)" clip-path="url(#pk-sphere-clip)"/>
+
+  <!-- ── Entrance hole ── -->
+  <!-- Outer shadow ring -->
+  <circle cx="240" cy="163" r="44" fill="rgba(0,0,0,0.22)"/>
+  <!-- Hole inner surface -->
+  <circle cx="238" cy="161" r="40" fill="url(#pk-hole)"/>
+  <!-- Rim highlight (top arc catches light) -->
+  <path d="M 203 130 A 40 40 0 0 1 278 161"
+        fill="none" stroke="rgba(255,255,255,0.45)"
+        stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Inner rim edge -->
+  <circle cx="238" cy="161" r="40"
+          fill="none" stroke="rgba(255,255,255,0.12)"
+          stroke-width="1.5"/>
+
+  <!-- ── LED indicator strip (top cap area) ── -->
+  <rect x="130" y="44" width="56" height="7" rx="3.5" fill="url(#pk-led)"/>
+  <!-- LED glow -->
+  <rect x="128" y="42" width="60" height="11" rx="5.5"
+        fill="rgba(41,182,246,0.15)"/>
+
+  <!-- ── Primary specular highlight (top-left of globe) ── -->
+  <ellipse cx="113" cy="88" rx="32" ry="22"
+           fill="rgba(255,255,255,0.52)"
+           transform="rotate(-22, 113, 88)"/>
+  <!-- Secondary smaller highlight -->
+  <ellipse cx="97" cy="102" rx="13" ry="9"
+           fill="rgba(255,255,255,0.30)"
+           transform="rotate(-15, 97, 102)"/>
+
+  <!-- ── PETKIT wordmark on globe body ── -->
+  <text x="145" y="200"
+        text-anchor="middle"
+        fill="#b0b0b5"
+        font-size="9.5"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-weight="300"
+        letter-spacing="3.5">PETKIT</text>
+
+  <!-- ── Top cap dome (deodorizer / motor housing) ── -->
+  <!-- Small raised dome at very top -->
+  <ellipse cx="158" cy="38" rx="26" ry="10"
+           fill="#e8e8ec" stroke="#d8d8dc" stroke-width="0.5"/>
+  <ellipse cx="158" cy="36" rx="24" ry="7"
+           fill="#f0f0f4"/>
+  <!-- Cap highlight -->
+  <ellipse cx="153" cy="34" rx="10" ry="4"
+           fill="rgba(255,255,255,0.6)"
+           transform="rotate(-10, 153, 34)"/>
+</svg>`;
 var __defProp$3 = Object.defineProperty;
 var __getOwnPropDesc$3 = Object.getOwnPropertyDescriptor;
 var __decorateClass$3 = (decorators, target, key, kind) => {
@@ -9368,14 +9508,10 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
     return b`
       <div
         class="hero ${picture ? "has-picture" : "no-picture"}"
-        style=${o(heroStyles)}
+        style=${o$1(heroStyles)}
       >
         <div class="hero-gradient"></div>
-        ${!picture ? b`
-              <div class="placeholder-icon">
-                <ha-icon icon="mdi:cat"></ha-icon>
-              </div>
-            ` : A}
+        ${!picture ? b`<div class="device-svg">${o(PETKIT_DEVICE_SVG)}</div>` : A}
         ${stateObj ? this._renderStateBadge(stateObj) : A}
       </div>
     `;
@@ -9485,14 +9621,27 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       }
 
       .hero.no-picture {
-        background: linear-gradient(
-          135deg,
-          rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.08) 0%,
-          rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.02) 100%
-        );
+        background: var(--secondary-background-color, #f5f5f5);
         display: flex;
         align-items: center;
         justify-content: center;
+      }
+
+      .device-svg {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 0;
+        box-sizing: border-box;
+      }
+
+      .device-svg svg {
+        width: auto;
+        height: 100%;
+        max-height: 204px;
+        display: block;
       }
 
       .hero-gradient {
@@ -9504,18 +9653,6 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
           rgba(0, 0, 0, 0.32) 100%
         );
         pointer-events: none;
-      }
-
-      .placeholder-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0.22;
-      }
-
-      .placeholder-icon ha-icon {
-        --mdc-icon-size: 96px;
-        color: rgb(var(--rgb-state-vacuum, 3, 155, 229));
       }
 
       /* ── Glass state badge ── */
