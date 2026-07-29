@@ -119,33 +119,41 @@ const computeSchema = memoizeOne(
     {
       type: "expandable",
       name: "footer_1",
+      flatten: true,
       title: customLocalize("editor.card.petkit_litterbox.footer_1"),
       icon: "mdi:view-headline",
       schema: [
-        { name: "entity", selector: { entity: {} } },
-        { name: "name", selector: { text: {} } },
+        { name: "footer_1_entity", selector: { entity: {} } },
+        { name: "footer_1_name", selector: { text: {} } },
         {
-          name: "icon",
+          name: "footer_1_icon",
           selector: { icon: {} },
-          context: { icon_entity: "entity" },
+          context: { icon_entity: "footer_1_entity" },
         },
-        { name: "tap_action", selector: { ui_action: {} } },
+        {
+          name: "footer_1_tap_action",
+          selector: { ui_action: { default_action: "more-info" } },
+        },
       ],
     },
     {
       type: "expandable",
       name: "footer_2",
+      flatten: true,
       title: customLocalize("editor.card.petkit_litterbox.footer_2"),
       icon: "mdi:view-headline",
       schema: [
-        { name: "entity", selector: { entity: {} } },
-        { name: "name", selector: { text: {} } },
+        { name: "footer_2_entity", selector: { entity: {} } },
+        { name: "footer_2_name", selector: { text: {} } },
         {
-          name: "icon",
+          name: "footer_2_icon",
           selector: { icon: {} },
-          context: { icon_entity: "entity" },
+          context: { icon_entity: "footer_2_entity" },
         },
-        { name: "tap_action", selector: { ui_action: {} } },
+        {
+          name: "footer_2_tap_action",
+          selector: { ui_action: { default_action: "more-info" } },
+        },
       ],
     },
     ...computeActionsFormSchema(),
@@ -172,6 +180,10 @@ export class PetkitLitterboxCardEditor
   private _computeLabel = (schema: HaFormSchema) => {
     const customLocalize = setupCustomlocalize(this.hass!);
 
+    // Footer sub-fields use flat prefixed names (footer_1_entity, ...);
+    // strip the prefix so they resolve to the generic label ("Entity", etc).
+    const bareName = schema.name.replace(/^footer_[12]_/, "");
+
     if (GENERIC_LABELS.includes(schema.name)) {
       return customLocalize(`editor.card.generic.${schema.name}`);
     }
@@ -179,7 +191,7 @@ export class PetkitLitterboxCardEditor
       return customLocalize(`editor.card.petkit_litterbox.${schema.name}`);
     }
     return this.hass!.localize(
-      `ui.panel.lovelace.editor.card.generic.${schema.name}`
+      `ui.panel.lovelace.editor.card.generic.${bareName}`
     );
   };
 

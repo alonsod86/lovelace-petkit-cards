@@ -135,18 +135,32 @@ export class PetkitLitterboxCard
 
   protected renderFooter(): TemplateResult | typeof nothing {
     if (!this._config || !this.hass) return nothing;
-    const { footer_1, footer_2 } = this._config;
-    if (!footer_1 && !footer_2) return nothing;
-
-    const items = [footer_1, footer_2].filter(
-      (i): i is PetkitFooterItemConfig => Boolean(i)
-    );
+    const items: PetkitFooterItemConfig[] = [];
+    const item1 = this._resolveFooterItem("footer_1");
+    if (item1) items.push(item1);
+    const item2 = this._resolveFooterItem("footer_2");
+    if (item2) items.push(item2);
+    if (items.length === 0) return nothing;
 
     return html`
       <div class="footer">
         ${items.map((item) => this.renderFooterChip(item))}
       </div>
     `;
+  }
+
+  private _resolveFooterItem(
+    prefix: "footer_1" | "footer_2"
+  ): PetkitFooterItemConfig | undefined {
+    const cfg = this._config!;
+    const entity = cfg[`${prefix}_entity`];
+    if (!entity) return undefined;
+    return {
+      entity,
+      name: cfg[`${prefix}_name`],
+      icon: cfg[`${prefix}_icon`],
+      tap_action: cfg[`${prefix}_tap_action`],
+    };
   }
 
   private _handleFooterAction(item: PetkitFooterItemConfig) {

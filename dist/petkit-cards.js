@@ -8425,16 +8425,28 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
   }
   renderFooter() {
     if (!this._config || !this.hass) return A;
-    const { footer_1, footer_2 } = this._config;
-    if (!footer_1 && !footer_2) return A;
-    const items = [footer_1, footer_2].filter(
-      (i3) => Boolean(i3)
-    );
+    const items = [];
+    const item1 = this._resolveFooterItem("footer_1");
+    if (item1) items.push(item1);
+    const item2 = this._resolveFooterItem("footer_2");
+    if (item2) items.push(item2);
+    if (items.length === 0) return A;
     return b`
       <div class="footer">
         ${items.map((item) => this.renderFooterChip(item))}
       </div>
     `;
+  }
+  _resolveFooterItem(prefix) {
+    const cfg = this._config;
+    const entity = cfg[`${prefix}_entity`];
+    if (!entity) return void 0;
+    return {
+      entity,
+      name: cfg[`${prefix}_name`],
+      icon: cfg[`${prefix}_icon`],
+      tap_action: cfg[`${prefix}_tap_action`]
+    };
   }
   _handleFooterAction(item) {
     return (ev) => {
@@ -8753,12 +8765,6 @@ const PETKIT_LITTERBOX_ACTIONS = [
   "level_litter",
   "maintenance"
 ];
-const petkitFooterItemStruct = object({
-  entity: string(),
-  name: optional(string()),
-  icon: optional(string()),
-  tap_action: optional(actionConfigStruct)
-});
 const petkitLitterboxCardConfigStruct = assign(
   lovelaceCardConfigStruct,
   assign(
@@ -8774,8 +8780,14 @@ const petkitLitterboxCardConfigStruct = assign(
     level_litter_entity: optional(string()),
     maintenance_entity: optional(string()),
     active_states: optional(array(string())),
-    footer_1: optional(petkitFooterItemStruct),
-    footer_2: optional(petkitFooterItemStruct)
+    footer_1_entity: optional(string()),
+    footer_1_name: optional(string()),
+    footer_1_icon: optional(string()),
+    footer_1_tap_action: optional(actionConfigStruct),
+    footer_2_entity: optional(string()),
+    footer_2_name: optional(string()),
+    footer_2_icon: optional(string()),
+    footer_2_tap_action: optional(actionConfigStruct)
   })
 );
 var __defProp = Object.defineProperty;
@@ -8881,33 +8893,41 @@ const computeSchema = memoizeOne(
     {
       type: "expandable",
       name: "footer_1",
+      flatten: true,
       title: customLocalize("editor.card.petkit_litterbox.footer_1"),
       icon: "mdi:view-headline",
       schema: [
-        { name: "entity", selector: { entity: {} } },
-        { name: "name", selector: { text: {} } },
+        { name: "footer_1_entity", selector: { entity: {} } },
+        { name: "footer_1_name", selector: { text: {} } },
         {
-          name: "icon",
+          name: "footer_1_icon",
           selector: { icon: {} },
-          context: { icon_entity: "entity" }
+          context: { icon_entity: "footer_1_entity" }
         },
-        { name: "tap_action", selector: { ui_action: {} } }
+        {
+          name: "footer_1_tap_action",
+          selector: { ui_action: { default_action: "more-info" } }
+        }
       ]
     },
     {
       type: "expandable",
       name: "footer_2",
+      flatten: true,
       title: customLocalize("editor.card.petkit_litterbox.footer_2"),
       icon: "mdi:view-headline",
       schema: [
-        { name: "entity", selector: { entity: {} } },
-        { name: "name", selector: { text: {} } },
+        { name: "footer_2_entity", selector: { entity: {} } },
+        { name: "footer_2_name", selector: { text: {} } },
         {
-          name: "icon",
+          name: "footer_2_icon",
           selector: { icon: {} },
-          context: { icon_entity: "entity" }
+          context: { icon_entity: "footer_2_entity" }
         },
-        { name: "tap_action", selector: { ui_action: {} } }
+        {
+          name: "footer_2_tap_action",
+          selector: { ui_action: { default_action: "more-info" } }
+        }
       ]
     },
     ...computeActionsFormSchema()
@@ -8918,6 +8938,7 @@ let PetkitLitterboxCardEditor = class extends MushroomBaseElement {
     super(...arguments);
     this._computeLabel = (schema) => {
       const customLocalize = setupCustomlocalize(this.hass);
+      const bareName = schema.name.replace(/^footer_[12]_/, "");
       if (GENERIC_LABELS.includes(schema.name)) {
         return customLocalize(`editor.card.generic.${schema.name}`);
       }
@@ -8925,7 +8946,7 @@ let PetkitLitterboxCardEditor = class extends MushroomBaseElement {
         return customLocalize(`editor.card.petkit_litterbox.${schema.name}`);
       }
       return this.hass.localize(
-        `ui.panel.lovelace.editor.card.generic.${schema.name}`
+        `ui.panel.lovelace.editor.card.generic.${bareName}`
       );
     };
   }

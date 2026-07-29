@@ -32,19 +32,14 @@ export const PETKIT_LITTERBOX_ACTIONS = [
 export type PetkitLitterboxActionKey =
   (typeof PETKIT_LITTERBOX_ACTIONS)[number];
 
+// Runtime-only helper shape (resolved from the flat prefixed config fields).
+// Not exposed as a struct — the editor and YAML both use the flat form.
 export interface PetkitFooterItemConfig {
   entity: string;
   name?: string;
   icon?: string;
   tap_action?: ActionConfig;
 }
-
-export const petkitFooterItemStruct = object({
-  entity: string(),
-  name: optional(string()),
-  icon: optional(string()),
-  tap_action: optional(actionConfigStruct),
-});
 
 export type PetkitLitterboxCardConfig = LovelaceCardConfig &
   EntitySharedConfig &
@@ -57,8 +52,14 @@ export type PetkitLitterboxCardConfig = LovelaceCardConfig &
     level_litter_entity?: string;
     maintenance_entity?: string;
     active_states?: string[];
-    footer_1?: PetkitFooterItemConfig;
-    footer_2?: PetkitFooterItemConfig;
+    footer_1_entity?: string;
+    footer_1_name?: string;
+    footer_1_icon?: string;
+    footer_1_tap_action?: ActionConfig;
+    footer_2_entity?: string;
+    footer_2_name?: string;
+    footer_2_icon?: string;
+    footer_2_tap_action?: ActionConfig;
   };
 
 export const petkitLitterboxCardConfigStruct = assign(
@@ -76,7 +77,13 @@ export const petkitLitterboxCardConfigStruct = assign(
     level_litter_entity: optional(string()),
     maintenance_entity: optional(string()),
     active_states: optional(array(string())),
-    footer_1: optional(petkitFooterItemStruct),
-    footer_2: optional(petkitFooterItemStruct),
+    footer_1_entity: optional(string()),
+    footer_1_name: optional(string()),
+    footer_1_icon: optional(string()),
+    footer_1_tap_action: optional(actionConfigStruct),
+    footer_2_entity: optional(string()),
+    footer_2_name: optional(string()),
+    footer_2_icon: optional(string()),
+    footer_2_tap_action: optional(actionConfigStruct),
   })
 );
