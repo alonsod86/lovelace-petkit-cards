@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "labels_section": "State labels", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -8667,7 +8667,22 @@ const petkitLitterboxTimelineCardConfigStruct = assign(
   object({
     entity: string(),
     layout: optional(union([literal("vertical"), literal("horizontal")])),
-    hours_to_show: optional(number())
+    hours_to_show: optional(number()),
+    header_title: optional(string()),
+    show_header_icon: optional(boolean()),
+    show_header_title: optional(boolean()),
+    show_header_hours: optional(boolean()),
+    label_idle: optional(string()),
+    label_cleaning: optional(string()),
+    label_scooping: optional(string()),
+    label_dumping: optional(string()),
+    label_leveling: optional(string()),
+    label_odor_removal: optional(string()),
+    label_deodorizing: optional(string()),
+    label_maintenance: optional(string()),
+    label_refreshing: optional(string()),
+    label_resetting: optional(string()),
+    label_paused: optional(string())
   })
 );
 var __defProp$2 = Object.defineProperty;
@@ -8702,7 +8717,7 @@ const DEFAULT_META = {
 function getStateMeta(s2) {
   return STATE_META[s2] ?? DEFAULT_META;
 }
-function formatStateLabel(s2) {
+function defaultLabel(s2) {
   return s2.charAt(0).toUpperCase() + s2.slice(1).replace(/_/g, " ");
 }
 function formatDuration(seconds) {
@@ -8783,6 +8798,12 @@ let PetkitLitterboxTimelineCard = class extends i$1 {
       }
     }
   }
+  /** Return custom label override if set, otherwise the default formatted string. */
+  _stateLabel(s2) {
+    const key = `label_${s2}`;
+    const override = this._config[key];
+    return override?.trim() || defaultLabel(s2);
+  }
   async _fetchHistory() {
     if (!this._config?.entity || !this.hass) return;
     this._loading = true;
@@ -8807,13 +8828,20 @@ let PetkitLitterboxTimelineCard = class extends i$1 {
     const entityName = stateObj?.attributes.friendly_name ?? this._config.entity;
     const hours = this._config.hours_to_show ?? 12;
     const layout = this._config.layout ?? "vertical";
+    const showIcon = this._config.show_header_icon !== false;
+    const showTitle = this._config.show_header_title !== false;
+    const showHours = this._config.show_header_hours !== false;
+    const headerTitle = this._config.header_title?.trim() || entityName;
+    const showHeader = showIcon || showTitle || showHours;
     return b`
       <ha-card>
-        <div class="card-header">
-          <ha-icon class="header-icon" icon="mdi:history"></ha-icon>
-          <span class="card-title">${entityName}</span>
-          <span class="hours-badge">${hours}h</span>
-        </div>
+        ${showHeader ? b`
+              <div class="card-header">
+                ${showIcon ? b`<ha-icon class="header-icon" icon="mdi:history"></ha-icon>` : A}
+                ${showTitle ? b`<span class="card-title">${headerTitle}</span>` : A}
+                ${showHours ? b`<span class="hours-badge">${hours}h</span>` : A}
+              </div>
+            ` : A}
         <div class="card-content">
           ${this._loading ? b`<div class="placeholder">
                 <div class="placeholder-icon">
@@ -8850,7 +8878,7 @@ let PetkitLitterboxTimelineCard = class extends i$1 {
             <div class="ev-icon">
               <ha-icon .icon=${meta.icon}></ha-icon>
             </div>
-            <span class="ev-state">${formatStateLabel(ev.state)}</span>
+            <span class="ev-state">${this._stateLabel(ev.state)}</span>
             ${ev.isCurrent ? b`<span class="badge-now">Now</span>` : A}
           </div>
           <div class="ev-meta">
@@ -8887,7 +8915,7 @@ let PetkitLitterboxTimelineCard = class extends i$1 {
           <div class="ev-icon">
             <ha-icon .icon=${meta.icon}></ha-icon>
           </div>
-          <span class="h-state">${formatStateLabel(ev.state)}</span>
+          <span class="h-state">${this._stateLabel(ev.state)}</span>
           <span class="h-time">${formatTime(ev.startTime)}</span>
           <span class="h-dur">${formatDuration(ev.durationSeconds)}</span>
         </div>
@@ -9577,7 +9605,25 @@ var __decorateClass = (decorators, target, key, kind) => {
   if (kind && result) __defProp(target, key, result);
   return result;
 };
-const TIMELINE_LABELS = ["hours_to_show", "layout"];
+const TIMELINE_LABELS = [
+  "hours_to_show",
+  "layout",
+  "header_title",
+  "show_header_icon",
+  "show_header_title",
+  "show_header_hours",
+  "label_idle",
+  "label_cleaning",
+  "label_scooping",
+  "label_dumping",
+  "label_leveling",
+  "label_odor_removal",
+  "label_deodorizing",
+  "label_maintenance",
+  "label_refreshing",
+  "label_resetting",
+  "label_paused"
+];
 const computeSchema = memoizeOne(
   (_localize, customLocalize) => [
     {
@@ -9617,6 +9663,57 @@ const computeSchema = memoizeOne(
           mode: "box"
         }
       }
+    },
+    // ── Header options ────────────────────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "header_section",
+      flatten: true,
+      icon: "mdi:page-layout-header",
+      title: customLocalize(
+        "editor.card.petkit_litterbox_timeline.header_section"
+      ),
+      schema: [
+        { name: "header_title", selector: { text: {} } },
+        {
+          type: "grid",
+          name: "",
+          schema: [
+            { name: "show_header_icon", selector: { boolean: {} } },
+            { name: "show_header_title", selector: { boolean: {} } },
+            { name: "show_header_hours", selector: { boolean: {} } }
+          ]
+        }
+      ]
+    },
+    // ── State label overrides ─────────────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "labels_section",
+      flatten: true,
+      icon: "mdi:label-outline",
+      title: customLocalize(
+        "editor.card.petkit_litterbox_timeline.labels_section"
+      ),
+      schema: [
+        {
+          type: "grid",
+          name: "",
+          schema: [
+            { name: "label_idle", selector: { text: {} } },
+            { name: "label_cleaning", selector: { text: {} } },
+            { name: "label_scooping", selector: { text: {} } },
+            { name: "label_dumping", selector: { text: {} } },
+            { name: "label_leveling", selector: { text: {} } },
+            { name: "label_odor_removal", selector: { text: {} } },
+            { name: "label_deodorizing", selector: { text: {} } },
+            { name: "label_maintenance", selector: { text: {} } },
+            { name: "label_refreshing", selector: { text: {} } },
+            { name: "label_resetting", selector: { text: {} } },
+            { name: "label_paused", selector: { text: {} } }
+          ]
+        }
+      ]
     }
   ]
 );

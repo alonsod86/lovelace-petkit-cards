@@ -1,5 +1,6 @@
 import {
   assign,
+  boolean,
   literal,
   number,
   object,
@@ -16,6 +17,23 @@ export interface PetkitLitterboxTimelineCardConfig extends LovelaceCardConfig {
   entity: string;
   layout?: TimelineLayout;
   hours_to_show?: number;
+  // Header
+  header_title?: string;
+  show_header_icon?: boolean;
+  show_header_title?: boolean;
+  show_header_hours?: boolean;
+  // Per-state label overrides
+  label_idle?: string;
+  label_cleaning?: string;
+  label_scooping?: string;
+  label_dumping?: string;
+  label_leveling?: string;
+  label_odor_removal?: string;
+  label_deodorizing?: string;
+  label_maintenance?: string;
+  label_refreshing?: string;
+  label_resetting?: string;
+  label_paused?: string;
 }
 
 export const petkitLitterboxTimelineCardConfigStruct = assign(
@@ -24,5 +42,20 @@ export const petkitLitterboxTimelineCardConfigStruct = assign(
     entity: string(),
     layout: optional(union([literal("vertical"), literal("horizontal")])),
     hours_to_show: optional(number()),
+    header_title: optional(string()),
+    show_header_icon: optional(boolean()),
+    show_header_title: optional(boolean()),
+    show_header_hours: optional(boolean()),
+    label_idle: optional(string()),
+    label_cleaning: optional(string()),
+    label_scooping: optional(string()),
+    label_dumping: optional(string()),
+    label_leveling: optional(string()),
+    label_odor_removal: optional(string()),
+    label_deodorizing: optional(string()),
+    label_maintenance: optional(string()),
+    label_refreshing: optional(string()),
+    label_resetting: optional(string()),
+    label_paused: optional(string()),
   })
 );

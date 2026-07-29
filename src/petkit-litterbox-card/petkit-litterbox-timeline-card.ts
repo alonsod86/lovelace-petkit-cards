@@ -68,7 +68,8 @@ function getStateMeta(s: string): StateMeta {
   return STATE_META[s] ?? DEFAULT_META;
 }
 
-function formatStateLabel(s: string): string {
+/** Default label: capitalize + replace underscores with spaces. */
+function defaultLabel(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1).replace(/_/g, " ");
 }
 
@@ -184,6 +185,13 @@ export class PetkitLitterboxTimelineCard
     }
   }
 
+  /** Return custom label override if set, otherwise the default formatted string. */
+  private _stateLabel(s: string): string {
+    const key = (`label_${s}`) as keyof PetkitLitterboxTimelineCardConfig;
+    const override = this._config![key] as string | undefined;
+    return override?.trim() || defaultLabel(s);
+  }
+
   private async _fetchHistory(): Promise<void> {
     if (!this._config?.entity || !this.hass) return;
     this._loading = true;
@@ -214,13 +222,29 @@ export class PetkitLitterboxTimelineCard
     const hours = this._config.hours_to_show ?? 12;
     const layout = this._config.layout ?? "vertical";
 
+    const showIcon = this._config.show_header_icon !== false;
+    const showTitle = this._config.show_header_title !== false;
+    const showHours = this._config.show_header_hours !== false;
+    const headerTitle = this._config.header_title?.trim() || entityName;
+    const showHeader = showIcon || showTitle || showHours;
+
     return html`
       <ha-card>
-        <div class="card-header">
-          <ha-icon class="header-icon" icon="mdi:history"></ha-icon>
-          <span class="card-title">${entityName}</span>
-          <span class="hours-badge">${hours}h</span>
-        </div>
+        ${showHeader
+          ? html`
+              <div class="card-header">
+                ${showIcon
+                  ? html`<ha-icon class="header-icon" icon="mdi:history"></ha-icon>`
+                  : nothing}
+                ${showTitle
+                  ? html`<span class="card-title">${headerTitle}</span>`
+                  : nothing}
+                ${showHours
+                  ? html`<span class="hours-badge">${hours}h</span>`
+                  : nothing}
+              </div>
+            `
+          : nothing}
         <div class="card-content">
           ${this._loading
             ? html`<div class="placeholder">
@@ -269,7 +293,7 @@ export class PetkitLitterboxTimelineCard
             <div class="ev-icon">
               <ha-icon .icon=${meta.icon}></ha-icon>
             </div>
-            <span class="ev-state">${formatStateLabel(ev.state)}</span>
+            <span class="ev-state">${this._stateLabel(ev.state)}</span>
             ${ev.isCurrent
               ? html`<span class="badge-now">Now</span>`
               : nothing}
@@ -315,7 +339,7 @@ export class PetkitLitterboxTimelineCard
           <div class="ev-icon">
             <ha-icon .icon=${meta.icon}></ha-icon>
           </div>
-          <span class="h-state">${formatStateLabel(ev.state)}</span>
+          <span class="h-state">${this._stateLabel(ev.state)}</span>
           <span class="h-time">${formatTime(ev.startTime)}</span>
           <span class="h-dur">${formatDuration(ev.durationSeconds)}</span>
         </div>

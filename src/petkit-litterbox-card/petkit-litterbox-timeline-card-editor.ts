@@ -17,7 +17,25 @@ import {
   petkitLitterboxTimelineCardConfigStruct,
 } from "./petkit-litterbox-timeline-card-config";
 
-const TIMELINE_LABELS = ["hours_to_show", "layout"];
+const TIMELINE_LABELS = [
+  "hours_to_show",
+  "layout",
+  "header_title",
+  "show_header_icon",
+  "show_header_title",
+  "show_header_hours",
+  "label_idle",
+  "label_cleaning",
+  "label_scooping",
+  "label_dumping",
+  "label_leveling",
+  "label_odor_removal",
+  "label_deodorizing",
+  "label_maintenance",
+  "label_refreshing",
+  "label_resetting",
+  "label_paused",
+];
 
 const computeSchema = memoizeOne(
   (
@@ -61,6 +79,57 @@ const computeSchema = memoizeOne(
           mode: "box" as const,
         },
       },
+    },
+    // ── Header options ────────────────────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "header_section",
+      flatten: true,
+      icon: "mdi:page-layout-header",
+      title: customLocalize(
+        "editor.card.petkit_litterbox_timeline.header_section"
+      ),
+      schema: [
+        { name: "header_title", selector: { text: {} } },
+        {
+          type: "grid" as const,
+          name: "",
+          schema: [
+            { name: "show_header_icon",  selector: { boolean: {} } },
+            { name: "show_header_title", selector: { boolean: {} } },
+            { name: "show_header_hours", selector: { boolean: {} } },
+          ],
+        },
+      ],
+    },
+    // ── State label overrides ─────────────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "labels_section",
+      flatten: true,
+      icon: "mdi:label-outline",
+      title: customLocalize(
+        "editor.card.petkit_litterbox_timeline.labels_section"
+      ),
+      schema: [
+        {
+          type: "grid" as const,
+          name: "",
+          schema: [
+            { name: "label_idle",        selector: { text: {} } },
+            { name: "label_cleaning",    selector: { text: {} } },
+            { name: "label_scooping",    selector: { text: {} } },
+            { name: "label_dumping",     selector: { text: {} } },
+            { name: "label_leveling",    selector: { text: {} } },
+            { name: "label_odor_removal",selector: { text: {} } },
+            { name: "label_deodorizing", selector: { text: {} } },
+            { name: "label_maintenance", selector: { text: {} } },
+            { name: "label_refreshing",  selector: { text: {} } },
+            { name: "label_resetting",   selector: { text: {} } },
+            { name: "label_paused",      selector: { text: {} } },
+          ],
+        },
+      ],
     },
   ]
 );

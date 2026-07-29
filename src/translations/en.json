@@ -40,7 +40,24 @@
         "layout": "Layout",
         "hours_to_show": "History window",
         "layout_vertical": "Vertical",
-        "layout_horizontal": "Horizontal"
+        "layout_horizontal": "Horizontal",
+        "header_section": "Header",
+        "header_title": "Custom title",
+        "show_header_icon": "Show icon",
+        "show_header_title": "Show title",
+        "show_header_hours": "Show hours badge",
+        "labels_section": "State labels",
+        "label_idle": "Idle",
+        "label_cleaning": "Cleaning",
+        "label_scooping": "Scooping",
+        "label_dumping": "Dumping",
+        "label_leveling": "Leveling",
+        "label_odor_removal": "Odor removal",
+        "label_deodorizing": "Deodorizing",
+        "label_maintenance": "Maintenance",
+        "label_refreshing": "Refreshing",
+        "label_resetting": "Resetting",
+        "label_paused": "Paused"
       }
     },
     "form": {
