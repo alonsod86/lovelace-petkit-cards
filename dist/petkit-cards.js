@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -7847,13 +7847,13 @@ const themeColorCss = i$4`
     var(--rgb-disabled)
   );
 `;
-var __defProp$4 = Object.defineProperty;
-var __decorateClass$4 = (decorators, target, key, kind) => {
+var __defProp$6 = Object.defineProperty;
+var __decorateClass$6 = (decorators, target, key, kind) => {
   var result = void 0;
   for (var i3 = decorators.length - 1, decorator; i3 >= 0; i3--)
     if (decorator = decorators[i3])
       result = decorator(target, key, result) || result;
-  if (result) __defProp$4(target, key, result);
+  if (result) __defProp$6(target, key, result);
   return result;
 };
 function computeDarkMode(hass) {
@@ -7889,7 +7889,7 @@ class MushroomBaseElement extends i$1 {
     ];
   }
 }
-__decorateClass$4([
+__decorateClass$6([
   n2({ attribute: false })
 ], MushroomBaseElement.prototype, "hass");
 const TIMESTAMP_STATE_DOMAINS = ["button", "input_button", "scene"];
@@ -7941,13 +7941,13 @@ function computeInfoDisplay(info, name, state, stateObj, hass) {
 function computeEntityPicture(stateObj, iconType) {
   return iconType === "entity-picture" ? getEntityPicture(stateObj) : void 0;
 }
-var __defProp$3 = Object.defineProperty;
-var __decorateClass$3 = (decorators, target, key, kind) => {
+var __defProp$5 = Object.defineProperty;
+var __decorateClass$5 = (decorators, target, key, kind) => {
   var result = void 0;
   for (var i3 = decorators.length - 1, decorator; i3 >= 0; i3--)
     if (decorator = decorators[i3])
       result = decorator(target, key, result) || result;
-  if (result) __defProp$3(target, key, result);
+  if (result) __defProp$5(target, key, result);
   return result;
 };
 class MushroomBaseCard extends MushroomBaseElement {
@@ -8167,10 +8167,10 @@ class MushroomBaseCard extends MushroomBaseElement {
     `;
   }
 }
-__decorateClass$3([
+__decorateClass$5([
   r()
 ], MushroomBaseCard.prototype, "_config");
-__decorateClass$3([
+__decorateClass$5([
   n2({ reflect: true, type: String })
 ], MushroomBaseCard.prototype, "layout");
 const cardStyle = i$4`
@@ -8237,6 +8237,8 @@ function registerCustomCard(params) {
 const PETKIT_LITTERBOX_CARD_NAME = `mushroom-petkit-litterbox-card`;
 const PETKIT_LITTERBOX_CARD_EDITOR_NAME = `${PETKIT_LITTERBOX_CARD_NAME}-editor`;
 const PETKIT_LITTERBOX_STATE_DOMAINS = ["sensor"];
+const PETKIT_TIMELINE_CARD_NAME = `mushroom-petkit-litterbox-timeline-card`;
+const PETKIT_TIMELINE_CARD_EDITOR_NAME = `${PETKIT_TIMELINE_CARD_NAME}-editor`;
 const DEFAULT_ACTIVE_STATES = [
   "cleaning",
   "scooping",
@@ -8256,14 +8258,14 @@ function isCleaningState(stateObj, config) {
     (s2) => cleaningStates.includes(s2) && s2 === stateObj.state
   );
 }
-var __defProp$2 = Object.defineProperty;
-var __getOwnPropDesc$2 = Object.getOwnPropertyDescriptor;
-var __decorateClass$2 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$2(target, key) : target;
+var __defProp$4 = Object.defineProperty;
+var __getOwnPropDesc$4 = Object.getOwnPropertyDescriptor;
+var __decorateClass$4 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$4(target, key) : target;
   for (var i3 = decorators.length - 1, decorator; i3 >= 0; i3--)
     if (decorator = decorators[i3])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
-  if (kind && result) __defProp$2(target, key, result);
+  if (kind && result) __defProp$4(target, key, result);
   return result;
 };
 const PETKIT_LITTERBOX_BUTTONS = [
@@ -8377,32 +8379,32 @@ let PetkitLitterboxCommandsControl = class extends i$1 {
     `;
   }
 };
-__decorateClass$2([
+__decorateClass$4([
   n2({ attribute: false })
 ], PetkitLitterboxCommandsControl.prototype, "hass", 2);
-__decorateClass$2([
+__decorateClass$4([
   n2({ attribute: false })
 ], PetkitLitterboxCommandsControl.prototype, "config", 2);
-__decorateClass$2([
+__decorateClass$4([
   n2({ attribute: false })
 ], PetkitLitterboxCommandsControl.prototype, "stateObj", 2);
-__decorateClass$2([
+__decorateClass$4([
   n2({ type: Boolean })
 ], PetkitLitterboxCommandsControl.prototype, "fill", 2);
-__decorateClass$2([
+__decorateClass$4([
   r()
 ], PetkitLitterboxCommandsControl.prototype, "_pending", 2);
-PetkitLitterboxCommandsControl = __decorateClass$2([
+PetkitLitterboxCommandsControl = __decorateClass$4([
   t$1("mushroom-petkit-litterbox-commands-control")
 ], PetkitLitterboxCommandsControl);
-var __defProp$1 = Object.defineProperty;
-var __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor;
-var __decorateClass$1 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$1(target, key) : target;
+var __defProp$3 = Object.defineProperty;
+var __getOwnPropDesc$3 = Object.getOwnPropertyDescriptor;
+var __decorateClass$3 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$3(target, key) : target;
   for (var i3 = decorators.length - 1, decorator; i3 >= 0; i3--)
     if (decorator = decorators[i3])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
-  if (kind && result) __defProp$1(target, key, result);
+  if (kind && result) __defProp$3(target, key, result);
   return result;
 };
 registerCustomCard({
@@ -8645,12 +8647,534 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
     ];
   }
 };
-__decorateClass$1([
+__decorateClass$3([
   r()
 ], PetkitLitterboxCard.prototype, "_config", 2);
-PetkitLitterboxCard = __decorateClass$1([
+PetkitLitterboxCard = __decorateClass$3([
   t$1(PETKIT_LITTERBOX_CARD_NAME)
 ], PetkitLitterboxCard);
+const lovelaceCardConfigStruct = object({
+  index: optional(number()),
+  view_index: optional(number()),
+  view_layout: any(),
+  type: string(),
+  layout_options: any(),
+  grid_options: any(),
+  visibility: any()
+});
+const petkitLitterboxTimelineCardConfigStruct = assign(
+  lovelaceCardConfigStruct,
+  object({
+    entity: string(),
+    layout: optional(union([literal("vertical"), literal("horizontal")])),
+    hours_to_show: optional(number())
+  })
+);
+var __defProp$2 = Object.defineProperty;
+var __getOwnPropDesc$2 = Object.getOwnPropertyDescriptor;
+var __decorateClass$2 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$2(target, key) : target;
+  for (var i3 = decorators.length - 1, decorator; i3 >= 0; i3--)
+    if (decorator = decorators[i3])
+      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
+  if (kind && result) __defProp$2(target, key, result);
+  return result;
+};
+const STATE_META = {
+  cleaning: { icon: "mdi:broom", cssClass: "state-clean" },
+  scooping: { icon: "mdi:broom", cssClass: "state-clean" },
+  dumping: { icon: "mdi:delete-empty", cssClass: "state-clean" },
+  leveling: { icon: "mdi:layers-outline", cssClass: "state-clean" },
+  odor_removal: { icon: "mdi:spray-bottle", cssClass: "state-odor" },
+  deodorizing: { icon: "mdi:spray-bottle", cssClass: "state-odor" },
+  maintenance: { icon: "mdi:tools", cssClass: "state-maint" },
+  refreshing: { icon: "mdi:refresh", cssClass: "state-other" },
+  resetting: { icon: "mdi:restart", cssClass: "state-other" },
+  paused: { icon: "mdi:pause", cssClass: "state-idle" },
+  idle: { icon: "mdi:sleep", cssClass: "state-idle" },
+  error: { icon: "mdi:alert-circle", cssClass: "state-error" },
+  fault: { icon: "mdi:alert-circle", cssClass: "state-error" }
+};
+const DEFAULT_META = {
+  icon: "mdi:help-circle-outline",
+  cssClass: "state-idle"
+};
+function getStateMeta(s2) {
+  return STATE_META[s2] ?? DEFAULT_META;
+}
+function formatStateLabel(s2) {
+  return s2.charAt(0).toUpperCase() + s2.slice(1).replace(/_/g, " ");
+}
+function formatDuration(seconds) {
+  if (seconds < 60) return `${Math.round(seconds)}s`;
+  if (seconds < 3600) return `${Math.round(seconds / 60)}m`;
+  const h2 = Math.floor(seconds / 3600);
+  const m2 = Math.round(seconds % 3600 / 60);
+  return m2 > 0 ? `${h2}h ${m2}m` : `${h2}h`;
+}
+function formatTime(date) {
+  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+function processHistory(items) {
+  if (!items.length) return [];
+  const now = /* @__PURE__ */ new Date();
+  return items.map((item, i3) => {
+    const startTime = new Date(item.last_changed);
+    const nextTime = i3 + 1 < items.length ? new Date(items[i3 + 1].last_changed) : now;
+    const durationSeconds = (nextTime.getTime() - startTime.getTime()) / 1e3;
+    return {
+      state: item.state,
+      startTime,
+      durationSeconds,
+      isCurrent: i3 === items.length - 1
+    };
+  }).reverse();
+}
+registerCustomCard({
+  type: PETKIT_TIMELINE_CARD_NAME,
+  name: "Mushroom Petkit Timeline Card",
+  description: "Event history timeline for Petkit litter boxes"
+});
+let PetkitLitterboxTimelineCard = class extends i$1 {
+  constructor() {
+    super(...arguments);
+    this._events = [];
+    this._loading = false;
+  }
+  static async getConfigElement() {
+    await Promise.resolve().then(() => petkitLitterboxTimelineCardEditor);
+    return document.createElement(
+      PETKIT_TIMELINE_CARD_EDITOR_NAME
+    );
+  }
+  static async getStubConfig(hass) {
+    const entities = Object.keys(hass.states);
+    const candidate = entities.find(
+      (e2) => PETKIT_LITTERBOX_STATE_DOMAINS.includes(e2.split(".")[0]) && (e2.includes("litter") || e2.includes("petkit") || e2.includes("state"))
+    );
+    return {
+      type: `custom:${PETKIT_TIMELINE_CARD_NAME}`,
+      entity: candidate ?? entities.find((e2) => e2.startsWith("sensor.")) ?? ""
+    };
+  }
+  setConfig(config) {
+    assert(config, petkitLitterboxTimelineCardConfigStruct);
+    this._config = config;
+  }
+  getCardSize() {
+    return this._config?.layout === "horizontal" ? 3 : 6;
+  }
+  updated(changedProps) {
+    super.updated(changedProps);
+    if (!this._config?.entity || !this.hass) return;
+    if (changedProps.has("_config")) {
+      void this._fetchHistory();
+      return;
+    }
+    if (changedProps.has("hass")) {
+      const oldHass = changedProps.get("hass");
+      if (!oldHass) {
+        void this._fetchHistory();
+        return;
+      }
+      const id = this._config.entity;
+      if (this.hass.states[id]?.last_changed !== oldHass.states[id]?.last_changed) {
+        void this._fetchHistory();
+      }
+    }
+  }
+  async _fetchHistory() {
+    if (!this._config?.entity || !this.hass) return;
+    this._loading = true;
+    try {
+      const hours = this._config.hours_to_show ?? 12;
+      const startTime = new Date(Date.now() - hours * 36e5);
+      const eid = encodeURIComponent(this._config.entity);
+      const raw = await this.hass.callApi(
+        "GET",
+        `history/period/${startTime.toISOString()}?filter_entity_id=${eid}&no_attributes=true&significant_changes_only=false`
+      );
+      this._events = processHistory(raw?.[0] ?? []);
+    } catch (_2) {
+      this._events = [];
+    } finally {
+      this._loading = false;
+    }
+  }
+  render() {
+    if (!this._config?.entity || !this.hass) return A;
+    const stateObj = this.hass.states[this._config.entity];
+    const entityName = stateObj?.attributes.friendly_name ?? this._config.entity;
+    const hours = this._config.hours_to_show ?? 12;
+    const layout = this._config.layout ?? "vertical";
+    return b`
+      <ha-card>
+        <div class="card-header">
+          <ha-icon class="header-icon" icon="mdi:history"></ha-icon>
+          <span class="card-title">${entityName}</span>
+          <span class="hours-badge">${hours}h</span>
+        </div>
+        <div class="card-content">
+          ${this._loading ? b`<div class="placeholder">
+                <div class="placeholder-icon">
+                  <ha-icon icon="mdi:clock-outline"></ha-icon>
+                </div>
+              </div>` : this._events.length === 0 ? b`<div class="placeholder">
+                <ha-icon icon="mdi:history"></ha-icon>
+                <span>No events in the last ${hours}h</span>
+              </div>` : layout === "horizontal" ? this._renderHorizontal() : this._renderVertical()}
+        </div>
+      </ha-card>
+    `;
+  }
+  // ── Vertical ────────────────────────────────────────────────────────────────
+  _renderVertical() {
+    return b`
+      <div class="timeline-v">
+        ${this._events.map(
+      (ev, i3) => this._renderVerticalItem(ev, i3 === this._events.length - 1)
+    )}
+      </div>
+    `;
+  }
+  _renderVerticalItem(ev, isLast) {
+    const meta = getStateMeta(ev.state);
+    return b`
+      <div class="v-item ${meta.cssClass}">
+        <div class="v-rail">
+          <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
+          ${!isLast ? b`<div class="v-line"></div>` : A}
+        </div>
+        <div class="v-content">
+          <div class="ev-header">
+            <div class="ev-icon">
+              <ha-icon .icon=${meta.icon}></ha-icon>
+            </div>
+            <span class="ev-state">${formatStateLabel(ev.state)}</span>
+            ${ev.isCurrent ? b`<span class="badge-now">Now</span>` : A}
+          </div>
+          <div class="ev-meta">
+            <span class="ev-time">${formatTime(ev.startTime)}</span>
+            <span class="ev-dur">${formatDuration(ev.durationSeconds)}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  // ── Horizontal ──────────────────────────────────────────────────────────────
+  _renderHorizontal() {
+    const events = [...this._events].reverse();
+    return b`
+      <div class="timeline-h">
+        ${events.map(
+      (ev, i3) => this._renderHorizontalItem(ev, i3, events.length)
+    )}
+      </div>
+    `;
+  }
+  _renderHorizontalItem(ev, index, total) {
+    const meta = getStateMeta(ev.state);
+    const isFirst = index === 0;
+    const isLast = index === total - 1;
+    return b`
+      <div class="h-item ${meta.cssClass}">
+        <div class="h-dot-row">
+          <div class="${isFirst ? "h-spacer" : "h-line"}"></div>
+          <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
+          <div class="${isLast ? "h-spacer" : "h-line"}"></div>
+        </div>
+        <div class="h-content">
+          <div class="ev-icon">
+            <ha-icon .icon=${meta.icon}></ha-icon>
+          </div>
+          <span class="h-state">${formatStateLabel(ev.state)}</span>
+          <span class="h-time">${formatTime(ev.startTime)}</span>
+          <span class="h-dur">${formatDuration(ev.durationSeconds)}</span>
+        </div>
+      </div>
+    `;
+  }
+  // ── Styles ──────────────────────────────────────────────────────────────────
+  static get styles() {
+    return i$4`
+      :host {
+        display: block;
+      }
+      ha-card {
+        overflow: hidden;
+      }
+
+      /* ── Header ── */
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 16px 12px;
+        border-bottom: 1px solid var(--divider-color);
+      }
+      .header-icon {
+        --mdc-icon-size: 18px;
+        color: var(--secondary-text-color);
+        flex-shrink: 0;
+      }
+      .card-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--primary-text-color);
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .hours-badge {
+        font-size: 11px;
+        color: var(--secondary-text-color);
+        background: var(--secondary-background-color, rgba(0, 0, 0, 0.06));
+        padding: 2px 8px;
+        border-radius: 999px;
+        flex-shrink: 0;
+        letter-spacing: 0.3px;
+        font-weight: 500;
+      }
+
+      /* ── Card content ── */
+      .card-content {
+        padding: 0;
+      }
+
+      /* ── Placeholder (loading / empty) ── */
+      .placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 32px 16px;
+        color: var(--secondary-text-color);
+        font-size: 13px;
+      }
+      .placeholder ha-icon {
+        --mdc-icon-size: 28px;
+        opacity: 0.4;
+      }
+      .placeholder-icon ha-icon {
+        --mdc-icon-size: 28px;
+        opacity: 0.4;
+        animation: spin 1.5s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ── State color classes (inherit via CSS custom prop) ── */
+      .state-clean { --ev-rgb: var(--rgb-state-vacuum, 3, 155, 229); }
+      .state-odor  { --ev-rgb: 103, 58, 183; }
+      .state-maint { --ev-rgb: 245, 158, 11; }
+      .state-other { --ev-rgb: 59, 130, 246; }
+      .state-idle  { --ev-rgb: var(--rgb-disabled-color, 158, 158, 158); }
+      .state-error { --ev-rgb: 244, 67, 54; }
+
+      /* ── Shared: dot ── */
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgb(var(--ev-rgb));
+        box-shadow: 0 0 0 3px rgba(var(--ev-rgb), 0.2);
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+      }
+      .dot.current {
+        animation: pulse-dot 2.2s ease-in-out infinite;
+      }
+      @keyframes pulse-dot {
+        0%, 100% { box-shadow: 0 0 0 3px rgba(var(--ev-rgb), 0.2); }
+        50%       { box-shadow: 0 0 0 8px rgba(var(--ev-rgb), 0.32); }
+      }
+
+      /* ── Shared: event icon chip ── */
+      .ev-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: rgba(var(--ev-rgb), 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: rgb(var(--ev-rgb));
+      }
+      .ev-icon ha-icon {
+        --mdc-icon-size: 14px;
+      }
+
+      /* ── Vertical layout ── */
+      .timeline-v {
+        padding: 16px 16px 8px;
+        display: flex;
+        flex-direction: column;
+      }
+      .v-item {
+        display: grid;
+        grid-template-columns: 22px 1fr;
+        gap: 0 12px;
+      }
+      .v-rail {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 5px;
+      }
+      .v-line {
+        width: 2px;
+        flex: 1;
+        min-height: 10px;
+        background: var(--divider-color);
+        margin-top: 5px;
+      }
+      .v-content {
+        padding-bottom: 16px;
+      }
+      .ev-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .ev-state {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--primary-text-color);
+        flex: 1;
+      }
+      .badge-now {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: rgb(var(--ev-rgb));
+        background: rgba(var(--ev-rgb), 0.12);
+        padding: 2px 7px;
+        border-radius: 999px;
+        flex-shrink: 0;
+      }
+      .ev-meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 4px;
+        padding-left: 34px;
+      }
+      .ev-time {
+        font-size: 11px;
+        color: var(--secondary-text-color);
+      }
+      .ev-dur {
+        font-size: 11px;
+        color: var(--secondary-text-color);
+        background: var(--secondary-background-color, rgba(0, 0, 0, 0.05));
+        padding: 1px 6px;
+        border-radius: 999px;
+      }
+
+      /* ── Horizontal layout ── */
+      .timeline-h {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 16px 0 16px;
+      }
+      .timeline-h::-webkit-scrollbar {
+        display: none;
+      }
+      .h-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        min-width: 76px;
+        max-width: 76px;
+      }
+      .h-item:first-child {
+        padding-left: 16px;
+        min-width: 92px;
+        max-width: 92px;
+      }
+      .h-item:last-child {
+        padding-right: 16px;
+        min-width: 92px;
+        max-width: 92px;
+      }
+      .h-dot-row {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 18px;
+        margin-bottom: 8px;
+      }
+      .h-line {
+        flex: 1;
+        height: 2px;
+        background: var(--divider-color);
+      }
+      .h-spacer {
+        flex: 1;
+      }
+      .h-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        width: 100%;
+        padding: 0 2px;
+        box-sizing: border-box;
+      }
+      .h-state {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--primary-text-color);
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+      }
+      .h-time {
+        font-size: 10px;
+        color: var(--secondary-text-color);
+        text-align: center;
+        white-space: nowrap;
+      }
+      .h-dur {
+        font-size: 10px;
+        color: var(--secondary-text-color);
+        background: var(--secondary-background-color, rgba(0, 0, 0, 0.05));
+        padding: 1px 5px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+    `;
+  }
+};
+__decorateClass$2([
+  n2({ attribute: false })
+], PetkitLitterboxTimelineCard.prototype, "hass", 2);
+__decorateClass$2([
+  r()
+], PetkitLitterboxTimelineCard.prototype, "_config", 2);
+__decorateClass$2([
+  r()
+], PetkitLitterboxTimelineCard.prototype, "_events", 2);
+__decorateClass$2([
+  r()
+], PetkitLitterboxTimelineCard.prototype, "_loading", 2);
+PetkitLitterboxTimelineCard = __decorateClass$2([
+  t$1(PETKIT_TIMELINE_CARD_NAME)
+], PetkitLitterboxTimelineCard);
 console.info(
   "%c🐾 Petkit Lovelace Cards %c1.0.0",
   "color: #ef5350; font-weight: 700;",
@@ -8808,15 +9332,6 @@ const entitySharedConfigStruct = object({
   name: optional(entityNameStruct),
   icon: optional(string())
 });
-const lovelaceCardConfigStruct = object({
-  index: optional(number()),
-  view_index: optional(number()),
-  view_layout: any(),
-  type: string(),
-  layout_options: any(),
-  grid_options: any(),
-  visibility: any()
-});
 const PETKIT_LITTERBOX_ACTIONS = [
   "scoop",
   "deodorize",
@@ -8848,14 +9363,14 @@ const petkitLitterboxCardConfigStruct = assign(
     footer_2_tap_action: optional(actionConfigStruct)
   })
 );
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __decorateClass = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
+var __defProp$1 = Object.defineProperty;
+var __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor;
+var __decorateClass$1 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$1(target, key) : target;
   for (var i3 = decorators.length - 1, decorator; i3 >= 0; i3--)
     if (decorator = decorators[i3])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
-  if (kind && result) __defProp(target, key, result);
+  if (kind && result) __defProp$1(target, key, result);
   return result;
 };
 const PETKIT_LITTERBOX_LABELS = [
@@ -8869,7 +9384,7 @@ const PETKIT_LITTERBOX_LABELS = [
   "footer_1",
   "footer_2"
 ];
-const computeSchema = memoizeOne(
+const computeSchema$1 = memoizeOne(
   (localize, customLocalize, version) => [
     {
       name: "entity",
@@ -9021,7 +9536,7 @@ let PetkitLitterboxCardEditor = class extends MushroomBaseElement {
       return A;
     }
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema(
+    const schema = computeSchema$1(
       this.hass.localize,
       customLocalize,
       this.hass.config.version
@@ -9040,15 +9555,124 @@ let PetkitLitterboxCardEditor = class extends MushroomBaseElement {
     fireEvent(this, "config-changed", { config: ev.detail.value });
   }
 };
-__decorateClass([
+__decorateClass$1([
   r()
 ], PetkitLitterboxCardEditor.prototype, "_config", 2);
-PetkitLitterboxCardEditor = __decorateClass([
+PetkitLitterboxCardEditor = __decorateClass$1([
   t$1(PETKIT_LITTERBOX_CARD_EDITOR_NAME)
 ], PetkitLitterboxCardEditor);
 const petkitLitterboxCardEditor = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   get PetkitLitterboxCardEditor() {
     return PetkitLitterboxCardEditor;
+  }
+}, Symbol.toStringTag, { value: "Module" }));
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __decorateClass = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
+  for (var i3 = decorators.length - 1, decorator; i3 >= 0; i3--)
+    if (decorator = decorators[i3])
+      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
+  if (kind && result) __defProp(target, key, result);
+  return result;
+};
+const TIMELINE_LABELS = ["hours_to_show", "layout"];
+const computeSchema = memoizeOne(
+  (_localize, customLocalize) => [
+    {
+      name: "entity",
+      selector: { entity: { domain: PETKIT_LITTERBOX_STATE_DOMAINS } }
+    },
+    {
+      name: "layout",
+      selector: {
+        select: {
+          mode: "list",
+          options: [
+            {
+              value: "vertical",
+              label: customLocalize(
+                "editor.card.petkit_litterbox_timeline.layout_vertical"
+              )
+            },
+            {
+              value: "horizontal",
+              label: customLocalize(
+                "editor.card.petkit_litterbox_timeline.layout_horizontal"
+              )
+            }
+          ]
+        }
+      }
+    },
+    {
+      name: "hours_to_show",
+      selector: {
+        number: {
+          min: 1,
+          max: 168,
+          step: 1,
+          unit_of_measurement: "h",
+          mode: "box"
+        }
+      }
+    }
+  ]
+);
+let PetkitLitterboxTimelineCardEditor = class extends MushroomBaseElement {
+  constructor() {
+    super(...arguments);
+    this._computeLabel = (schema) => {
+      const customLocalize = setupCustomlocalize(this.hass);
+      if (GENERIC_LABELS.includes(schema.name)) {
+        return customLocalize(`editor.card.generic.${schema.name}`);
+      }
+      if (TIMELINE_LABELS.includes(schema.name)) {
+        return customLocalize(
+          `editor.card.petkit_litterbox_timeline.${schema.name}`
+        );
+      }
+      return this.hass.localize(
+        `ui.panel.lovelace.editor.card.generic.${schema.name}`
+      );
+    };
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    void loadHaComponents();
+  }
+  setConfig(config) {
+    assert(config, petkitLitterboxTimelineCardConfigStruct);
+    this._config = config;
+  }
+  render() {
+    if (!this.hass || !this._config) return A;
+    const customLocalize = setupCustomlocalize(this.hass);
+    const schema = computeSchema(this.hass.localize, customLocalize);
+    return b`
+      <ha-form
+        .hass=${this.hass}
+        .data=${this._config}
+        .schema=${schema}
+        .computeLabel=${this._computeLabel}
+        @value-changed=${this._valueChanged}
+      ></ha-form>
+    `;
+  }
+  _valueChanged(ev) {
+    fireEvent(this, "config-changed", { config: ev.detail.value });
+  }
+};
+__decorateClass([
+  r()
+], PetkitLitterboxTimelineCardEditor.prototype, "_config", 2);
+PetkitLitterboxTimelineCardEditor = __decorateClass([
+  t$1(PETKIT_TIMELINE_CARD_EDITOR_NAME)
+], PetkitLitterboxTimelineCardEditor);
+const petkitLitterboxTimelineCardEditor = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  get PetkitLitterboxTimelineCardEditor() {
+    return PetkitLitterboxTimelineCardEditor;
   }
 }, Symbol.toStringTag, { value: "Module" }));
