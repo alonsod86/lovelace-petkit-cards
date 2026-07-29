@@ -4,3 +4,6 @@ export const PETKIT_LITTERBOX_STATE_DOMAINS = ["sensor"];
 
 export const PETKIT_TIMELINE_CARD_NAME = `mushroom-petkit-litterbox-timeline-card`;
 export const PETKIT_TIMELINE_CARD_EDITOR_NAME = `${PETKIT_TIMELINE_CARD_NAME}-editor`;
+
+export const PETKIT_DASHBOARD_CARD_NAME = `mushroom-petkit-litterbox-dashboard-card`;
+export const PETKIT_DASHBOARD_CARD_EDITOR_NAME = `${PETKIT_DASHBOARD_CARD_NAME}-editor`;

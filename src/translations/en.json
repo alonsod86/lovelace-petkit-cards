@@ -58,6 +58,26 @@
         "label_refreshing": "Refreshing",
         "label_resetting": "Resetting",
         "label_paused": "Paused"
+      },
+      "petkit_litterbox_dashboard": {
+        "picture": "Device image URL",
+        "show_name": "Show entity name",
+        "sensor_1_section": "Sensor slot 1",
+        "sensor_1_entity": "Entity",
+        "sensor_1_name": "Label override",
+        "sensor_1_icon": "Icon",
+        "sensor_2_section": "Sensor slot 2",
+        "sensor_2_entity": "Entity",
+        "sensor_2_name": "Label override",
+        "sensor_2_icon": "Icon",
+        "sensor_3_section": "Sensor slot 3",
+        "sensor_3_entity": "Entity",
+        "sensor_3_name": "Label override",
+        "sensor_3_icon": "Icon",
+        "sensor_4_section": "Sensor slot 4",
+        "sensor_4_entity": "Entity",
+        "sensor_4_name": "Label override",
+        "sensor_4_icon": "Icon"
       }
     },
     "form": {

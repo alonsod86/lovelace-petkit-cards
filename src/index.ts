@@ -1,5 +1,6 @@
 import "./petkit-litterbox-card/petkit-litterbox-card";
 import "./petkit-litterbox-card/petkit-litterbox-timeline-card";
+import "./petkit-litterbox-card/petkit-litterbox-dashboard-card";
 
 console.info(
   "%c🐾 Petkit Lovelace Cards %c1.0.0",
