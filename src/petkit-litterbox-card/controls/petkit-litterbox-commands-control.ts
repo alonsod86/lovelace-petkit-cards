@@ -1,7 +1,9 @@
-import { html, LitElement, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { HassEntity } from "home-assistant-js-websocket";
+import { html, LitElement, PropertyValues, TemplateResult } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
 import { computeRTL, HomeAssistant, isAvailable } from "../../ha";
 import { PetkitLitterboxActionKey } from "../petkit-litterbox-card-config";
+import { DEFAULT_ACTIVE_STATES } from "../utils";
 
 interface PetkitButton {
   icon: string;
@@ -19,6 +21,7 @@ interface PetkitButtonConfig {
   level_litter_entity?: string;
   maintenance_entity?: string;
   actions?: PetkitLitterboxActionKey[];
+  active_states?: string[];
 }
 
 export const PETKIT_LITTERBOX_BUTTONS: PetkitButton[] = [
@@ -65,12 +68,69 @@ export class PetkitLitterboxCommandsControl extends LitElement {
 
   @property({ attribute: false }) public config!: PetkitButtonConfig;
 
+  /** Main litterbox entity — used to detect active/idle transitions. */
+  @property({ attribute: false }) public stateObj?: HassEntity;
+
   @property({ type: Boolean }) public fill: boolean = false;
+
+  @state() private _pending = false;
+
+  /** True once the entity entered an active state after a button press. */
+  private _wasActivated = false;
+
+  /** Failsafe timeout handle — clears pending if the entity never responds. */
+  private _timeout?: ReturnType<typeof setTimeout>;
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this._clearTimeout();
+  }
+
+  private _clearTimeout() {
+    if (this._timeout !== undefined) {
+      clearTimeout(this._timeout);
+      this._timeout = undefined;
+    }
+  }
+
+  private _isActiveState(): boolean {
+    if (!this.stateObj) return false;
+    return (this.config.active_states ?? DEFAULT_ACTIVE_STATES).includes(
+      this.stateObj.state
+    );
+  }
+
+  updated(changedProps: PropertyValues) {
+    super.updated(changedProps);
+    if (!changedProps.has("stateObj") || !this._pending) return;
+
+    const nowActive = this._isActiveState();
+    if (nowActive) {
+      // The action registered — cancel failsafe, track that we got activated.
+      this._wasActivated = true;
+      this._clearTimeout();
+    } else if (this._wasActivated) {
+      // Returned to idle after being active — release lock.
+      this._pending = false;
+      this._wasActivated = false;
+    }
+  }
 
   private _callService(e: CustomEvent) {
     e.stopPropagation();
     const entityId = (e.target! as any)._entityId as string;
     if (!entityId) return;
+
+    // Lock buttons immediately; failsafe releases after 30 s.
+    this._pending = true;
+    this._wasActivated = false;
+    this._clearTimeout();
+    this._timeout = setTimeout(() => {
+      this._pending = false;
+      this._wasActivated = false;
+      this._timeout = undefined;
+    }, 30_000);
+
     const domain = entityId.split(".")[0];
     if (domain === "script") {
       this.hass.callService("script", "turn_on", { entity_id: entityId });
@@ -81,6 +141,7 @@ export class PetkitLitterboxCommandsControl extends LitElement {
 
   protected render(): TemplateResult {
     const rtl = computeRTL(this.hass);
+    const globalBusy = this._pending || this._isActiveState();
 
     return html`
       <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
@@ -89,7 +150,7 @@ export class PetkitLitterboxCommandsControl extends LitElement {
         ).map((btn) => {
           const entityId = this.config[btn.entityConfigKey] as string;
           const stateObj = this.hass.states[entityId];
-          const disabled = !stateObj || !isAvailable(stateObj);
+          const disabled = !stateObj || !isAvailable(stateObj) || globalBusy;
           return html`
             <mushroom-button
               ._entityId=${entityId}

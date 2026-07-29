@@ -121,6 +121,7 @@ export class PetkitLitterboxCard
                   <mushroom-petkit-litterbox-commands-control
                     .hass=${this.hass}
                     .config=${this._config}
+                    .stateObj=${stateObj}
                     .fill=${appearance.layout !== "horizontal"}
                   >
                   </mushroom-petkit-litterbox-commands-control>

@@ -8237,6 +8237,25 @@ function registerCustomCard(params) {
 const PETKIT_LITTERBOX_CARD_NAME = `mushroom-petkit-litterbox-card`;
 const PETKIT_LITTERBOX_CARD_EDITOR_NAME = `${PETKIT_LITTERBOX_CARD_NAME}-editor`;
 const PETKIT_LITTERBOX_STATE_DOMAINS = ["sensor"];
+const DEFAULT_ACTIVE_STATES = [
+  "cleaning",
+  "scooping",
+  "dumping",
+  "leveling",
+  "odor_removal",
+  "deodorizing",
+  "maintenance",
+  "refreshing",
+  "paused",
+  "resetting"
+];
+function isCleaningState(stateObj, config) {
+  const cleaningStates = ["cleaning", "scooping", "dumping", "leveling"];
+  const activeList = config.active_states ?? cleaningStates;
+  return activeList.some(
+    (s2) => cleaningStates.includes(s2) && s2 === stateObj.state
+  );
+}
 var __defProp$2 = Object.defineProperty;
 var __getOwnPropDesc$2 = Object.getOwnPropertyDescriptor;
 var __decorateClass$2 = (decorators, target, key, kind) => {
@@ -8283,11 +8302,49 @@ let PetkitLitterboxCommandsControl = class extends i$1 {
   constructor() {
     super(...arguments);
     this.fill = false;
+    this._pending = false;
+    this._wasActivated = false;
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this._clearTimeout();
+  }
+  _clearTimeout() {
+    if (this._timeout !== void 0) {
+      clearTimeout(this._timeout);
+      this._timeout = void 0;
+    }
+  }
+  _isActiveState() {
+    if (!this.stateObj) return false;
+    return (this.config.active_states ?? DEFAULT_ACTIVE_STATES).includes(
+      this.stateObj.state
+    );
+  }
+  updated(changedProps) {
+    super.updated(changedProps);
+    if (!changedProps.has("stateObj") || !this._pending) return;
+    const nowActive = this._isActiveState();
+    if (nowActive) {
+      this._wasActivated = true;
+      this._clearTimeout();
+    } else if (this._wasActivated) {
+      this._pending = false;
+      this._wasActivated = false;
+    }
   }
   _callService(e2) {
     e2.stopPropagation();
     const entityId = e2.target._entityId;
     if (!entityId) return;
+    this._pending = true;
+    this._wasActivated = false;
+    this._clearTimeout();
+    this._timeout = setTimeout(() => {
+      this._pending = false;
+      this._wasActivated = false;
+      this._timeout = void 0;
+    }, 3e4);
     const domain = entityId.split(".")[0];
     if (domain === "script") {
       this.hass.callService("script", "turn_on", { entity_id: entityId });
@@ -8297,6 +8354,7 @@ let PetkitLitterboxCommandsControl = class extends i$1 {
   }
   render() {
     const rtl = computeRTL(this.hass);
+    const globalBusy = this._pending || this._isActiveState();
     return b`
       <mushroom-button-group .fill=${this.fill} ?rtl=${rtl}>
         ${PETKIT_LITTERBOX_BUTTONS.filter(
@@ -8304,7 +8362,7 @@ let PetkitLitterboxCommandsControl = class extends i$1 {
     ).map((btn) => {
       const entityId = this.config[btn.entityConfigKey];
       const stateObj = this.hass.states[entityId];
-      const disabled = !stateObj || !isAvailable(stateObj);
+      const disabled = !stateObj || !isAvailable(stateObj) || globalBusy;
       return b`
             <mushroom-button
               ._entityId=${entityId}
@@ -8326,18 +8384,17 @@ __decorateClass$2([
   n2({ attribute: false })
 ], PetkitLitterboxCommandsControl.prototype, "config", 2);
 __decorateClass$2([
+  n2({ attribute: false })
+], PetkitLitterboxCommandsControl.prototype, "stateObj", 2);
+__decorateClass$2([
   n2({ type: Boolean })
 ], PetkitLitterboxCommandsControl.prototype, "fill", 2);
+__decorateClass$2([
+  r()
+], PetkitLitterboxCommandsControl.prototype, "_pending", 2);
 PetkitLitterboxCommandsControl = __decorateClass$2([
   t$1("mushroom-petkit-litterbox-commands-control")
 ], PetkitLitterboxCommandsControl);
-function isCleaningState(stateObj, config) {
-  const cleaningStates = ["cleaning", "scooping", "dumping", "leveling"];
-  const activeList = config.active_states ?? cleaningStates;
-  return activeList.some(
-    (s2) => cleaningStates.includes(s2) && s2 === stateObj.state
-  );
-}
 var __defProp$1 = Object.defineProperty;
 var __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor;
 var __decorateClass$1 = (decorators, target, key, kind) => {
@@ -8413,6 +8470,7 @@ let PetkitLitterboxCard = class extends MushroomBaseCard {
                   <mushroom-petkit-litterbox-commands-control
                     .hass=${this.hass}
                     .config=${this._config}
+                    .stateObj=${stateObj}
                     .fill=${appearance.layout !== "horizontal"}
                   >
                   </mushroom-petkit-litterbox-commands-control>
