@@ -9,7 +9,6 @@ import {
 } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { assert } from "superstruct";
 import { HomeAssistant, LovelaceCard, LovelaceCardEditor } from "../ha";
 import { registerCustomCard } from "../utils/custom-cards";
@@ -22,7 +21,7 @@ import {
   PetkitLitterboxDashboardCardConfig,
   petkitLitterboxDashboardCardConfigStruct,
 } from "./petkit-litterbox-dashboard-card-config";
-import { PETKIT_DEVICE_SVG } from "./assets/petkit-device-svg";
+import { PETKIT_DEVICE_IMAGE_URL } from "./assets/petkit-device-svg";
 
 // ─── State metadata ───────────────────────────────────────────────────────────
 
@@ -179,19 +178,16 @@ export class PetkitLitterboxDashboardCard
     picture: string | undefined,
     stateObj: HassEntity | undefined
   ): TemplateResult {
-    const heroStyles = picture
-      ? { backgroundImage: `url('${picture}')` }
-      : {};
+    // Fall back to the built-in device image when no picture URL is configured.
+    const imgUrl = picture ?? PETKIT_DEVICE_IMAGE_URL;
+    const heroStyles = { backgroundImage: `url('${imgUrl}')` };
 
     return html`
       <div
-        class="hero ${picture ? "has-picture" : "no-picture"}"
+        class="hero has-picture"
         style=${styleMap(heroStyles)}
       >
         <div class="hero-gradient"></div>
-        ${!picture
-          ? html`<div class="device-svg">${unsafeHTML(PETKIT_DEVICE_SVG)}</div>`
-          : nothing}
         ${stateObj ? this._renderStateBadge(stateObj) : nothing}
       </div>
     `;
@@ -330,30 +326,6 @@ export class PetkitLitterboxDashboardCard
         background-repeat: no-repeat;
         background-color: var(--secondary-background-color, rgba(0, 0, 0, 0.03));
         overflow: hidden;
-      }
-
-      .hero.no-picture {
-        background: var(--secondary-background-color, #f5f5f5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .device-svg {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 8px 0;
-        box-sizing: border-box;
-      }
-
-      .device-svg svg {
-        width: auto;
-        height: 100%;
-        max-height: 204px;
-        display: block;
       }
 
       .hero-gradient {
