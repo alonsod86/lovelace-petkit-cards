@@ -9380,7 +9380,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
     if (cameraStateObj) {
       return this._renderSplitHero(imgUrl, stateObj, cameraStateObj);
     }
-    const hasArms = this._config.arm_top_entity || this._config.arm_bottom_entity;
+    const hasArms = this._config.arm_top_entity && this._config.arm_top_visible !== false || this._config.arm_bottom_entity && this._config.arm_bottom_visible !== false;
     if (hasArms) {
       return b`
         <div class="hero hero-device-with-arms">
@@ -9431,7 +9431,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         </div>
 
         <!-- Device image panel — split into image + arm area when arms configured -->
-        ${this._config.arm_top_entity || this._config.arm_bottom_entity ? b`
+        ${this._config.arm_top_entity && this._config.arm_top_visible !== false || this._config.arm_bottom_entity && this._config.arm_bottom_visible !== false ? b`
               <div class="hero-device hero-device-with-arms">
                 <div
                   class="hero-device-img"

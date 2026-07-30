@@ -190,7 +190,10 @@ export class PetkitLitterboxDashboardCard
 
     // No camera — full-width device image, but still support arm connectors
     const hasArms =
-      this._config.arm_top_entity || this._config.arm_bottom_entity;
+      (this._config.arm_top_entity &&
+        this._config.arm_top_visible !== false) ||
+      (this._config.arm_bottom_entity &&
+        this._config.arm_bottom_visible !== false);
     if (hasArms) {
       return html`
         <div class="hero hero-device-with-arms">
@@ -258,7 +261,10 @@ export class PetkitLitterboxDashboardCard
         </div>
 
         <!-- Device image panel — split into image + arm area when arms configured -->
-        ${this._config.arm_top_entity || this._config.arm_bottom_entity
+        ${(this._config.arm_top_entity &&
+          this._config.arm_top_visible !== false) ||
+        (this._config.arm_bottom_entity &&
+          this._config.arm_bottom_visible !== false)
           ? html`
               <div class="hero-device hero-device-with-arms">
                 <div
