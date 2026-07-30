@@ -9563,13 +9563,11 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       <div class="sensor-chip chip-${pos}">
         <div class="ring-wrap">
           <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Track -->
             <circle
               cx="32" cy="32" r="26"
               stroke="var(--divider-color, rgba(0,0,0,0.12))"
               stroke-width="3.5"
             />
-            <!-- Progress -->
             <circle
               cx="32" cy="32" r="26"
               stroke="rgb(var(--chip-rgb))"
@@ -9583,8 +9581,10 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
             <ha-icon .icon=${icon}></ha-icon>
           </div>
         </div>
-        <div class="chip-value">${stateObj.state}<span class="chip-unit">%</span></div>
-        <div class="chip-label">${label}</div>
+        <div class="chip-text">
+          <div class="chip-value">${stateObj.state}<span class="chip-unit">%</span></div>
+          <div class="chip-label">${label}</div>
+        </div>
       </div>
     `;
   }
@@ -9594,10 +9594,12 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         <div class="icon-circle">
           <ha-icon .icon=${icon}></ha-icon>
         </div>
-        <div class="chip-value">
-          ${stateObj.state}${unit ? b`<span class="chip-unit"> ${unit}</span>` : A}
+        <div class="chip-text">
+          <div class="chip-value">
+            ${stateObj.state}${unit ? b`<span class="chip-unit"> ${unit}</span>` : A}
+          </div>
+          <div class="chip-label">${label}</div>
         </div>
-        <div class="chip-label">${label}</div>
       </div>
     `;
   }
@@ -9607,7 +9609,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       ha-card {
         overflow: hidden;
         border-radius: var(--ha-card-border-radius, 12px);
-        padding-bottom: 16px;
+        padding-bottom: 20px;
       }
 
       .card-header {
@@ -9859,21 +9861,28 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       .sensors-row {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
-        align-items: flex-start;
-        padding: 20px 8px 4px;
-        gap: 4px;
+        align-items: center;
+        padding: 14px 20px 12px;
+        gap: 0;
       }
 
-      /* ── Chip base ── */
+      /* ── Chip base: horizontal icon + text layout ── */
       .sensor-chip {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        gap: 6px;
+        gap: 12px;
         flex: 1;
         min-width: 0;
+        padding: 0 16px 0 0;
       }
+
+      .sensor-chip + .sensor-chip {
+        padding: 0 16px 0 16px;
+        border-left: 1px solid var(--divider-color, rgba(120,120,128,0.2));
+      }
+
+      .sensor-chip:last-child { padding-right: 0; }
 
       /* ── Per-slot accent colors ── */
       .chip-1 { --chip-rgb: var(--rgb-state-vacuum, 3, 155, 229); }
@@ -9884,13 +9893,14 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       /* ── SVG ring chip ── */
       .ring-wrap {
         position: relative;
-        width: 64px;
-        height: 64px;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
       }
 
       .ring-wrap svg {
-        width: 64px;
-        height: 64px;
+        width: 48px;
+        height: 48px;
         display: block;
       }
 
@@ -9904,13 +9914,14 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       }
 
       .ring-icon ha-icon {
-        --mdc-icon-size: 20px;
+        --mdc-icon-size: 17px;
       }
 
       /* ── Icon circle chip ── */
       .icon-circle {
-        width: 56px;
-        height: 56px;
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
         border-radius: 50%;
         background: rgba(var(--chip-rgb), 0.12);
         display: flex;
@@ -9920,20 +9931,26 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       }
 
       .icon-circle ha-icon {
-        --mdc-icon-size: 24px;
+        --mdc-icon-size: 22px;
       }
 
-      /* ── Chip text ── */
+      /* ── Chip text column ── */
+      .chip-text {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
+      }
+
       .chip-value {
-        font-size: 16px;
-        font-weight: 600;
+        font-size: 18px;
+        font-weight: 700;
         color: var(--primary-text-color);
         line-height: 1;
-        text-align: center;
       }
 
       .chip-unit {
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 400;
         color: var(--secondary-text-color);
       }
@@ -9941,9 +9958,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       .chip-label {
         font-size: 11px;
         color: var(--secondary-text-color);
-        text-align: center;
         line-height: 1.2;
-        max-width: 72px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -9958,7 +9973,15 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         display: flex;
         flex-direction: row;
         gap: 8px;
-        padding: 0 16px 16px;
+        padding: 12px 16px 0;
+      }
+
+      /* Hairline separator when sensors sit above buttons */
+      .sensors-row + .actions-row {
+        margin: 0 4px;
+        padding-left: 12px;
+        padding-right: 12px;
+        border-top: 1px solid var(--divider-color, rgba(120,120,128,0.18));
       }
 
       .action-btn {
@@ -9966,19 +9989,23 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 10px;
-        padding: 10px 14px;
-        border-radius: 12px;
-        background: var(--secondary-background-color, rgba(120,120,128,0.08));
-        border: 1px solid var(--divider-color, rgba(120,120,128,0.2));
+        gap: 12px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: linear-gradient(
+          135deg,
+          rgba(var(--rgb-primary-color, 3,169,244), 0.13) 0%,
+          rgba(var(--rgb-primary-color, 3,169,244), 0.04) 100%
+        );
+        border: 1px solid rgba(var(--rgb-primary-color, 3,169,244), 0.22);
         cursor: pointer;
         user-select: none;
-        transition: background 120ms ease, transform 80ms ease;
+        transition: filter 120ms ease, transform 80ms ease;
         min-width: 0;
       }
 
       .action-btn:hover {
-        background: var(--state-icon-color, rgba(120,120,128,0.15));
+        filter: brightness(1.1);
       }
 
       .action-btn:active {
@@ -9987,10 +10014,10 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
 
       .action-btn-icon {
         flex-shrink: 0;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: rgba(var(--rgb-primary-color, 3,169,244), 0.12);
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: rgba(var(--rgb-primary-color, 3,169,244), 0.2);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -9998,17 +10025,17 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       }
 
       .action-btn-icon ha-state-icon {
-        --mdc-icon-size: 18px;
+        --mdc-icon-size: 20px;
       }
 
       .action-btn-label {
         font-size: 13px;
-        font-weight: 500;
+        font-weight: 600;
         color: var(--primary-text-color);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        line-height: 1.2;
+        line-height: 1.3;
       }
     `;
   }
