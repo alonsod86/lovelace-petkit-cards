@@ -469,7 +469,6 @@ export class PetkitLitterboxDashboardCard
       .hero.hero-split {
         display: flex;
         align-items: stretch;
-        justify-content: center;
         background: var(--ha-card-background, var(--card-background-color, #111));
         position: relative;
       }
@@ -480,7 +479,9 @@ export class PetkitLitterboxDashboardCard
         grid-template-columns: var(--camera-size-pct, 30%) 1fr;
         column-gap: 36px;
         align-items: stretch;
-        width: calc(100% - 32px);
+        flex: 1;
+        margin: 0 16px;
+        min-width: 0;
         position: relative;
       }
 
