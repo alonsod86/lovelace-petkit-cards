@@ -204,9 +204,15 @@ export class PetkitLitterboxDashboardCard
     const isStream = this._config.camera_mode === "stream";
     // Cache-bust snapshot with last_changed so new frames load on state updates
     const snapshotUrl = `${cameraStateObj.attributes.entity_picture as string}&_t=${cameraStateObj.last_changed}`;
+    const cameraSize = this._config.camera_size ?? 30;
+    const gapPct = 15; // column-gap is fixed at 15%
+    const heroStyle = styleMap({
+      "--camera-size-pct": `${cameraSize}%`,
+      "--camera-line-right": `${100 - cameraSize - gapPct}%`,
+    });
 
     return html`
-      <div class="hero hero-split">
+      <div class="hero hero-split" style=${heroStyle}>
         <!-- Camera panel -->
         <div class="hero-camera">
           ${isStream
@@ -376,7 +382,7 @@ export class PetkitLitterboxDashboardCard
       /* ── Split layout: CSS Grid (camera | gap | device) ── */
       .hero.hero-split {
         display: grid;
-        grid-template-columns: 44% 1fr;
+        grid-template-columns: var(--camera-size-pct, 30%) 1fr;
         column-gap: 15%;
         align-items: stretch;
         background: var(--ha-card-background, var(--card-background-color, #111));
@@ -387,8 +393,8 @@ export class PetkitLitterboxDashboardCard
       .hero.hero-split::before {
         content: '';
         position: absolute;
-        left: 44%;
-        right: 41%;
+        left: var(--camera-size-pct, 30%);
+        right: var(--camera-line-right, 55%);
         top: 50%;
         height: 2px;
         background: rgba(255, 255, 255, 0.55);

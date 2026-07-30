@@ -22,6 +22,7 @@ const DASHBOARD_LABELS = [
   "show_name",
   "camera_entity",
   "camera_mode",
+  "camera_size",
   "sensor_1_entity",
   "sensor_1_name",
   "sensor_1_icon",
@@ -77,6 +78,18 @@ const computeSchema = memoizeOne(
                   ),
                 },
               ],
+            },
+          },
+        },
+        {
+          name: "camera_size",
+          selector: {
+            number: {
+              min: 15,
+              max: 55,
+              step: 5,
+              unit_of_measurement: "%",
+              mode: "slider",
             },
           },
         },

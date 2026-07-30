@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "labels_section": "State labels", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "show_name": "Show entity name", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "labels_section": "State labels", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "show_name": "Show entity name", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -9243,6 +9243,7 @@ const petkitLitterboxDashboardCardConfigStruct = assign(
     show_name: optional(boolean()),
     camera_entity: optional(string()),
     camera_mode: optional(union([literal("snapshot"), literal("stream")])),
+    camera_size: optional(number()),
     sensor_1_entity: optional(string()),
     sensor_1_name: optional(string()),
     sensor_1_icon: optional(string()),
@@ -9383,8 +9384,14 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
   _renderSplitHero(imgUrl, stateObj, cameraStateObj) {
     const isStream = this._config.camera_mode === "stream";
     const snapshotUrl = `${cameraStateObj.attributes.entity_picture}&_t=${cameraStateObj.last_changed}`;
+    const cameraSize = this._config.camera_size ?? 30;
+    const gapPct = 15;
+    const heroStyle = o({
+      "--camera-size-pct": `${cameraSize}%`,
+      "--camera-line-right": `${100 - cameraSize - gapPct}%`
+    });
     return b`
-      <div class="hero hero-split">
+      <div class="hero hero-split" style=${heroStyle}>
         <!-- Camera panel -->
         <div class="hero-camera">
           ${isStream ? b`
@@ -9520,7 +9527,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       /* ── Split layout: CSS Grid (camera | gap | device) ── */
       .hero.hero-split {
         display: grid;
-        grid-template-columns: 44% 1fr;
+        grid-template-columns: var(--camera-size-pct, 30%) 1fr;
         column-gap: 15%;
         align-items: stretch;
         background: var(--ha-card-background, var(--card-background-color, #111));
@@ -9531,8 +9538,8 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       .hero.hero-split::before {
         content: '';
         position: absolute;
-        left: 44%;
-        right: 41%;
+        left: var(--camera-size-pct, 30%);
+        right: var(--camera-line-right, 55%);
         top: 50%;
         height: 2px;
         background: rgba(255, 255, 255, 0.55);
@@ -10324,6 +10331,7 @@ const DASHBOARD_LABELS = [
   "show_name",
   "camera_entity",
   "camera_mode",
+  "camera_size",
   "sensor_1_entity",
   "sensor_1_name",
   "sensor_1_icon",
@@ -10375,6 +10383,18 @@ const computeSchema = memoizeOne(
                   )
                 }
               ]
+            }
+          }
+        },
+        {
+          name: "camera_size",
+          selector: {
+            number: {
+              min: 15,
+              max: 55,
+              step: 5,
+              unit_of_measurement: "%",
+              mode: "slider"
             }
           }
         }

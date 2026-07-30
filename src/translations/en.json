@@ -67,6 +67,7 @@
         "camera_mode": "Camera mode",
         "camera_mode_snapshot": "Snapshot (latest image)",
         "camera_mode_stream": "Live stream",
+        "camera_size": "Camera panel width",
         "sensor_1_section": "Sensor slot 1",
         "sensor_1_entity": "Entity",
         "sensor_1_name": "Label override",
