@@ -10,7 +10,14 @@ import {
 import { customElement, property, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 import { assert } from "superstruct";
-import { HomeAssistant, LovelaceCard, LovelaceCardEditor } from "../ha";
+import {
+  actionHandler,
+  ActionHandlerEvent,
+  handleAction,
+  HomeAssistant,
+  LovelaceCard,
+  LovelaceCardEditor,
+} from "../ha";
 import { registerCustomCard } from "../utils/custom-cards";
 import {
   PETKIT_DASHBOARD_CARD_EDITOR_NAME,
@@ -170,7 +177,62 @@ export class PetkitLitterboxDashboardCard
               </div>
             `
           : nothing}
+        ${this._renderActions()}
       </ha-card>
+    `;
+  }
+
+  private _renderActions(): TemplateResult | typeof nothing {
+    const cfg = this._config;
+    const btns = (["btn_1", "btn_2"] as const).flatMap((prefix) => {
+      const entity = cfg[`${prefix}_entity` as keyof PetkitLitterboxDashboardCardConfig] as string | undefined;
+      if (!entity) return [];
+      return [{
+        entity,
+        name: cfg[`${prefix}_name` as keyof PetkitLitterboxDashboardCardConfig] as string | undefined,
+        icon: cfg[`${prefix}_icon` as keyof PetkitLitterboxDashboardCardConfig] as string | undefined,
+        tap_action: cfg[`${prefix}_tap_action` as keyof PetkitLitterboxDashboardCardConfig] as import("../ha").ActionConfig | undefined,
+      }];
+    });
+    if (btns.length === 0) return nothing;
+    return html`
+      <div class="actions-row">
+        ${btns.map((btn) => this._renderActionBtn(btn))}
+      </div>
+    `;
+  }
+
+  private _renderActionBtn(btn: {
+    entity: string;
+    name?: string;
+    icon?: string;
+    tap_action?: import("../ha").ActionConfig;
+  }): TemplateResult {
+    const stateObj = this.hass?.states[btn.entity] as HassEntity | undefined;
+    const label =
+      btn.name ??
+      (stateObj?.attributes?.friendly_name as string | undefined) ??
+      btn.entity;
+    const icon = btn.icon ?? (stateObj?.attributes?.icon as string | undefined) ?? "mdi:gesture-tap-button";
+
+    return html`
+      <div
+        class="action-btn"
+        role="button"
+        tabindex="0"
+        @action=${(ev: ActionHandlerEvent) =>
+          handleAction(this, this.hass!, { entity: btn.entity, tap_action: btn.tap_action ?? { action: "toggle" } }, ev.detail.action!)}
+        .actionHandler=${actionHandler({ hasHold: false, hasDoubleClick: false })}
+      >
+        <div class="action-btn-icon">
+          <ha-state-icon
+            .hass=${this.hass}
+            .stateObj=${stateObj}
+            .icon=${icon}
+          ></ha-state-icon>
+        </div>
+        <span class="action-btn-label">${label}</span>
+      </div>
     `;
   }
 
@@ -785,6 +847,64 @@ export class PetkitLitterboxDashboardCard
 
       .sensor-chip.unavailable {
         opacity: 0.3;
+      }
+
+      /* ── Action buttons ── */
+      .actions-row {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        padding: 0 16px 16px;
+      }
+
+      .action-btn {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        background: var(--secondary-background-color, rgba(120,120,128,0.08));
+        border: 1px solid var(--divider-color, rgba(120,120,128,0.2));
+        cursor: pointer;
+        user-select: none;
+        transition: background 120ms ease, transform 80ms ease;
+        min-width: 0;
+      }
+
+      .action-btn:hover {
+        background: var(--state-icon-color, rgba(120,120,128,0.15));
+      }
+
+      .action-btn:active {
+        transform: scale(0.97);
+      }
+
+      .action-btn-icon {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(var(--rgb-primary-color, 3,169,244), 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgb(var(--rgb-primary-color, 3,169,244));
+      }
+
+      .action-btn-icon ha-state-icon {
+        --mdc-icon-size: 18px;
+      }
+
+      .action-btn-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--primary-text-color);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
       }
     `;
   }

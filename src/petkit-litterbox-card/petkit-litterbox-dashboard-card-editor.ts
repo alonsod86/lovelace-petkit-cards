@@ -42,6 +42,12 @@ const DASHBOARD_LABELS = [
   "sensor_4_entity",
   "sensor_4_name",
   "sensor_4_icon",
+  "btn_1_entity",
+  "btn_1_name",
+  "btn_1_icon",
+  "btn_2_entity",
+  "btn_2_name",
+  "btn_2_icon",
 ];
 
 const computeSchema = memoizeOne(
@@ -212,6 +218,44 @@ const computeSchema = memoizeOne(
             icon: {},
           },
           context: { icon_entity: "sensor_4_entity" },
+        },
+      ],
+    },
+    // ── Action button 1 ───────────────────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "btn_1_section",
+      flatten: true,
+      icon: "mdi:gesture-tap-button",
+      title: customLocalize(
+        "editor.card.petkit_litterbox_dashboard.btn_1_section"
+      ),
+      schema: [
+        { name: "btn_1_entity", selector: { entity: {} } },
+        { name: "btn_1_name", selector: { text: {} } },
+        {
+          name: "btn_1_icon",
+          selector: { icon: {} },
+          context: { icon_entity: "btn_1_entity" },
+        },
+      ],
+    },
+    // ── Action button 2 ───────────────────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "btn_2_section",
+      flatten: true,
+      icon: "mdi:gesture-tap-button",
+      title: customLocalize(
+        "editor.card.petkit_litterbox_dashboard.btn_2_section"
+      ),
+      schema: [
+        { name: "btn_2_entity", selector: { entity: {} } },
+        { name: "btn_2_name", selector: { text: {} } },
+        {
+          name: "btn_2_icon",
+          selector: { icon: {} },
+          context: { icon_entity: "btn_2_entity" },
         },
       ],
     },

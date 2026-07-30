@@ -8,6 +8,7 @@ import {
   string,
   union,
 } from "superstruct";
+import { ActionConfig, actionConfigStruct } from "../ha";
 import {
   lovelaceCardConfigStruct,
   LovelaceCardConfig,
@@ -43,6 +44,15 @@ export interface PetkitLitterboxDashboardCardConfig extends LovelaceCardConfig {
   sensor_4_entity?: string;
   sensor_4_name?: string;
   sensor_4_icon?: string;
+  // Action buttons 1–2
+  btn_1_entity?: string;
+  btn_1_name?: string;
+  btn_1_icon?: string;
+  btn_1_tap_action?: ActionConfig;
+  btn_2_entity?: string;
+  btn_2_name?: string;
+  btn_2_icon?: string;
+  btn_2_tap_action?: ActionConfig;
 }
 
 export const petkitLitterboxDashboardCardConfigStruct = assign(
@@ -72,5 +82,13 @@ export const petkitLitterboxDashboardCardConfigStruct = assign(
     sensor_4_entity: optional(string()),
     sensor_4_name: optional(string()),
     sensor_4_icon: optional(string()),
+    btn_1_entity: optional(string()),
+    btn_1_name: optional(string()),
+    btn_1_icon: optional(string()),
+    btn_1_tap_action: optional(actionConfigStruct),
+    btn_2_entity: optional(string()),
+    btn_2_name: optional(string()),
+    btn_2_icon: optional(string()),
+    btn_2_tap_action: optional(actionConfigStruct),
   })
 );
