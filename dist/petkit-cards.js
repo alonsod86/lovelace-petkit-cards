@@ -9552,6 +9552,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         overflow: hidden;
         background: var(--ha-card-background, var(--card-background-color, #111));
         z-index: 1;
+        clip-path: circle(closest-side at center);
       }
 
       .camera-img {
