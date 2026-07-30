@@ -233,19 +233,33 @@ export class PetkitLitterboxDashboardCard
               `}
         </div>
 
-        <!-- Device image panel — never cropped -->
-        <div
-          class="hero-device"
-          style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
-        >
-          ${this._config.arm_top_entity
-            ? this._renderArm("top", this._config.arm_top_entity)
-            : nothing}
-          ${this._config.arm_bottom_entity
-            ? this._renderArm("bottom", this._config.arm_bottom_entity)
-            : nothing}
-          ${stateObj ? this._renderStateBadge(stateObj) : nothing}
-        </div>
+        <!-- Device image panel — split into image + arm area when arms configured -->
+        ${this._config.arm_top_entity || this._config.arm_bottom_entity
+          ? html`
+              <div class="hero-device hero-device-with-arms">
+                <div
+                  class="hero-device-img"
+                  style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
+                ></div>
+                <div class="hero-device-arms">
+                  ${this._config.arm_top_entity
+                    ? this._renderArm("top", this._config.arm_top_entity)
+                    : nothing}
+                  ${this._config.arm_bottom_entity
+                    ? this._renderArm("bottom", this._config.arm_bottom_entity)
+                    : nothing}
+                </div>
+                ${stateObj ? this._renderStateBadge(stateObj) : nothing}
+              </div>
+            `
+          : html`
+              <div
+                class="hero-device"
+                style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
+              >
+                ${stateObj ? this._renderStateBadge(stateObj) : nothing}
+              </div>
+            `}
       </div>
     `;
   }
@@ -466,11 +480,34 @@ export class PetkitLitterboxDashboardCard
         background-position: left center;
       }
 
-      /* ── Sensor arm connectors (right side of device image) ── */
+      /* ── Split layout: device panel with sensor arms ── */
+      /* When arms are configured the device panel becomes a flex row so the
+         image sub-column shrinks to guarantee the arm area has fixed width */
+      .hero-device-with-arms {
+        display: flex;
+        flex-direction: row;
+        background: none !important; /* image lives on .hero-device-img */
+      }
+      .hero-device-img {
+        flex: 1;
+        min-width: 0;
+        background-size: contain;
+        background-position: left center;
+        background-repeat: no-repeat;
+        background-color: var(--ha-card-background, var(--card-background-color, #111));
+      }
+      /* Fixed arm column — guarantees minimum line length regardless of card width */
+      .hero-device-arms {
+        position: relative;
+        width: 120px;
+        flex-shrink: 0;
+      }
+
+      /* ── Sensor arm connectors (inside .hero-device-arms) ── */
       .hero-arm {
         position: absolute;
-        left: 45%;
-        right: 10px;
+        left: 0;
+        right: 8px;
         display: flex;
         flex-direction: row;
         align-items: center;
