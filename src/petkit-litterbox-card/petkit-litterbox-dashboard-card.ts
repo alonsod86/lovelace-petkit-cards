@@ -432,6 +432,12 @@ export class PetkitLitterboxDashboardCard
         background-color: var(--ha-card-background, var(--card-background-color, #111));
       }
 
+      /* In the split layout the image must left-align so it starts right where
+         the connector line ends — avoids the gap caused by contain + centering */
+      .hero.hero-split .hero-device {
+        background-position: left center;
+      }
+
       /* State badge sits inside .hero or .hero-device (both position:relative) */
 
       .hero-gradient {
