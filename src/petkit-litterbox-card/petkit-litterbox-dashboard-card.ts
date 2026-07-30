@@ -380,7 +380,7 @@ export class PetkitLitterboxDashboardCard
         grid-template-columns: 44% 1fr;
         column-gap: 15%;
         align-items: stretch;
-        background: var(--secondary-background-color, rgba(0, 0, 0, 0.03));
+        background: var(--ha-card-background, var(--card-background-color, #111));
         position: relative;
       }
 
@@ -391,8 +391,8 @@ export class PetkitLitterboxDashboardCard
         left: 44%;
         right: 41%;
         top: 50%;
-        height: 1px;
-        background: rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.55);
+        height: 2px;
+        background: rgba(255, 255, 255, 0.55);
         z-index: 0;
         pointer-events: none;
       }
@@ -400,7 +400,7 @@ export class PetkitLitterboxDashboardCard
       .hero-camera {
         position: relative;
         overflow: hidden;
-        background: #000;
+        background: var(--ha-card-background, var(--card-background-color, #111));
         z-index: 1;
       }
 
@@ -424,7 +424,7 @@ export class PetkitLitterboxDashboardCard
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
-        background-color: var(--secondary-background-color, rgba(0, 0, 0, 0.03));
+        background-color: var(--ha-card-background, var(--card-background-color, #111));
       }
 
       /* State badge sits inside .hero or .hero-device (both position:relative) */
