@@ -26,8 +26,10 @@ const DASHBOARD_LABELS = [
   "arm_section",
   "arm_top_entity",
   "arm_top_name",
+  "arm_top_visible",
   "arm_bottom_entity",
   "arm_bottom_name",
+  "arm_bottom_visible",
   "sensor_1_entity",
   "sensor_1_name",
   "sensor_1_icon",
@@ -112,8 +114,10 @@ const computeSchema = memoizeOne(
       schema: [
         { name: "arm_top_entity",    selector: { entity: {} } },
         { name: "arm_top_name",      selector: { text: {} } },
+        { name: "arm_top_visible",   selector: { boolean: {} } },
         { name: "arm_bottom_entity", selector: { entity: {} } },
         { name: "arm_bottom_name",   selector: { text: {} } },
+        { name: "arm_bottom_visible",selector: { boolean: {} } },
       ],
     },    // ── Sensor 1 ──────────────────────────────────────────────────────────────
     {

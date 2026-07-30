@@ -199,10 +199,12 @@ export class PetkitLitterboxDashboardCard
             style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
           ></div>
           <div class="hero-device-arms">
-            ${this._config.arm_top_entity
+            ${this._config.arm_top_entity &&
+            this._config.arm_top_visible !== false
               ? this._renderArm("top", this._config.arm_top_entity)
               : nothing}
-            ${this._config.arm_bottom_entity
+            ${this._config.arm_bottom_entity &&
+            this._config.arm_bottom_visible !== false
               ? this._renderArm("bottom", this._config.arm_bottom_entity)
               : nothing}
           </div>
@@ -264,10 +266,12 @@ export class PetkitLitterboxDashboardCard
                   style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
                 ></div>
                 <div class="hero-device-arms">
-                  ${this._config.arm_top_entity
+                  ${this._config.arm_top_entity &&
+                  this._config.arm_top_visible !== false
                     ? this._renderArm("top", this._config.arm_top_entity)
                     : nothing}
-                  ${this._config.arm_bottom_entity
+                  ${this._config.arm_bottom_entity &&
+                  this._config.arm_bottom_visible !== false
                     ? this._renderArm("bottom", this._config.arm_bottom_entity)
                     : nothing}
                 </div>
