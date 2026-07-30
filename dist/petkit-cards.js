@@ -9534,27 +9534,6 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         position: relative;
       }
 
-      /* Full-width horizontal "circuit trace" line at vertical center */
-      .hero.hero-split::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        height: 1px;
-        background: linear-gradient(
-          to right,
-          transparent 1%,
-          rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.18) 6%,
-          rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.55) 35%,
-          rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.55) 65%,
-          rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.18) 94%,
-          transparent 99%
-        );
-        z-index: 4;
-        pointer-events: none;
-      }
-
       .hero-camera {
         position: relative;
         overflow: hidden;
@@ -9574,7 +9553,22 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         display: block;
       }
 
-      /* ── Cable zone: holds the centered paw node ── */
+      /* Terminal dot at the camera's right edge */
+      .hero-camera::after {
+        content: '';
+        position: absolute;
+        right: -3px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgb(var(--rgb-state-vacuum, 3, 155, 229));
+        box-shadow: 0 0 7px rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.6);
+        z-index: 6;
+      }
+
+      /* ── Cable zone: line + centered paw node ── */
       .hero-cable {
         display: flex;
         align-items: center;
@@ -9582,7 +9576,18 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         position: relative;
         z-index: 5;
       }
-
+      /* Line spans only the cable zone — does not touch either panel */
+      .hero-cable::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        height: 1px;
+        background: rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.55);
+        z-index: 1;
+        pointer-events: none;
+      }
       .cable-node {
         width: 30px;
         height: 30px;
@@ -9598,6 +9603,22 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       .cable-node ha-icon {
         --mdc-icon-size: 14px;
         color: rgb(var(--rgb-state-vacuum, 3, 155, 229));
+      }
+
+      /* Terminal dot at the device's left edge */
+      .hero-device::before {
+        content: '';
+        position: absolute;
+        left: -3px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgb(var(--rgb-state-vacuum, 3, 155, 229));
+        box-shadow: 0 0 7px rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.6);
+        z-index: 6;
+        pointer-events: none;
       }
 
       /* ── Device panel: ALWAYS contain — never cropped ── */
