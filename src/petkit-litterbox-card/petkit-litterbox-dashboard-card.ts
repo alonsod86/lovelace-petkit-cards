@@ -240,58 +240,60 @@ export class PetkitLitterboxDashboardCard
 
     return html`
       <div class="hero hero-split" style=${heroStyle}>
-        <!-- Camera panel -->
-        <div class="hero-camera">
-          ${isStream
+        <div class="hero-split-inner">
+          <!-- Camera panel -->
+          <div class="hero-camera">
+            ${isStream
+              ? html`
+                  <ha-camera-stream
+                    .hass=${this.hass}
+                    .stateObj=${cameraStateObj}
+                    muted
+                  ></ha-camera-stream>
+                `
+              : html`
+                  <img
+                    class="camera-img"
+                    src=${snapshotUrl}
+                    alt="camera"
+                    loading="lazy"
+                  />
+                `}
+          </div>
+
+          <!-- Device image panel — split into image + arm area when arms configured -->
+          ${(this._config.arm_top_entity &&
+            this._config.arm_top_visible !== false) ||
+          (this._config.arm_bottom_entity &&
+            this._config.arm_bottom_visible !== false)
             ? html`
-                <ha-camera-stream
-                  .hass=${this.hass}
-                  .stateObj=${cameraStateObj}
-                  muted
-                ></ha-camera-stream>
+                <div class="hero-device hero-device-with-arms">
+                  <div
+                    class="hero-device-img"
+                    style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
+                  ></div>
+                  <div class="hero-device-arms">
+                    ${this._config.arm_top_entity &&
+                    this._config.arm_top_visible !== false
+                      ? this._renderArm("top", this._config.arm_top_entity)
+                      : nothing}
+                    ${this._config.arm_bottom_entity &&
+                    this._config.arm_bottom_visible !== false
+                      ? this._renderArm("bottom", this._config.arm_bottom_entity)
+                      : nothing}
+                  </div>
+                  ${stateObj ? this._renderStateBadge(stateObj) : nothing}
+                </div>
               `
             : html`
-                <img
-                  class="camera-img"
-                  src=${snapshotUrl}
-                  alt="camera"
-                  loading="lazy"
-                />
+                <div
+                  class="hero-device"
+                  style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
+                >
+                  ${stateObj ? this._renderStateBadge(stateObj) : nothing}
+                </div>
               `}
         </div>
-
-        <!-- Device image panel — split into image + arm area when arms configured -->
-        ${(this._config.arm_top_entity &&
-          this._config.arm_top_visible !== false) ||
-        (this._config.arm_bottom_entity &&
-          this._config.arm_bottom_visible !== false)
-          ? html`
-              <div class="hero-device hero-device-with-arms">
-                <div
-                  class="hero-device-img"
-                  style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
-                ></div>
-                <div class="hero-device-arms">
-                  ${this._config.arm_top_entity &&
-                  this._config.arm_top_visible !== false
-                    ? this._renderArm("top", this._config.arm_top_entity)
-                    : nothing}
-                  ${this._config.arm_bottom_entity &&
-                  this._config.arm_bottom_visible !== false
-                    ? this._renderArm("bottom", this._config.arm_bottom_entity)
-                    : nothing}
-                </div>
-                ${stateObj ? this._renderStateBadge(stateObj) : nothing}
-              </div>
-            `
-          : html`
-              <div
-                class="hero-device"
-                style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
-              >
-                ${stateObj ? this._renderStateBadge(stateObj) : nothing}
-              </div>
-            `}
       </div>
     `;
   }
@@ -463,18 +465,27 @@ export class PetkitLitterboxDashboardCard
         overflow: hidden;
       }
 
-      /* ── Split layout: CSS Grid (camera | gap | device) ── */
+      /* ── Split layout: outer hero is a flex centering container ── */
       .hero.hero-split {
-        display: grid;
-        grid-template-columns: var(--camera-size-pct, 30%) 1fr;
-        column-gap: 36px;
+        display: flex;
         align-items: stretch;
+        justify-content: center;
         background: var(--ha-card-background, var(--card-background-color, #111));
         position: relative;
       }
 
-      /* Line centred in the 36px column-gap: 4px clearance from each image edge */
-      .hero.hero-split::before {
+      /* Inner wrapper holds the actual grid — 16px margin each side */
+      .hero-split-inner {
+        display: grid;
+        grid-template-columns: var(--camera-size-pct, 30%) 1fr;
+        column-gap: 36px;
+        align-items: stretch;
+        width: calc(100% - 32px);
+        position: relative;
+      }
+
+      /* Camera connector line — anchored to inner wrapper so % aligns with grid */
+      .hero-split-inner::before {
         content: '';
         position: absolute;
         left: calc(var(--camera-size-pct, 30%) + 4px);
