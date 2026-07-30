@@ -23,6 +23,9 @@ const DASHBOARD_LABELS = [
   "camera_entity",
   "camera_mode",
   "camera_size",
+  "arm_section",
+  "arm_top_entity",
+  "arm_bottom_entity",
   "sensor_1_entity",
   "sensor_1_name",
   "sensor_1_icon",
@@ -95,8 +98,20 @@ const computeSchema = memoizeOne(
           mode: "box" as const,
         },
       },
-    },
-    // ── Sensor 1 ──────────────────────────────────────────────────────────────
+    },    // ── Sensor arms (right side of device image) ───────────────────────
+    {
+      type: "expandable",
+      name: "arm_section",
+      flatten: true,
+      icon: "mdi:arrow-right-bold",
+      title: customLocalize(
+        "editor.card.petkit_litterbox_dashboard.arm_section"
+      ),
+      schema: [
+        { name: "arm_top_entity",    selector: { entity: {} } },
+        { name: "arm_bottom_entity", selector: { entity: {} } },
+      ],
+    },    // ── Sensor 1 ──────────────────────────────────────────────────────────────
     {
       type: "expandable",
       name: "sensor_1_section",

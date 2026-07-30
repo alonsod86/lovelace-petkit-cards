@@ -238,7 +238,34 @@ export class PetkitLitterboxDashboardCard
           class="hero-device"
           style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
         >
+          ${this._config.arm_top_entity
+            ? this._renderArm("top", this._config.arm_top_entity)
+            : nothing}
+          ${this._config.arm_bottom_entity
+            ? this._renderArm("bottom", this._config.arm_bottom_entity)
+            : nothing}
           ${stateObj ? this._renderStateBadge(stateObj) : nothing}
+        </div>
+      </div>
+    `;
+  }
+
+  private _renderArm(
+    position: "top" | "bottom",
+    entityId: string
+  ): TemplateResult {
+    const stateObj = this.hass?.states[entityId];
+    if (!stateObj) return html``;
+    const value = stateObj.state;
+    const unit = (stateObj.attributes.unit_of_measurement as string) ?? "";
+    return html`
+      <div class="hero-arm hero-arm-${position}">
+        <div class="arm-line"></div>
+        <div class="arm-badge">
+          <span class="arm-value">${value}</span
+          >${unit
+            ? html`<span class="arm-unit"> ${unit}</span>`
+            : nothing}
         </div>
       </div>
     `;
@@ -438,6 +465,44 @@ export class PetkitLitterboxDashboardCard
       .hero.hero-split .hero-device {
         background-position: left center;
       }
+
+      /* ── Sensor arm connectors (right side of device image) ── */
+      .hero-arm {
+        position: absolute;
+        left: 45%;
+        right: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+        pointer-events: none;
+      }
+      .hero-arm-top    { top: calc(33% - 11px); }
+      .hero-arm-bottom { top: calc(67% - 11px); }
+
+      .arm-line {
+        flex: 1;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.55);
+        min-width: 8px;
+      }
+
+      .arm-badge {
+        background: rgba(0, 0, 0, 0.38);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 10px;
+        padding: 2px 8px;
+        font-size: 11px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.95);
+        white-space: nowrap;
+        line-height: 1.4;
+        flex-shrink: 0;
+      }
+      .arm-value { font-weight: 600; }
+      .arm-unit  { opacity: 0.75; font-size: 10px; }
 
       /* State badge sits inside .hero or .hero-device (both position:relative) */
 

@@ -23,6 +23,9 @@ export interface PetkitLitterboxDashboardCardConfig extends LovelaceCardConfig {
   camera_entity?: string;
   camera_mode?: CameraMode;
   camera_size?: number; // camera panel width as % of card (default 30)
+  // Sensor arm connectors (right side of device image in split layout)
+  arm_top_entity?: string;    // upper-third arm (e.g. N60 days left)
+  arm_bottom_entity?: string; // lower-third arm (e.g. N50 days left)
   // Sensor chip slots 1–4 (flat prefixed fields)
   sensor_1_entity?: string;
   sensor_1_name?: string;
@@ -47,6 +50,8 @@ export const petkitLitterboxDashboardCardConfigStruct = assign(
     camera_entity: optional(string()),
     camera_mode: optional(union([literal("snapshot"), literal("stream")])),
     camera_size: optional(number()),
+    arm_top_entity: optional(string()),
+    arm_bottom_entity: optional(string()),
     sensor_1_entity: optional(string()),
     sensor_1_name: optional(string()),
     sensor_1_icon: optional(string()),
