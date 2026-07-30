@@ -9583,13 +9583,14 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         position: relative;
       }
 
-      /* Line lives in the column-gap area: camera ends at 44%, gap = 15%, device starts at 59% */
+      /* Line centred in the 36px column-gap: 4px clearance from each image edge */
       .hero.hero-split::before {
         content: '';
         position: absolute;
-        left: var(--camera-size-pct, 30%);
+        left: calc(var(--camera-size-pct, 30%) + 4px);
         width: 28px;
         top: 50%;
+        transform: translateY(-50%);
         height: 1px;
         background: rgba(255, 255, 255, 0.55);
         z-index: 0;
