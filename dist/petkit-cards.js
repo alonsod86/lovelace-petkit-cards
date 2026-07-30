@@ -10385,20 +10385,21 @@ const computeSchema = memoizeOne(
               ]
             }
           }
-        },
-        {
-          name: "camera_size",
-          selector: {
-            number: {
-              min: 15,
-              max: 55,
-              step: 5,
-              unit_of_measurement: "%",
-              mode: "slider"
-            }
-          }
         }
       ]
+    },
+    // ── Camera panel width (top-level so it's always visible) ─────────────────
+    {
+      name: "camera_size",
+      selector: {
+        number: {
+          min: 15,
+          max: 55,
+          step: 5,
+          unit_of_measurement: "%",
+          mode: "box"
+        }
+      }
     },
     // ── Sensor 1 ──────────────────────────────────────────────────────────────
     {
