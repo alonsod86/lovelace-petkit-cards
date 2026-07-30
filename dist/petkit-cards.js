@@ -9441,12 +9441,16 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
     if (!stateObj) return b``;
     const value = stateObj.state;
     const unit = stateObj.attributes.unit_of_measurement ?? "";
+    const name = stateObj.attributes.friendly_name ?? entityId;
     return b`
       <div class="hero-arm hero-arm-${position}">
         <div class="arm-line"></div>
         <div class="arm-badge">
-          <span class="arm-value">${value}</span
-          >${unit ? b`<span class="arm-unit"> ${unit}</span>` : A}
+          <span class="arm-name">${name}</span>
+          <div class="arm-val-row">
+            <span class="arm-value">${value}</span
+            >${unit ? b`<span class="arm-unit"> ${unit}</span>` : A}
+          </div>
         </div>
       </div>
     `;
@@ -9656,7 +9660,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         flex: 1;
         height: 1px;
         background: rgba(255, 255, 255, 0.55);
-        min-width: 8px;
+        min-width: 6px;
       }
 
       .arm-badge {
@@ -9665,16 +9669,26 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         -webkit-backdrop-filter: blur(6px);
         border: 1px solid rgba(255, 255, 255, 0.18);
         border-radius: 10px;
-        padding: 2px 8px;
-        font-size: 11px;
-        font-weight: 500;
+        padding: 3px 8px;
         color: rgba(255, 255, 255, 0.95);
-        white-space: nowrap;
-        line-height: 1.4;
         flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        max-width: 76px;
       }
-      .arm-value { font-weight: 600; }
-      .arm-unit  { opacity: 0.75; font-size: 10px; }
+      .arm-name {
+        font-size: 8px;
+        font-weight: 400;
+        opacity: 0.65;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
+      }
+      .arm-val-row { line-height: 1.3; }
+      .arm-value   { font-size: 12px; font-weight: 600; }
+      .arm-unit    { font-size: 10px; opacity: 0.75; }
 
       /* State badge sits inside .hero or .hero-device (both position:relative) */
 
