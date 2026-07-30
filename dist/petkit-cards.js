@@ -9561,7 +9561,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       .hero.hero-split {
         display: grid;
         grid-template-columns: var(--camera-size-pct, 30%) 1fr;
-        column-gap: 15%;
+        column-gap: 36px;
         align-items: stretch;
         background: var(--ha-card-background, var(--card-background-color, #111));
         position: relative;
