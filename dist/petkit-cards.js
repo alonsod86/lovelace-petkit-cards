@@ -9633,10 +9633,18 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         background-color: var(--ha-card-background, var(--card-background-color, #111));
       }
 
-      /* In the split layout the image must left-align so it starts right where
-         the connector line ends — avoids the gap caused by contain + centering */
+      /* In split layout: center the device image in its column */
       .hero.hero-split .hero-device {
-        background-position: left center;
+        background-position: center;
+      }
+
+      /* In split layout: center the image+arms group within the 1fr column */
+      .hero.hero-split .hero-device-with-arms {
+        justify-content: center;
+      }
+      .hero.hero-split .hero-device-with-arms .hero-device-img {
+        flex: 0 1 250px;
+        background-position: center;
       }
 
       /* ── Split layout: device panel with sensor arms ── */
