@@ -529,6 +529,15 @@ export class PetkitLitterboxDashboardCard
         flex-shrink: 0;
       }
 
+      /* No-camera + arms: limit image width and center the image+arms unit */
+      .hero.hero-device-with-arms {
+        justify-content: center;
+      }
+      .hero.hero-device-with-arms .hero-device-img {
+        flex: 0 1 250px;
+        background-position: right center;
+      }
+
       /* ── Sensor arm connectors (inside .hero-device-arms) ── */
       .hero-arm {
         position: absolute;
