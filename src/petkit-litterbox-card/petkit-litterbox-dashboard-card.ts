@@ -208,7 +208,6 @@ export class PetkitLitterboxDashboardCard
     const gapPct = 15; // column-gap is fixed at 15%
     const heroStyle = styleMap({
       "--camera-size-pct": `${cameraSize}%`,
-      "--camera-line-right": `${100 - cameraSize - gapPct}%`,
     });
 
     return html`
@@ -539,6 +538,7 @@ export class PetkitLitterboxDashboardCard
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
+        box-sizing: border-box;
         gap: 1px;
         max-width: 76px;
       }

@@ -9387,10 +9387,8 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
     const isStream = this._config.camera_mode === "stream";
     const snapshotUrl = `${cameraStateObj.attributes.entity_picture}&_t=${cameraStateObj.last_changed}`;
     const cameraSize = this._config.camera_size ?? 30;
-    const gapPct = 15;
     const heroStyle = o({
-      "--camera-size-pct": `${cameraSize}%`,
-      "--camera-line-right": `${100 - cameraSize - gapPct}%`
+      "--camera-size-pct": `${cameraSize}%`
     });
     return b`
       <div class="hero hero-split" style=${heroStyle}>
@@ -9674,6 +9672,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
+        box-sizing: border-box;
         gap: 1px;
         max-width: 76px;
       }
