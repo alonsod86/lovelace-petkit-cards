@@ -9401,14 +9401,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
                   loading="lazy"
                 />
               `}
-          <div class="camera-gradient"></div>
-        </div>
-
-        <!-- Elegant connector -->
-        <div class="hero-connector">
-          <div class="connector-node">
-            <ha-icon icon="mdi:paw"></ha-icon>
-          </div>
+          <div class="camera-fade"></div>
         </div>
 
         <!-- Device image panel -->
@@ -9416,8 +9409,14 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
           class="hero-device"
           style=${o({ backgroundImage: `url('${imgUrl}')` })}
         >
+          <div class="device-fade"></div>
           <div class="hero-gradient"></div>
           ${stateObj ? this._renderStateBadge(stateObj) : A}
+        </div>
+
+        <!-- Floating paw over the seam — no structural gap -->
+        <div class="seam-paw">
+          <ha-icon icon="mdi:paw"></ha-icon>
         </div>
       </div>
     `;
@@ -9554,89 +9553,64 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         display: block;
       }
 
-      /* Right-side fade so camera bleeds into connector */
-      .camera-gradient {
+      /* ── Camera right-edge fade — bleeds into device panel at seam ── */
+      .camera-fade {
         position: absolute;
         inset: 0;
         background: linear-gradient(
           to right,
-          transparent 55%,
-          rgba(0, 0, 0, 0.55) 100%
+          transparent 45%,
+          rgba(0, 0, 0, 0.72) 100%
         );
         pointer-events: none;
-      }
-
-      /* ── Connector strip ── */
-      .hero-connector {
-        flex: 0 0 40px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--secondary-background-color, rgba(0, 0, 0, 0.03));
-        z-index: 2;
-      }
-
-      /* Vertical line behind the icon */
-      .hero-connector::before {
-        content: '';
-        position: absolute;
-        top: 15%;
-        bottom: 15%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 1px;
-        background: linear-gradient(
-          to bottom,
-          transparent,
-          rgba(255, 255, 255, 0.25) 25%,
-          rgba(255, 255, 255, 0.25) 75%,
-          transparent
-        );
-      }
-
-      .connector-node {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background: rgba(10, 10, 20, 0.65);
-        backdrop-filter: blur(10px) saturate(1.4);
-        -webkit-backdrop-filter: blur(10px) saturate(1.4);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        z-index: 1;
-      }
-
-      .connector-node ha-icon {
-        --mdc-icon-size: 14px;
-        color: rgba(255, 255, 255, 0.75);
       }
 
       /* ── Device panel (right side in split, full in single) ── */
       .hero-device {
         flex: 1 1 0;
         position: relative;
-        background-size: contain;
+        background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         background-color: var(--secondary-background-color, rgba(0, 0, 0, 0.03));
       }
 
-      /* Left-side fade so device panel bleeds into connector */
-      .hero-device .hero-gradient {
+      /* Device left-edge fade — matches camera's right fade at seam */
+      .device-fade {
+        position: absolute;
+        inset: 0;
         background: linear-gradient(
           to left,
-          transparent 55%,
-          rgba(0, 0, 0, 0.3) 100%
-        ),
-        linear-gradient(
-          to bottom,
-          transparent 40%,
-          rgba(0, 0, 0, 0.32) 100%
+          transparent 45%,
+          rgba(0, 0, 0, 0.72) 100%
         );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* ── Floating paw bubble at the seam — no structural gap ── */
+      .seam-paw {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: rgba(10, 10, 20, 0.65);
+        backdrop-filter: blur(12px) saturate(1.4);
+        -webkit-backdrop-filter: blur(12px) saturate(1.4);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        pointer-events: none;
+      }
+
+      .seam-paw ha-icon {
+        --mdc-icon-size: 16px;
+        color: rgba(255, 255, 255, 0.82);
       }
 
       /* State badge sits inside .hero or .hero-device (both position:relative) */
