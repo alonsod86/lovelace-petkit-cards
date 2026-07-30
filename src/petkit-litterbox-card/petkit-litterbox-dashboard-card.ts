@@ -294,7 +294,14 @@ export class PetkitLitterboxDashboardCard
     if (!stateObj) return html``;
     const value = stateObj.state;
     const unit = (stateObj.attributes.unit_of_measurement as string) ?? "";
-    const name = (stateObj.attributes.friendly_name as string) ?? entityId;
+    const customName =
+      position === "top"
+        ? this._config.arm_top_name
+        : this._config.arm_bottom_name;
+    const name =
+      customName ||
+      (stateObj.attributes.friendly_name as string) ||
+      entityId;
     return html`
       <div class="hero-arm hero-arm-${position}">
         <div class="arm-line"></div>

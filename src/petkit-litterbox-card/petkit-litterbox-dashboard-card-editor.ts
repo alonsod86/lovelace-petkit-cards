@@ -25,7 +25,9 @@ const DASHBOARD_LABELS = [
   "camera_size",
   "arm_section",
   "arm_top_entity",
+  "arm_top_name",
   "arm_bottom_entity",
+  "arm_bottom_name",
   "sensor_1_entity",
   "sensor_1_name",
   "sensor_1_icon",
@@ -109,7 +111,9 @@ const computeSchema = memoizeOne(
       ),
       schema: [
         { name: "arm_top_entity",    selector: { entity: {} } },
+        { name: "arm_top_name",      selector: { text: {} } },
         { name: "arm_bottom_entity", selector: { entity: {} } },
+        { name: "arm_bottom_name",   selector: { text: {} } },
       ],
     },    // ── Sensor 1 ──────────────────────────────────────────────────────────────
     {
