@@ -232,7 +232,6 @@ export class PetkitLitterboxDashboardCard
           class="hero-device"
           style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
         >
-          <div class="hero-gradient"></div>
           ${stateObj ? this._renderStateBadge(stateObj) : nothing}
         </div>
       </div>

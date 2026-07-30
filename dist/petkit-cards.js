@@ -9408,7 +9408,6 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
           class="hero-device"
           style=${o({ backgroundImage: `url('${imgUrl}')` })}
         >
-          <div class="hero-gradient"></div>
           ${stateObj ? this._renderStateBadge(stateObj) : A}
         </div>
       </div>
