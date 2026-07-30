@@ -232,7 +232,12 @@ export class PetkitLitterboxDashboardCardEditor
 
   public setConfig(config: PetkitLitterboxDashboardCardConfig): void {
     assert(config, petkitLitterboxDashboardCardConfigStruct);
-    this._config = config;
+    // Default visibility booleans to true so the toggle renders as ON when unset
+    this._config = {
+      arm_top_visible: true,
+      arm_bottom_visible: true,
+      ...config,
+    };
   }
 
   private _computeLabel = (schema: HaFormSchema) => {

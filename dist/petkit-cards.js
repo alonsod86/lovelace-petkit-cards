@@ -10691,7 +10691,11 @@ let PetkitLitterboxDashboardCardEditor = class extends MushroomBaseElement {
   }
   setConfig(config) {
     assert(config, petkitLitterboxDashboardCardConfigStruct);
-    this._config = config;
+    this._config = {
+      arm_top_visible: true,
+      arm_bottom_visible: true,
+      ...config
+    };
   }
   render() {
     if (!this.hass || !this._config) return A;
