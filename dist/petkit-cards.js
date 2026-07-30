@@ -9557,8 +9557,8 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       .hero-cable::before {
         content: '';
         position: absolute;
-        left: 4px;
-        right: 4px;
+        left: 0;
+        right: 0;
         top: 50%;
         height: 1px;
         background: rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.5);
