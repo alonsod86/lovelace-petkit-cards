@@ -522,10 +522,10 @@ export class PetkitLitterboxDashboardCard
       .hero-arm-bottom { top: calc(67% - 11px); }
 
       .arm-line {
-        flex: 1;
+        width: 28px;
+        flex-shrink: 0;
         height: 1px;
         background: rgba(255, 255, 255, 0.55);
-        min-width: 6px;
       }
 
       .arm-badge {
@@ -543,9 +543,9 @@ export class PetkitLitterboxDashboardCard
         max-width: 76px;
       }
       .arm-name {
-        font-size: 8px;
+        font-size: 10px;
         font-weight: 400;
-        opacity: 0.65;
+        opacity: 0.7;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
