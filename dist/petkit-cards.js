@@ -9376,6 +9376,22 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
     if (cameraStateObj) {
       return this._renderSplitHero(imgUrl, stateObj, cameraStateObj);
     }
+    const hasArms = this._config.arm_top_entity || this._config.arm_bottom_entity;
+    if (hasArms) {
+      return b`
+        <div class="hero hero-device-with-arms">
+          <div
+            class="hero-device-img"
+            style=${o({ backgroundImage: `url('${imgUrl}')` })}
+          ></div>
+          <div class="hero-device-arms">
+            ${this._config.arm_top_entity ? this._renderArm("top", this._config.arm_top_entity) : A}
+            ${this._config.arm_bottom_entity ? this._renderArm("bottom", this._config.arm_bottom_entity) : A}
+          </div>
+          ${stateObj ? this._renderStateBadge(stateObj) : A}
+        </div>
+      `;
+    }
     return b`
       <div class="hero" style=${o({ backgroundImage: `url('${imgUrl}')` })}>
         <div class="hero-gradient"></div>

@@ -188,6 +188,29 @@ export class PetkitLitterboxDashboardCard
       return this._renderSplitHero(imgUrl, stateObj, cameraStateObj);
     }
 
+    // No camera — full-width device image, but still support arm connectors
+    const hasArms =
+      this._config.arm_top_entity || this._config.arm_bottom_entity;
+    if (hasArms) {
+      return html`
+        <div class="hero hero-device-with-arms">
+          <div
+            class="hero-device-img"
+            style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
+          ></div>
+          <div class="hero-device-arms">
+            ${this._config.arm_top_entity
+              ? this._renderArm("top", this._config.arm_top_entity)
+              : nothing}
+            ${this._config.arm_bottom_entity
+              ? this._renderArm("bottom", this._config.arm_bottom_entity)
+              : nothing}
+          </div>
+          ${stateObj ? this._renderStateBadge(stateObj) : nothing}
+        </div>
+      `;
+    }
+
     return html`
       <div class="hero" style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}>
         <div class="hero-gradient"></div>
