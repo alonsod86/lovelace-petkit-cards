@@ -546,6 +546,10 @@ export class PetkitLitterboxDashboardCard
         width: 120px;
         flex-shrink: 0;
       }
+      /* Collapse arm column when all arms are hidden (no .hero-arm children) */
+      .hero-device-arms:not(:has(.hero-arm)) {
+        display: none;
+      }
 
       /* No-camera + arms: limit image width and center the image+arms unit */
       .hero.hero-device-with-arms {
