@@ -227,9 +227,6 @@ export class PetkitLitterboxDashboardCard
               `}
         </div>
 
-        <!-- Cable zone: horizontal connector line -->
-        <div class="hero-cable"></div>
-
         <!-- Device image panel — never cropped -->
         <div
           class="hero-device"
@@ -377,19 +374,34 @@ export class PetkitLitterboxDashboardCard
         overflow: hidden;
       }
 
-      /* ── Split layout: CSS Grid (camera | cable | device) ── */
+      /* ── Split layout: CSS Grid (camera | gap | device) ── */
       .hero.hero-split {
         display: grid;
-        grid-template-columns: 44% 48px 1fr;
+        grid-template-columns: 44% 1fr;
+        column-gap: 15%;
         align-items: stretch;
         background: var(--secondary-background-color, rgba(0, 0, 0, 0.03));
         position: relative;
+      }
+
+      /* Line lives in the column-gap area: camera ends at 44%, gap = 15%, device starts at 59% */
+      .hero.hero-split::before {
+        content: '';
+        position: absolute;
+        left: 44%;
+        right: 41%;
+        top: 50%;
+        height: 1px;
+        background: rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.55);
+        z-index: 0;
+        pointer-events: none;
       }
 
       .hero-camera {
         position: relative;
         overflow: hidden;
         background: #000;
+        z-index: 1;
       }
 
       .camera-img {
@@ -405,25 +417,9 @@ export class PetkitLitterboxDashboardCard
         display: block;
       }
 
-      /* ── Cable zone: thin connector line, inset from both panel edges ── */
-      .hero-cable {
-        position: relative;
-        z-index: 5;
-      }
-      .hero-cable::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        height: 1px;
-        background: rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.5);
-        z-index: 1;
-        pointer-events: none;
-      }
-
       /* ── Device panel: ALWAYS contain — never cropped ── */
       .hero-device {
+        z-index: 1;
         position: relative;
         background-size: contain;
         background-position: center;
