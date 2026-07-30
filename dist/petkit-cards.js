@@ -9676,8 +9676,8 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         gap: 6px;
         pointer-events: none;
       }
-      .hero-arm-top    { top: calc(33% - 11px); }
-      .hero-arm-bottom { top: calc(67% - 11px); }
+      .hero-arm-top    { top: calc(33% - 18px); }
+      .hero-arm-bottom { top: calc(67% - 18px); }
 
       .arm-line {
         width: 28px;
