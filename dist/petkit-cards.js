@@ -9972,8 +9972,8 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       .actions-row {
         display: flex;
         flex-direction: row;
-        gap: 8px;
-        padding: 12px 16px 0;
+        gap: 0;
+        padding: 4px 16px 0;
       }
 
       /* Hairline separator when sensors sit above buttons */
@@ -9991,25 +9991,27 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         align-items: center;
         gap: 12px;
         padding: 12px 14px;
-        border-radius: 14px;
-        background: linear-gradient(
-          135deg,
-          rgba(var(--rgb-primary-color, 3,169,244), 0.13) 0%,
-          rgba(var(--rgb-primary-color, 3,169,244), 0.04) 100%
-        );
-        border: 1px solid rgba(var(--rgb-primary-color, 3,169,244), 0.22);
+        border-radius: 0;
+        background: none;
+        border: none;
         cursor: pointer;
         user-select: none;
-        transition: filter 120ms ease, transform 80ms ease;
+        transition: background 120ms ease, transform 80ms ease;
         min-width: 0;
       }
 
       .action-btn:hover {
-        filter: brightness(1.1);
+        background: rgba(120,120,128,0.07);
+        border-radius: 12px;
       }
 
       .action-btn:active {
         transform: scale(0.97);
+      }
+
+      /* Vertical hairline between the two buttons */
+      .action-btn + .action-btn {
+        border-left: 1px solid var(--divider-color, rgba(120,120,128,0.2));
       }
 
       .action-btn-icon {
@@ -10017,7 +10019,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         width: 40px;
         height: 40px;
         border-radius: 10px;
-        background: rgba(var(--rgb-primary-color, 3,169,244), 0.2);
+        background: rgba(var(--rgb-primary-color, 3,169,244), 0.12);
         display: flex;
         align-items: center;
         justify-content: center;
