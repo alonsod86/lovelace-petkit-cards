@@ -9574,9 +9574,9 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         content: '';
         position: absolute;
         left: var(--camera-size-pct, 30%);
-        right: var(--camera-line-right, 55%);
+        width: 28px;
         top: 50%;
-        height: 2px;
+        height: 1px;
         background: rgba(255, 255, 255, 0.55);
         z-index: 0;
         pointer-events: none;
