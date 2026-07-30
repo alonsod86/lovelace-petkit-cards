@@ -9403,12 +9403,8 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
               `}
         </div>
 
-        <!-- Cable zone: horizontal line + paw node -->
-        <div class="hero-cable">
-          <div class="cable-node">
-            <ha-icon icon="mdi:paw"></ha-icon>
-          </div>
-        </div>
+        <!-- Cable zone: horizontal connector line -->
+        <div class="hero-cable"></div>
 
         <!-- Device image panel — never cropped -->
         <div
@@ -9553,71 +9549,20 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         display: block;
       }
 
-      /* Terminal dot at the camera's right edge */
-      .hero-camera::after {
-        content: '';
-        position: absolute;
-        right: -3px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: rgb(var(--rgb-state-vacuum, 3, 155, 229));
-        box-shadow: 0 0 7px rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.6);
-        z-index: 6;
-      }
-
-      /* ── Cable zone: line + centered paw node ── */
+      /* ── Cable zone: thin connector line, inset from both panel edges ── */
       .hero-cable {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         position: relative;
         z-index: 5;
       }
-      /* Line spans only the cable zone — does not touch either panel */
       .hero-cable::before {
         content: '';
         position: absolute;
-        left: 0;
-        right: 0;
+        left: 4px;
+        right: 4px;
         top: 50%;
         height: 1px;
-        background: rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.55);
+        background: rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.5);
         z-index: 1;
-        pointer-events: none;
-      }
-      .cable-node {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background: var(--ha-card-background, var(--card-background-color, #1f2937));
-        border: 1.5px solid rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.55);
-        box-shadow: 0 0 8px rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.25);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .cable-node ha-icon {
-        --mdc-icon-size: 14px;
-        color: rgb(var(--rgb-state-vacuum, 3, 155, 229));
-      }
-
-      /* Terminal dot at the device's left edge */
-      .hero-device::before {
-        content: '';
-        position: absolute;
-        left: -3px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: rgb(var(--rgb-state-vacuum, 3, 155, 229));
-        box-shadow: 0 0 7px rgba(var(--rgb-state-vacuum, 3, 155, 229), 0.6);
-        z-index: 6;
         pointer-events: none;
       }
 
