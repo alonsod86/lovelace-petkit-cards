@@ -61,12 +61,24 @@ const STATE_META: Record<string, StateMeta> = {
 
 const DEFAULT_META: StateMeta = {
   icon: "mdi:help-circle-outline",
-  cssClass: "state-idle",
+  cssClass: "state-label",
 };
 
 function getStateMeta(s: string): StateMeta {
   return STATE_META[s] ?? DEFAULT_META;
 }
+
+// Palette for dynamically assigned per-label colors (cat names, etc.)
+const LABEL_PALETTE: ReadonlyArray<readonly [number, number, number]> = [
+  [236,  72, 153], // pink
+  [ 16, 185, 129], // emerald
+  [251, 146,  60], // orange
+  [167, 139, 250], // violet
+  [ 34, 211, 238], // cyan
+  [250, 204,  21], // yellow
+  [ 74, 222, 128], // green
+  [248, 113, 113], // rose
+] as const;
 
 /** Default label: capitalize + replace underscores with spaces. */
 function defaultLabel(s: string): string {
@@ -185,11 +197,34 @@ export class PetkitLitterboxTimelineCard
     }
   }
 
-  /** Return custom label override if set, otherwise the default formatted string. */
+  /** Return custom label override if set; falls back to unknown placeholder or default. */
   private _stateLabel(s: string): string {
     const key = (`label_${s}`) as keyof PetkitLitterboxTimelineCardConfig;
     const override = this._config![key] as string | undefined;
-    return override?.trim() || defaultLabel(s);
+    if (override?.trim()) return override.trim();
+    const normalized = s.toLowerCase();
+    if (["unknown", "unavailable", "none", ""].includes(normalized)) {
+      return this._config!.unknown_label?.trim() || "Gato";
+    }
+    return defaultLabel(s);
+  }
+
+  /**
+   * Build a map of state value → "R, G, B" string for states not in STATE_META
+   * (e.g. cat names). Colors are assigned from LABEL_PALETTE in first-appearance
+   * order across the current events array.
+   */
+  private _buildLabelColorMap(): Map<string, string> {
+    const map = new Map<string, string>();
+    let idx = 0;
+    for (const ev of this._events) {
+      if (!STATE_META[ev.state] && !map.has(ev.state)) {
+        const [r, g, b] = LABEL_PALETTE[idx % LABEL_PALETTE.length];
+        map.set(ev.state, `${r}, ${g}, ${b}`);
+        idx++;
+      }
+    }
+    return map;
   }
 
   private async _fetchHistory(): Promise<void> {
@@ -231,6 +266,7 @@ export class PetkitLitterboxTimelineCard
     const showHours = this._config.show_header_hours !== false;
     const headerTitle = this._config.header_title?.trim() || entityName;
     const showHeader = showIcon || showTitle || showHours;
+    const labelColorMap = this._buildLabelColorMap();
 
     return html`
       <ha-card>
@@ -262,8 +298,8 @@ export class PetkitLitterboxTimelineCard
                 <span>No events in the last ${hours}h</span>
               </div>`
             : layout === "horizontal"
-            ? this._renderHorizontal()
-            : this._renderVertical()}
+            ? this._renderHorizontal(labelColorMap)
+            : this._renderVertical(labelColorMap)}
         </div>
       </ha-card>
     `;
@@ -271,11 +307,11 @@ export class PetkitLitterboxTimelineCard
 
   // ── Vertical ────────────────────────────────────────────────────────────────
 
-  private _renderVertical(): TemplateResult {
+  private _renderVertical(labelColorMap: Map<string, string>): TemplateResult {
     return html`
       <div class="timeline-v">
         ${this._events.map((ev, i) =>
-          this._renderVerticalItem(ev, i === this._events.length - 1)
+          this._renderVerticalItem(ev, i === this._events.length - 1, labelColorMap)
         )}
       </div>
     `;
@@ -283,13 +319,16 @@ export class PetkitLitterboxTimelineCard
 
   private _renderVerticalItem(
     ev: TimelineEvent,
-    isLast: boolean
+    isLast: boolean,
+    labelColorMap: Map<string, string>
   ): TemplateResult {
     const meta = getStateMeta(ev.state);
+    const labelColor = labelColorMap.get(ev.state);
     const showTime = this._config!.show_event_time !== false;
     const showDuration = this._config!.show_event_duration !== false;
     return html`
-      <div class="v-item ${meta.cssClass}">
+      <div class="v-item ${meta.cssClass}"
+           style=${labelColor ? `--ev-rgb: ${labelColor}` : nothing}>
         <div class="v-rail">
           <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
           ${!isLast ? html`<div class="v-line"></div>` : nothing}
@@ -318,12 +357,12 @@ export class PetkitLitterboxTimelineCard
 
   // ── Horizontal ──────────────────────────────────────────────────────────────
 
-  private _renderHorizontal(): TemplateResult {
+  private _renderHorizontal(labelColorMap: Map<string, string>): TemplateResult {
     const events = [...this._events].reverse(); // oldest → newest (left → right)
     return html`
       <div class="timeline-h">
         ${events.map((ev, i) =>
-          this._renderHorizontalItem(ev, i, events.length)
+          this._renderHorizontalItem(ev, i, events.length, labelColorMap)
         )}
       </div>
     `;
@@ -332,15 +371,18 @@ export class PetkitLitterboxTimelineCard
   private _renderHorizontalItem(
     ev: TimelineEvent,
     index: number,
-    total: number
+    total: number,
+    labelColorMap: Map<string, string>
   ): TemplateResult {
     const meta = getStateMeta(ev.state);
+    const labelColor = labelColorMap.get(ev.state);
     const isFirst = index === 0;
     const isLast = index === total - 1;
     const showTime = this._config!.show_event_time !== false;
     const showDuration = this._config!.show_event_duration !== false;
     return html`
-      <div class="h-item ${meta.cssClass}">
+      <div class="h-item ${meta.cssClass}"
+           style=${labelColor ? `--ev-rgb: ${labelColor}` : nothing}>
         <div class="h-dot-row">
           <div class="${isFirst ? "h-spacer" : "h-line"}"></div>
           <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
@@ -441,6 +483,8 @@ export class PetkitLitterboxTimelineCard
       .state-other { --ev-rgb: 59, 130, 246; }
       .state-idle  { --ev-rgb: var(--rgb-disabled-color, 158, 158, 158); }
       .state-error { --ev-rgb: 244, 67, 54; }
+      /* Dynamically colored labels (cat names etc.) — --ev-rgb injected inline */
+      .state-label { --ev-rgb: 158, 158, 158; }
 
       /* ── Shared: dot ── */
       .dot {

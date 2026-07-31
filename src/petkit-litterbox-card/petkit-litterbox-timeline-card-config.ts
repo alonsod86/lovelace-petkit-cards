@@ -26,6 +26,8 @@ export interface PetkitLitterboxTimelineCardConfig extends LovelaceCardConfig {
   show_idle_events?: boolean;
   show_event_time?: boolean;
   show_event_duration?: boolean;
+  // Unknown state placeholder
+  unknown_label?: string;
   // Per-state label overrides
   label_idle?: string;
   label_cleaning?: string;
@@ -53,6 +55,7 @@ export const petkitLitterboxTimelineCardConfigStruct = assign(
     show_idle_events: optional(boolean()),
     show_event_time: optional(boolean()),
     show_event_duration: optional(boolean()),
+    unknown_label: optional(string()),
     label_idle: optional(string()),
     label_cleaning: optional(string()),
     label_scooping: optional(string()),

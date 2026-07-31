@@ -27,6 +27,7 @@ const TIMELINE_LABELS = [
   "show_idle_events",
   "show_event_time",
   "show_event_duration",
+  "unknown_label",
   "label_idle",
   "label_cleaning",
   "label_scooping",
@@ -140,6 +141,7 @@ const computeSchema = memoizeOne(
           type: "grid" as const,
           name: "",
           schema: [
+            { name: "unknown_label",      selector: { text: {} } },
             { name: "label_idle",        selector: { text: {} } },
             { name: "label_cleaning",    selector: { text: {} } },
             { name: "label_scooping",    selector: { text: {} } },
