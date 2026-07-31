@@ -63,7 +63,7 @@ const STATE_META: Record<string, StateMeta> = {
 };
 
 const DEFAULT_META: StateMeta = {
-  icon: "mdi:help-circle-outline",
+  icon: "mdi:cat",
   cssClass: "state-label",
 };
 
@@ -372,6 +372,17 @@ export class PetkitLitterboxTimelineCard
     `;
   }
 
+  /** Render either the dot or the icon variant based on config. */
+  private _renderMark(ev: TimelineEvent, meta: StateMeta): TemplateResult {
+    if (this._config!.use_icons) {
+      return html`<ha-icon
+        class="mark-icon ${ev.isCurrent ? "current" : ""}"
+        icon=${meta.icon}
+      ></ha-icon>`;
+    }
+    return html`<div class="dot ${ev.isCurrent ? "current" : ""}"></div>`;
+  }
+
   private _renderVerticalItem(
     ev: TimelineEvent,
     isLast: boolean,
@@ -385,7 +396,7 @@ export class PetkitLitterboxTimelineCard
       <div class="v-item ${meta.cssClass}"
            style=${labelColor ? `--ev-rgb: ${labelColor}` : nothing}>
         <div class="v-rail">
-          <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
+          ${this._renderMark(ev, meta)}
           ${!isLast ? html`<div class="v-line"></div>` : nothing}
         </div>
         <div class="v-content">
@@ -468,7 +479,7 @@ export class PetkitLitterboxTimelineCard
           ${isPrimary ? content : nothing}
         </div>
         <div class="v2-rail">
-          <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
+          ${this._renderMark(ev, meta)}
           ${!isLast ? html`<div class="v-line"></div>` : nothing}
         </div>
         <div class="v2-right">
@@ -514,7 +525,7 @@ export class PetkitLitterboxTimelineCard
            style=${labelColor ? `--ev-rgb: ${labelColor}` : nothing}>
         <div class="h-dot-row">
           <div class="${isFirst ? "h-spacer" : "h-line"}"></div>
-          <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
+          ${this._renderMark(ev, meta)}
           <div class="${isLast ? "h-spacer" : "h-line"}"></div>
         </div>
         <div class="h-content">
@@ -632,6 +643,29 @@ export class PetkitLitterboxTimelineCard
       @keyframes pulse-dot {
         0%, 100% { box-shadow: 0 0 0 3px rgba(var(--ev-rgb), 0.2); }
         50%       { box-shadow: 0 0 0 8px rgba(var(--ev-rgb), 0.32); }
+      }
+
+      /* ── Shared: icon marker (optional replacement for the dot) ── */
+      .mark-icon {
+        --mdc-icon-size: 14px;
+        color: rgb(var(--ev-rgb));
+        background: rgba(var(--ev-rgb), 0.14);
+        border-radius: 50%;
+        padding: 3px;
+        box-sizing: content-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+      }
+      .mark-icon.current {
+        animation: pulse-icon 2.2s ease-in-out infinite;
+      }
+      @keyframes pulse-icon {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(var(--ev-rgb), 0.25); }
+        50%       { box-shadow: 0 0 0 6px rgba(var(--ev-rgb), 0.32); }
       }
 
       /* ── Vertical layout ── */

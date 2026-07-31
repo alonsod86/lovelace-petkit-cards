@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "secondary_entity": "Secondary entity (optional, vertical only)", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "events_section": "Event options", "show_idle_events": "Show idle events", "show_event_time": "Show event time", "show_event_duration": "Show event duration", "reverse_order": "Reverse order (oldest first)", "labels_section": "State labels", "unknown_label": "Unknown cat placeholder", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "secondary_entity": "Secondary entity (optional, vertical only)", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "events_section": "Event options", "show_idle_events": "Show idle events", "show_event_time": "Show event time", "show_event_duration": "Show event duration", "reverse_order": "Reverse order (oldest first)", "use_icons": "Use icons instead of dots", "labels_section": "State labels", "unknown_label": "Unknown cat placeholder", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -8679,6 +8679,7 @@ const petkitLitterboxTimelineCardConfigStruct = assign(
     show_event_time: optional(boolean()),
     show_event_duration: optional(boolean()),
     reverse_order: optional(boolean()),
+    use_icons: optional(boolean()),
     unknown_label: optional(string()),
     label_idle: optional(string()),
     label_cleaning: optional(string()),
@@ -8719,7 +8720,7 @@ const STATE_META = {
   fault: { icon: "mdi:alert-circle", cssClass: "state-error" }
 };
 const DEFAULT_META = {
-  icon: "mdi:help-circle-outline",
+  icon: "mdi:cat",
   cssClass: "state-label"
 };
 function getStateMeta(s2) {
@@ -8943,6 +8944,16 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
       </div>
     `;
   }
+  /** Render either the dot or the icon variant based on config. */
+  _renderMark(ev, meta) {
+    if (this._config.use_icons) {
+      return b`<ha-icon
+        class="mark-icon ${ev.isCurrent ? "current" : ""}"
+        icon=${meta.icon}
+      ></ha-icon>`;
+    }
+    return b`<div class="dot ${ev.isCurrent ? "current" : ""}"></div>`;
+  }
   _renderVerticalItem(ev, isLast, labelColorMap) {
     const meta = getStateMeta(ev.state);
     const labelColor = labelColorMap.get(ev.state);
@@ -8952,7 +8963,7 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
       <div class="v-item ${meta.cssClass}"
            style=${labelColor ? `--ev-rgb: ${labelColor}` : A}>
         <div class="v-rail">
-          <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
+          ${this._renderMark(ev, meta)}
           ${!isLast ? b`<div class="v-line"></div>` : A}
         </div>
         <div class="v-content">
@@ -9009,7 +9020,7 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
           ${isPrimary ? content : A}
         </div>
         <div class="v2-rail">
-          <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
+          ${this._renderMark(ev, meta)}
           ${!isLast ? b`<div class="v-line"></div>` : A}
         </div>
         <div class="v2-right">
@@ -9041,7 +9052,7 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
            style=${labelColor ? `--ev-rgb: ${labelColor}` : A}>
         <div class="h-dot-row">
           <div class="${isFirst ? "h-spacer" : "h-line"}"></div>
-          <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
+          ${this._renderMark(ev, meta)}
           <div class="${isLast ? "h-spacer" : "h-line"}"></div>
         </div>
         <div class="h-content">
@@ -9153,6 +9164,29 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
       @keyframes pulse-dot {
         0%, 100% { box-shadow: 0 0 0 3px rgba(var(--ev-rgb), 0.2); }
         50%       { box-shadow: 0 0 0 8px rgba(var(--ev-rgb), 0.32); }
+      }
+
+      /* ── Shared: icon marker (optional replacement for the dot) ── */
+      .mark-icon {
+        --mdc-icon-size: 14px;
+        color: rgb(var(--ev-rgb));
+        background: rgba(var(--ev-rgb), 0.14);
+        border-radius: 50%;
+        padding: 3px;
+        box-sizing: content-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+      }
+      .mark-icon.current {
+        animation: pulse-icon 2.2s ease-in-out infinite;
+      }
+      @keyframes pulse-icon {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(var(--ev-rgb), 0.25); }
+        50%       { box-shadow: 0 0 0 6px rgba(var(--ev-rgb), 0.32); }
       }
 
       /* ── Vertical layout ── */
@@ -10716,6 +10750,7 @@ const TIMELINE_LABELS = [
   "show_event_time",
   "show_event_duration",
   "reverse_order",
+  "use_icons",
   "unknown_label",
   "label_idle",
   "label_cleaning",
@@ -10812,7 +10847,8 @@ const computeSchema$1 = memoizeOne(
             { name: "show_idle_events", selector: { boolean: {} } },
             { name: "show_event_time", selector: { boolean: {} } },
             { name: "show_event_duration", selector: { boolean: {} } },
-            { name: "reverse_order", selector: { boolean: {} } }
+            { name: "reverse_order", selector: { boolean: {} } },
+            { name: "use_icons", selector: { boolean: {} } }
           ]
         }
       ]
