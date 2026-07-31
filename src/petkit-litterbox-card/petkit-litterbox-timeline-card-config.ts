@@ -15,7 +15,9 @@ export type TimelineLayout = "vertical" | "horizontal";
 
 export interface PetkitLitterboxTimelineCardConfig extends LovelaceCardConfig {
   entity: string;
+  entity_icon?: string;
   secondary_entity?: string;
+  secondary_entity_icon?: string;
   layout?: TimelineLayout;
   hours_to_show?: number;
   // Header
@@ -28,7 +30,6 @@ export interface PetkitLitterboxTimelineCardConfig extends LovelaceCardConfig {
   show_event_time?: boolean;
   show_event_duration?: boolean;
   reverse_order?: boolean;
-  use_icons?: boolean;
   // Unknown state placeholder
   unknown_label?: string;
   // Per-state label overrides
@@ -49,7 +50,9 @@ export const petkitLitterboxTimelineCardConfigStruct = assign(
   lovelaceCardConfigStruct,
   object({
     entity: string(),
+    entity_icon: optional(string()),
     secondary_entity: optional(string()),
+    secondary_entity_icon: optional(string()),
     layout: optional(union([literal("vertical"), literal("horizontal")])),
     hours_to_show: optional(number()),
     header_title: optional(string()),
@@ -60,7 +63,6 @@ export const petkitLitterboxTimelineCardConfigStruct = assign(
     show_event_time: optional(boolean()),
     show_event_duration: optional(boolean()),
     reverse_order: optional(boolean()),
-    use_icons: optional(boolean()),
     unknown_label: optional(string()),
     label_idle: optional(string()),
     label_cleaning: optional(string()),

@@ -20,7 +20,9 @@ import {
 const TIMELINE_LABELS = [
   "hours_to_show",
   "layout",
+  "entity_icon",
   "secondary_entity",
+  "secondary_entity_icon",
   "header_title",
   "show_header_icon",
   "show_header_title",
@@ -29,7 +31,6 @@ const TIMELINE_LABELS = [
   "show_event_time",
   "show_event_duration",
   "reverse_order",
-  "use_icons",
   "unknown_label",
   "label_idle",
   "label_cleaning",
@@ -54,8 +55,16 @@ const computeSchema = memoizeOne(
       selector: { entity: { domain: PETKIT_LITTERBOX_STATE_DOMAINS } },
     },
     {
+      name: "entity_icon",
+      selector: { icon: {} },
+    },
+    {
       name: "secondary_entity",
       selector: { entity: { domain: PETKIT_LITTERBOX_STATE_DOMAINS } },
+    },
+    {
+      name: "secondary_entity_icon",
+      selector: { icon: {} },
     },
     {
       name: "layout",
@@ -131,7 +140,6 @@ const computeSchema = memoizeOne(
             { name: "show_event_time",     selector: { boolean: {} } },
             { name: "show_event_duration", selector: { boolean: {} } },
             { name: "reverse_order",       selector: { boolean: {} } },
-            { name: "use_icons",           selector: { boolean: {} } },
           ],
         },
       ],

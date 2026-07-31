@@ -372,12 +372,21 @@ export class PetkitLitterboxTimelineCard
     `;
   }
 
-  /** Render either the dot or the icon variant based on config. */
-  private _renderMark(ev: TimelineEvent, meta: StateMeta): TemplateResult {
-    if (this._config!.use_icons) {
+  /**
+   * Render either the dot or a per-entity icon marker.
+   * The icon is configured on the entity itself in the visual editor
+   * (`entity_icon` / `secondary_entity_icon`). If no icon is configured
+   * for that source, the classic colored dot is used.
+   */
+  private _renderMark(ev: TimelineEvent, _meta: StateMeta): TemplateResult {
+    const icon =
+      ev.source === "primary"
+        ? this._config!.entity_icon
+        : this._config!.secondary_entity_icon;
+    if (icon?.trim()) {
       return html`<ha-icon
         class="mark-icon ${ev.isCurrent ? "current" : ""}"
-        icon=${meta.icon}
+        icon=${icon.trim()}
       ></ha-icon>`;
     }
     return html`<div class="dot ${ev.isCurrent ? "current" : ""}"></div>`;
