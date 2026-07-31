@@ -9202,11 +9202,11 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
         z-index: 1;
       }
       .mark-icon.current {
-        animation: pulse-icon 2.2s ease-in-out infinite;
+        animation: pulse-icon 1.8s ease-in-out infinite;
       }
       @keyframes pulse-icon {
-        0%, 100% { box-shadow: 0 0 0 0 rgba(var(--ev-rgb), 0.25); }
-        50%       { box-shadow: 0 0 0 6px rgba(var(--ev-rgb), 0.32); }
+        0%, 100% { box-shadow: 0 0 0 2px rgba(var(--ev-rgb), 0.28); }
+        50%       { box-shadow: 0 0 0 9px rgba(var(--ev-rgb), 0.38); }
       }
 
       /* ── Vertical layout ── */
