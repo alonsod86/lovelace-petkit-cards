@@ -521,7 +521,7 @@ export class PetkitLitterboxDashboardCard
       .hero {
         position: relative;
         width: 100%;
-        height: 220px;
+        height: clamp(170px, 48vw, 220px);
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
@@ -758,7 +758,7 @@ export class PetkitLitterboxDashboardCard
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 14px 20px 12px;
+        padding: 12px clamp(10px, 4vw, 20px) 10px;
         gap: 0;
       }
 
@@ -767,14 +767,14 @@ export class PetkitLitterboxDashboardCard
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 12px;
+        gap: clamp(8px, 2.5vw, 12px);
         flex: 1;
         min-width: 0;
-        padding: 0 16px 0 0;
+        padding: 0 clamp(8px, 3vw, 16px) 0 0;
       }
 
       .sensor-chip + .sensor-chip {
-        padding: 0 16px 0 16px;
+        padding: 0 clamp(8px, 3vw, 16px) 0 clamp(8px, 3vw, 16px);
         border-left: 1px solid var(--divider-color, rgba(120,120,128,0.2));
       }
 
@@ -789,14 +789,14 @@ export class PetkitLitterboxDashboardCard
       /* ── SVG ring chip ── */
       .ring-wrap {
         position: relative;
-        width: 48px;
-        height: 48px;
+        width: clamp(38px, 11vw, 48px);
+        height: clamp(38px, 11vw, 48px);
         flex-shrink: 0;
       }
 
       .ring-wrap svg {
-        width: 48px;
-        height: 48px;
+        width: 100%;
+        height: 100%;
         display: block;
       }
 
@@ -810,13 +810,13 @@ export class PetkitLitterboxDashboardCard
       }
 
       .ring-icon ha-icon {
-        --mdc-icon-size: 17px;
+        --mdc-icon-size: clamp(14px, 4vw, 17px);
       }
 
       /* ── Icon circle chip ── */
       .icon-circle {
-        width: 44px;
-        height: 44px;
+        width: clamp(36px, 10vw, 44px);
+        height: clamp(36px, 10vw, 44px);
         flex-shrink: 0;
         border-radius: 50%;
         background: rgba(var(--chip-rgb), 0.12);
@@ -827,7 +827,7 @@ export class PetkitLitterboxDashboardCard
       }
 
       .icon-circle ha-icon {
-        --mdc-icon-size: 22px;
+        --mdc-icon-size: clamp(17px, 5vw, 22px);
       }
 
       /* ── Chip text column ── */
@@ -839,20 +839,20 @@ export class PetkitLitterboxDashboardCard
       }
 
       .chip-value {
-        font-size: 18px;
+        font-size: clamp(14px, 4.2vw, 18px);
         font-weight: 700;
         color: var(--primary-text-color);
         line-height: 1;
       }
 
       .chip-unit {
-        font-size: 12px;
+        font-size: clamp(10px, 2.8vw, 12px);
         font-weight: 400;
         color: var(--secondary-text-color);
       }
 
       .chip-label {
-        font-size: 11px;
+        font-size: clamp(10px, 2.6vw, 11px);
         color: var(--secondary-text-color);
         line-height: 1.2;
         overflow: hidden;
@@ -869,14 +869,14 @@ export class PetkitLitterboxDashboardCard
         display: flex;
         flex-direction: row;
         gap: 0;
-        padding: 4px 16px 0;
+        padding: 4px clamp(8px, 3vw, 16px) 0;
       }
 
       /* Hairline separator when sensors sit above buttons */
       .sensors-row + .actions-row {
         margin: 0 4px;
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-left: clamp(6px, 2.5vw, 12px);
+        padding-right: clamp(6px, 2.5vw, 12px);
         border-top: 1px solid var(--divider-color, rgba(120,120,128,0.18));
       }
 
@@ -885,8 +885,8 @@ export class PetkitLitterboxDashboardCard
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 12px;
-        padding: 12px 14px;
+        gap: clamp(8px, 2.5vw, 12px);
+        padding: 10px clamp(8px, 3vw, 14px);
         border-radius: 0;
         background: none;
         border: none;
@@ -912,8 +912,8 @@ export class PetkitLitterboxDashboardCard
 
       .action-btn-icon {
         flex-shrink: 0;
-        width: 40px;
-        height: 40px;
+        width: clamp(32px, 9vw, 40px);
+        height: clamp(32px, 9vw, 40px);
         border-radius: 10px;
         background: rgba(var(--rgb-primary-color, 3,169,244), 0.12);
         display: flex;
@@ -923,11 +923,11 @@ export class PetkitLitterboxDashboardCard
       }
 
       .action-btn-icon ha-state-icon {
-        --mdc-icon-size: 20px;
+        --mdc-icon-size: clamp(16px, 4.5vw, 20px);
       }
 
       .action-btn-label {
-        font-size: 13px;
+        font-size: clamp(11px, 3.2vw, 13px);
         font-weight: 600;
         color: var(--primary-text-color);
         white-space: nowrap;
