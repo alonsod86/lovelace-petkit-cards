@@ -96,7 +96,7 @@
         "btn_1_section": "Action button 1",
         "btn_1_entity": "Entity (button / script / switch)",
         "btn_1_name": "Label override",
-        "btn_1_icon": "Icon",
+        "btn_1_icon": "Icon",        "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))",        "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))",
         "btn_2_section": "Action button 2",
         "btn_2_entity": "Entity (button / script / switch)",
         "btn_2_name": "Label override",

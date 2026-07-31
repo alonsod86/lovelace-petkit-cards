@@ -47,9 +47,11 @@ const DASHBOARD_LABELS = [
   "btn_1_entity",
   "btn_1_name",
   "btn_1_icon",
+  "btn_1_icon_color",
   "btn_2_entity",
   "btn_2_name",
   "btn_2_icon",
+  "btn_2_icon_color",
 ];
 
 const computeSchema = memoizeOne(
@@ -242,6 +244,7 @@ const computeSchema = memoizeOne(
           selector: { icon: {} },
           context: { icon_entity: "btn_1_entity" },
         },
+        { name: "btn_1_icon_color", selector: { text: {} } },
       ],
     },
     // ── Action button 2 ───────────────────────────────────────────────────────
@@ -261,6 +264,7 @@ const computeSchema = memoizeOne(
           selector: { icon: {} },
           context: { icon_entity: "btn_2_entity" },
         },
+        { name: "btn_2_icon_color", selector: { text: {} } },
       ],
     },
   ]

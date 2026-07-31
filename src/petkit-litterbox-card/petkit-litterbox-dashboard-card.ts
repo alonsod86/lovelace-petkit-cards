@@ -201,6 +201,7 @@ export class PetkitLitterboxDashboardCard
         entity,
         name: cfg[`${prefix}_name` as keyof PetkitLitterboxDashboardCardConfig] as string | undefined,
         icon: cfg[`${prefix}_icon` as keyof PetkitLitterboxDashboardCardConfig] as string | undefined,
+        icon_color: cfg[`${prefix}_icon_color` as keyof PetkitLitterboxDashboardCardConfig] as string | undefined,
         tap_action: cfg[`${prefix}_tap_action` as keyof PetkitLitterboxDashboardCardConfig] as import("../ha").ActionConfig | undefined,
       }];
     });
@@ -216,6 +217,7 @@ export class PetkitLitterboxDashboardCard
     entity: string;
     name?: string;
     icon?: string;
+    icon_color?: string;
     tap_action?: import("../ha").ActionConfig;
   }): TemplateResult {
     const stateObj = this.hass?.states[btn.entity] as HassEntity | undefined;
@@ -224,6 +226,9 @@ export class PetkitLitterboxDashboardCard
       (stateObj?.attributes?.friendly_name as string | undefined) ??
       btn.entity;
     const icon = btn.icon ?? (stateObj?.attributes?.icon as string | undefined) ?? "mdi:gesture-tap-button";
+    const iconStyle = btn.icon_color
+      ? { color: btn.icon_color, background: `color-mix(in srgb, ${btn.icon_color} 15%, transparent)` }
+      : {};
 
     return html`
       <div
@@ -234,7 +239,7 @@ export class PetkitLitterboxDashboardCard
           handleAction(this, this.hass!, { entity: btn.entity, tap_action: btn.tap_action ?? { action: "toggle" } }, ev.detail.action!)}
         .actionHandler=${actionHandler({ hasHold: false, hasDoubleClick: false })}
       >
-        <div class="action-btn-icon">
+        <div class="action-btn-icon" style=${styleMap(iconStyle)}>
           <ha-state-icon
             .hass=${this.hass}
             .stateObj=${stateObj}

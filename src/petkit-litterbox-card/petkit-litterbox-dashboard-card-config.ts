@@ -50,10 +50,12 @@ export interface PetkitLitterboxDashboardCardConfig extends LovelaceCardConfig {
   btn_1_entity?: string;
   btn_1_name?: string;
   btn_1_icon?: string;
+  btn_1_icon_color?: string;
   btn_1_tap_action?: ActionConfig;
   btn_2_entity?: string;
   btn_2_name?: string;
   btn_2_icon?: string;
+  btn_2_icon_color?: string;
   btn_2_tap_action?: ActionConfig;
 }
 
@@ -65,7 +67,6 @@ export const petkitLitterboxDashboardCardConfigStruct = assign(
     title: optional(string()),
     show_name: optional(boolean()),
     show_state: optional(boolean()),
-    show_name: optional(boolean()),
     camera_entity: optional(string()),
     camera_mode: optional(union([literal("snapshot"), literal("stream")])),
     camera_size: optional(number()),
@@ -90,10 +91,12 @@ export const petkitLitterboxDashboardCardConfigStruct = assign(
     btn_1_entity: optional(string()),
     btn_1_name: optional(string()),
     btn_1_icon: optional(string()),
+    btn_1_icon_color: optional(string()),
     btn_1_tap_action: optional(actionConfigStruct),
     btn_2_entity: optional(string()),
     btn_2_name: optional(string()),
     btn_2_icon: optional(string()),
+    btn_2_icon_color: optional(string()),
     btn_2_tap_action: optional(actionConfigStruct),
   })
 );
