@@ -336,7 +336,7 @@ export class PetkitLitterboxDashboardCard
                 `}
             <div
               class="camera-click-overlay"
-              @click=${() => this._openMoreInfo(cameraEntity!)}
+              @click=${() => this._openMoreInfo(cameraStateObj.entity_id)}
             ></div>
           </div>
 
