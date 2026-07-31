@@ -8894,7 +8894,10 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
         jobs.push(fetchOne(this._config.secondary_entity, "secondary"));
       }
       const results = await Promise.all(jobs);
-      this._events = results.flat().sort((a2, b2) => b2.startTime.getTime() - a2.startTime.getTime());
+      const merged = results.flat().sort((a2, b2) => b2.startTime.getTime() - a2.startTime.getTime());
+      for (const ev of merged) ev.isCurrent = false;
+      if (merged.length > 0) merged[0].isCurrent = true;
+      this._events = merged;
     } catch (_2) {
       this._events = [];
     } finally {

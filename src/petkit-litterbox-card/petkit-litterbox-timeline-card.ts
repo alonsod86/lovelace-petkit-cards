@@ -283,9 +283,15 @@ export class PetkitLitterboxTimelineCard
       }
       const results = await Promise.all(jobs);
       // Merge and sort newest → oldest.
-      this._events = results
+      const merged = results
         .flat()
         .sort((a, b) => b.startTime.getTime() - a.startTime.getTime());
+      // Only the globally most-recent event should pulse. `processHistory`
+      // marks each source's newest as current; clear that here and re-mark
+      // only the first (newest) event of the merged list.
+      for (const ev of merged) ev.isCurrent = false;
+      if (merged.length > 0) merged[0].isCurrent = true;
+      this._events = merged;
     } catch (_) {
       this._events = [];
     } finally {
