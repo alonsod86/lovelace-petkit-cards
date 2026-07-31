@@ -19,7 +19,9 @@ export type CameraMode = "snapshot" | "stream";
 export interface PetkitLitterboxDashboardCardConfig extends LovelaceCardConfig {
   entity: string;
   picture?: string;
+  title?: string;
   show_name?: boolean;
+  show_state?: boolean;
   // Optional camera panel (left side of hero)
   camera_entity?: string;
   camera_mode?: CameraMode;
@@ -60,6 +62,9 @@ export const petkitLitterboxDashboardCardConfigStruct = assign(
   object({
     entity: string(),
     picture: optional(string()),
+    title: optional(string()),
+    show_name: optional(boolean()),
+    show_state: optional(boolean()),
     show_name: optional(boolean()),
     camera_entity: optional(string()),
     camera_mode: optional(union([literal("snapshot"), literal("stream")])),

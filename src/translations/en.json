@@ -61,7 +61,9 @@
       },
       "petkit_litterbox_dashboard": {
         "picture": "Device image URL",
-        "show_name": "Show entity name",
+        "title": "Card title (overrides entity name)",
+        "show_name": "Show title",
+        "show_state": "Show state badge",
         "camera_section": "Camera panel",
         "camera_entity": "Camera entity",
         "camera_mode": "Camera mode",

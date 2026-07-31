@@ -19,7 +19,9 @@ import {
 
 const DASHBOARD_LABELS = [
   "picture",
+  "title",
   "show_name",
+  "show_state",
   "camera_entity",
   "camera_mode",
   "camera_size",
@@ -60,7 +62,9 @@ const computeSchema = memoizeOne(
       selector: { entity: { domain: PETKIT_LITTERBOX_STATE_DOMAINS } },
     },
     { name: "picture", selector: { text: {} } },
+    { name: "title", selector: { text: {} } },
     { name: "show_name", selector: { boolean: {} } },
+    { name: "show_state", selector: { boolean: {} } },
     // ── Camera panel ──────────────────────────────────────────────────────────
     {
       type: "expandable",

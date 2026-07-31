@@ -161,18 +161,21 @@ export class PetkitLitterboxDashboardCard
     })).filter((s) => s.entity);
 
     const showName = this._config.show_name !== false;
-    const friendlyName =
-      stateObj?.attributes?.friendly_name ?? this._config.entity;
+    const showState = this._config.show_state !== false;
+    const titleText =
+      this._config.title?.trim() ||
+      stateObj?.attributes?.friendly_name ||
+      this._config.entity;
 
     return html`
       <ha-card>
-        ${showName || stateObj
+        ${showName || (showState && stateObj)
           ? html`
             <div class="card-header">
               ${showName
-                ? html`<span class="card-title">${friendlyName}</span>`
+                ? html`<span class="card-title">${titleText}</span>`
                 : nothing}
-              ${stateObj ? this._renderStateBadge(stateObj) : nothing}
+              ${showState && stateObj ? this._renderStateBadge(stateObj) : nothing}
             </div>
           `
           : nothing}
