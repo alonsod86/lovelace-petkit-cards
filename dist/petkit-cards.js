@@ -9371,7 +9371,12 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
     const friendlyName = stateObj?.attributes?.friendly_name ?? this._config.entity;
     return b`
       <ha-card>
-        ${showName ? b`<div class="card-header">${friendlyName}</div>` : A}
+        ${showName || stateObj ? b`
+            <div class="card-header">
+              ${showName ? b`<span class="card-title">${friendlyName}</span>` : A}
+              ${stateObj ? this._renderStateBadge(stateObj) : A}
+            </div>
+          ` : A}
         ${this._renderHero(picture, stateObj)}
         ${sensors.length > 0 ? b`
               <div class="sensors-row">
@@ -9443,14 +9448,12 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
             ${this._config.arm_top_entity && this._config.arm_top_visible !== false ? this._renderArm("top", this._config.arm_top_entity) : A}
             ${this._config.arm_bottom_entity && this._config.arm_bottom_visible !== false ? this._renderArm("bottom", this._config.arm_bottom_entity) : A}
           </div>
-          ${stateObj ? this._renderStateBadge(stateObj) : A}
         </div>
       `;
     }
     return b`
       <div class="hero" style=${o({ backgroundImage: `url('${imgUrl}')` })}>
         <div class="hero-gradient"></div>
-        ${stateObj ? this._renderStateBadge(stateObj) : A}
       </div>
     `;
   }
@@ -9493,14 +9496,12 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
                     ${this._config.arm_top_entity && this._config.arm_top_visible !== false ? this._renderArm("top", this._config.arm_top_entity) : A}
                     ${this._config.arm_bottom_entity && this._config.arm_bottom_visible !== false ? this._renderArm("bottom", this._config.arm_bottom_entity) : A}
                   </div>
-                  ${stateObj ? this._renderStateBadge(stateObj) : A}
                 </div>
               ` : b`
                 <div
                   class="hero-device"
                   style=${o({ backgroundImage: `url('${imgUrl}')` })}
                 >
-                  ${stateObj ? this._renderStateBadge(stateObj) : A}
                 </div>
               `}
         </div>
@@ -9614,12 +9615,24 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       }
 
       .card-header {
-        padding: 16px 16px 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px 8px;
+        gap: 8px;
+      }
+
+      .card-title {
         font-size: 14px;
         font-weight: 500;
         color: var(--secondary-text-color);
         letter-spacing: 0.02em;
         text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
       }
 
       /* ── Hero image area ── */
@@ -9810,20 +9823,16 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
 
       /* ── Glass state badge ── */
       .state-badge {
-        position: absolute;
-        top: 12px;
-        right: 12px;
+        flex-shrink: 0;
         display: inline-flex;
         align-items: center;
-        gap: 7px;
-        padding: 7px 14px 7px 10px;
+        gap: 6px;
+        padding: 5px 10px 5px 8px;
         border-radius: 999px;
-        background: rgba(10, 10, 20, 0.55);
-        backdrop-filter: blur(12px) saturate(1.5);
-        -webkit-backdrop-filter: blur(12px) saturate(1.5);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        color: white;
-        font-size: 13px;
+        background: var(--secondary-background-color, rgba(120,120,128,0.08));
+        border: 1px solid var(--divider-color, rgba(120,120,128,0.2));
+        color: var(--primary-text-color);
+        font-size: 12px;
         font-weight: 500;
         line-height: 1;
         pointer-events: none;
