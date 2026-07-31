@@ -8745,6 +8745,13 @@ const LABEL_PALETTE = [
   [248, 113, 113]
   // rose
 ];
+const UNKNOWN_LABEL_RGB = "156, 163, 175";
+const UNKNOWN_STATES = /* @__PURE__ */ new Set([
+  "unknown",
+  "unavailable",
+  "none",
+  ""
+]);
 function defaultLabel$1(s2) {
   return s2.charAt(0).toUpperCase() + s2.slice(1).replace(/_/g, " ");
 }
@@ -8852,11 +8859,14 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
     const map = /* @__PURE__ */ new Map();
     let idx = 0;
     for (const ev of this._events) {
-      if (!STATE_META[ev.state] && !map.has(ev.state)) {
-        const [r2, g2, b2] = LABEL_PALETTE[idx % LABEL_PALETTE.length];
-        map.set(ev.state, `${r2}, ${g2}, ${b2}`);
-        idx++;
+      if (STATE_META[ev.state] || map.has(ev.state)) continue;
+      if (UNKNOWN_STATES.has(ev.state.toLowerCase())) {
+        map.set(ev.state, UNKNOWN_LABEL_RGB);
+        continue;
       }
+      const [r2, g2, b2] = LABEL_PALETTE[idx % LABEL_PALETTE.length];
+      map.set(ev.state, `${r2}, ${g2}, ${b2}`);
+      idx++;
     }
     return map;
   }

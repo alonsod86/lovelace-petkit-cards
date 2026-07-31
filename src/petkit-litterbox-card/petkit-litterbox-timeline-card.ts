@@ -83,6 +83,17 @@ const LABEL_PALETTE: ReadonlyArray<readonly [number, number, number]> = [
   [248, 113, 113], // rose
 ] as const;
 
+/** Discreet gray used for the unknown-cat placeholder (unknown/unavailable/none/""). */
+const UNKNOWN_LABEL_RGB = "156, 163, 175"; // tailwind gray-400
+
+/** States that render as the "unknown cat" placeholder. */
+const UNKNOWN_STATES: ReadonlySet<string> = new Set([
+  "unknown",
+  "unavailable",
+  "none",
+  "",
+]);
+
 /** Default label: capitalize + replace underscores with spaces. */
 function defaultLabel(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1).replace(/_/g, " ");
@@ -229,11 +240,15 @@ export class PetkitLitterboxTimelineCard
     const map = new Map<string, string>();
     let idx = 0;
     for (const ev of this._events) {
-      if (!STATE_META[ev.state] && !map.has(ev.state)) {
-        const [r, g, b] = LABEL_PALETTE[idx % LABEL_PALETTE.length];
-        map.set(ev.state, `${r}, ${g}, ${b}`);
-        idx++;
+      if (STATE_META[ev.state] || map.has(ev.state)) continue;
+      if (UNKNOWN_STATES.has(ev.state.toLowerCase())) {
+        // Unknown-cat placeholder always uses a discreet gray.
+        map.set(ev.state, UNKNOWN_LABEL_RGB);
+        continue;
       }
+      const [r, g, b] = LABEL_PALETTE[idx % LABEL_PALETTE.length];
+      map.set(ev.state, `${r}, ${g}, ${b}`);
+      idx++;
     }
     return map;
   }
