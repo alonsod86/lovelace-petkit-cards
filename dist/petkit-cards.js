@@ -8674,6 +8674,9 @@ const petkitLitterboxTimelineCardConfigStruct = assign(
     show_header_icon: optional(boolean()),
     show_header_title: optional(boolean()),
     show_header_hours: optional(boolean()),
+    show_idle_events: optional(boolean()),
+    show_event_time: optional(boolean()),
+    show_event_duration: optional(boolean()),
     label_idle: optional(string()),
     label_cleaning: optional(string()),
     label_scooping: optional(string()),
@@ -9438,8 +9441,8 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
   }
   _renderHero(picture, stateObj) {
     const imgUrl = picture ?? PETKIT_DEVICE_IMAGE_URL;
-    const cameraEntity = this._config.camera_entity;
-    const cameraStateObj = cameraEntity ? this.hass.states[cameraEntity] : void 0;
+    const cameraEntity2 = this._config.camera_entity;
+    const cameraStateObj = cameraEntity2 ? this.hass.states[cameraEntity2] : void 0;
     if (cameraStateObj) {
       return this._renderSplitHero(imgUrl, stateObj, cameraStateObj);
     }
@@ -9475,7 +9478,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       <div class="hero hero-split" style=${heroStyle}>
         <div class="hero-split-inner">
           <!-- Camera panel -->
-          <div class="hero-camera">
+          <div class="hero-camera" @click=${() => fireEvent(this, "hass-more-info", { entityId: cameraEntity })}>
             ${isStream ? b`
                   <ha-camera-stream
                     .hass=${this.hass}
@@ -9694,6 +9697,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         background: var(--ha-card-background, var(--card-background-color, #111));
         z-index: 1;
         clip-path: circle(closest-side at center);
+        cursor: pointer;
       }
 
       .camera-img {

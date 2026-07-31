@@ -22,6 +22,10 @@ export interface PetkitLitterboxTimelineCardConfig extends LovelaceCardConfig {
   show_header_icon?: boolean;
   show_header_title?: boolean;
   show_header_hours?: boolean;
+  // Event display options
+  show_idle_events?: boolean;
+  show_event_time?: boolean;
+  show_event_duration?: boolean;
   // Per-state label overrides
   label_idle?: string;
   label_cleaning?: string;
@@ -46,6 +50,9 @@ export const petkitLitterboxTimelineCardConfigStruct = assign(
     show_header_icon: optional(boolean()),
     show_header_title: optional(boolean()),
     show_header_hours: optional(boolean()),
+    show_idle_events: optional(boolean()),
+    show_event_time: optional(boolean()),
+    show_event_duration: optional(boolean()),
     label_idle: optional(string()),
     label_cleaning: optional(string()),
     label_scooping: optional(string()),
