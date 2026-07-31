@@ -45,6 +45,9 @@ declare global {
     "value-changed": {
       value: unknown;
     };
+    "config-changed": {
+      config: any;
+    };
     change: undefined;
   }
 

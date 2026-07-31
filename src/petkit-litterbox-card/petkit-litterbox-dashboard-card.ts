@@ -336,7 +336,7 @@ export class PetkitLitterboxDashboardCard
                 `}
             <div
               class="camera-click-overlay"
-              @click=${() => handleAction(this, this.hass!, { entity: cameraEntity, tap_action: { action: "more-info" } }, "tap")}
+              @click=${() => handleAction(this, this.hass!, { entity: cameraStateObj.entity_id, tap_action: { action: "more-info" } }, "tap")}
             ></div>
           </div>
 

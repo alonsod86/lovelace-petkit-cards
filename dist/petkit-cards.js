@@ -9423,8 +9423,8 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
   }
   _renderHero(picture, stateObj) {
     const imgUrl = picture ?? PETKIT_DEVICE_IMAGE_URL;
-    const cameraEntity2 = this._config.camera_entity;
-    const cameraStateObj = cameraEntity2 ? this.hass.states[cameraEntity2] : void 0;
+    const cameraEntity = this._config.camera_entity;
+    const cameraStateObj = cameraEntity ? this.hass.states[cameraEntity] : void 0;
     if (cameraStateObj) {
       return this._renderSplitHero(imgUrl, stateObj, cameraStateObj);
     }
@@ -9477,7 +9477,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
                 `}
             <div
               class="camera-click-overlay"
-              @click=${() => handleAction(this, this.hass, { entity: cameraEntity, tap_action: { action: "more-info" } }, "tap")}
+              @click=${() => handleAction(this, this.hass, { entity: cameraStateObj.entity_id, tap_action: { action: "more-info" } }, "tap")}
             ></div>
           </div>
 

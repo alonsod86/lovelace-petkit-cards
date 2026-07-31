@@ -1,3 +1,4 @@
+// @ts-expect-error `color-name` is not currently installed; this file is unused.
 import colors from "color-name";
 import { expandHex } from "./hex";
 

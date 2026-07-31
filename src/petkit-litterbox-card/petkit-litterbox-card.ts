@@ -66,7 +66,7 @@ export class PetkitLitterboxCard
     };
   }
 
-  @state() private _config?: PetkitLitterboxCardConfig;
+  @state() protected _config?: PetkitLitterboxCardConfig;
 
   protected get hasControls(): boolean {
     if (!this._config) return false;
