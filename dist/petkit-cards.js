@@ -9704,13 +9704,22 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         background-position: center;
       }
 
-      /* In split layout: center the image+arms group within the 1fr column */
+      /* In split layout: device image fills the full column, arms float as overlay */
       .hero.hero-split .hero-device-with-arms {
-        justify-content: center;
+        display: block;     /* override the flex-row split */
+        position: relative;
       }
       .hero.hero-split .hero-device-with-arms .hero-device-img {
-        flex: 0 1 250px;
+        position: absolute;
+        inset: 0;
         background-position: center;
+      }
+      .hero.hero-split .hero-device-arms {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 110px;
       }
 
       /* ── Split layout: device panel with sensor arms ── */
