@@ -24,6 +24,9 @@ const TIMELINE_LABELS = [
   "show_header_icon",
   "show_header_title",
   "show_header_hours",
+  "show_idle_events",
+  "show_event_time",
+  "show_event_duration",
   "label_idle",
   "label_cleaning",
   "label_scooping",
@@ -98,6 +101,27 @@ const computeSchema = memoizeOne(
             { name: "show_header_icon",  selector: { boolean: {} } },
             { name: "show_header_title", selector: { boolean: {} } },
             { name: "show_header_hours", selector: { boolean: {} } },
+          ],
+        },
+      ],
+    },
+    // ── Event display options ─────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "events_section",
+      flatten: true,
+      icon: "mdi:tune",
+      title: customLocalize(
+        "editor.card.petkit_litterbox_timeline.events_section"
+      ),
+      schema: [
+        {
+          type: "grid" as const,
+          name: "",
+          schema: [
+            { name: "show_idle_events",    selector: { boolean: {} } },
+            { name: "show_event_time",     selector: { boolean: {} } },
+            { name: "show_event_duration", selector: { boolean: {} } },
           ],
         },
       ],

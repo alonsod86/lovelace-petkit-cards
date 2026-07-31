@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "labels_section": "State labels", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "events_section": "Event options", "show_idle_events": "Show idle events", "show_event_time": "Show event time", "show_event_duration": "Show event duration", "labels_section": "State labels", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -8820,7 +8820,8 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
         "GET",
         `history/period/${startTime.toISOString()}?filter_entity_id=${eid}&no_attributes=true&significant_changes_only=false`
       );
-      this._events = processHistory(raw?.[0] ?? []);
+      const events = processHistory(raw?.[0] ?? []);
+      this._events = this._config.show_idle_events === false ? events.filter((ev) => ev.state !== "idle") : events;
     } catch (_2) {
       this._events = [];
     } finally {
@@ -8872,6 +8873,8 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
   }
   _renderVerticalItem(ev, isLast) {
     const meta = getStateMeta(ev.state);
+    const showTime = this._config.show_event_time !== false;
+    const showDuration = this._config.show_event_duration !== false;
     return b`
       <div class="v-item ${meta.cssClass}">
         <div class="v-rail">
@@ -8880,16 +8883,13 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
         </div>
         <div class="v-content">
           <div class="ev-header">
-            <div class="ev-icon">
-              <ha-icon .icon=${meta.icon}></ha-icon>
-            </div>
             <span class="ev-state">${this._stateLabel(ev.state)}</span>
             ${ev.isCurrent ? b`<span class="badge-now">Now</span>` : A}
           </div>
-          <div class="ev-meta">
-            <span class="ev-time">${formatTime(ev.startTime)}</span>
-            <span class="ev-dur">${formatDuration(ev.durationSeconds)}</span>
-          </div>
+          ${showTime || showDuration ? b`<div class="ev-meta">
+                ${showTime ? b`<span class="ev-time">${formatTime(ev.startTime)}</span>` : A}
+                ${showDuration ? b`<span class="ev-dur">${formatDuration(ev.durationSeconds)}</span>` : A}
+              </div>` : A}
         </div>
       </div>
     `;
@@ -8909,6 +8909,8 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
     const meta = getStateMeta(ev.state);
     const isFirst = index === 0;
     const isLast = index === total - 1;
+    const showTime = this._config.show_event_time !== false;
+    const showDuration = this._config.show_event_duration !== false;
     return b`
       <div class="h-item ${meta.cssClass}">
         <div class="h-dot-row">
@@ -8917,12 +8919,9 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
           <div class="${isLast ? "h-spacer" : "h-line"}"></div>
         </div>
         <div class="h-content">
-          <div class="ev-icon">
-            <ha-icon .icon=${meta.icon}></ha-icon>
-          </div>
           <span class="h-state">${this._stateLabel(ev.state)}</span>
-          <span class="h-time">${formatTime(ev.startTime)}</span>
-          <span class="h-dur">${formatDuration(ev.durationSeconds)}</span>
+          ${showTime ? b`<span class="h-time">${formatTime(ev.startTime)}</span>` : A}
+          ${showDuration ? b`<span class="h-dur">${formatDuration(ev.durationSeconds)}</span>` : A}
         </div>
       </div>
     `;
@@ -9028,22 +9027,6 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
         50%       { box-shadow: 0 0 0 8px rgba(var(--ev-rgb), 0.32); }
       }
 
-      /* ── Shared: event icon chip ── */
-      .ev-icon {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        background: rgba(var(--ev-rgb), 0.12);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        color: rgb(var(--ev-rgb));
-      }
-      .ev-icon ha-icon {
-        --mdc-icon-size: 14px;
-      }
-
       /* ── Vertical layout ── */
       .timeline-v {
         padding: 16px 16px 8px;
@@ -9098,7 +9081,6 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
         align-items: center;
         gap: 6px;
         margin-top: 4px;
-        padding-left: 34px;
       }
       .ev-time {
         font-size: 11px;
@@ -9478,7 +9460,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       <div class="hero hero-split" style=${heroStyle}>
         <div class="hero-split-inner">
           <!-- Camera panel -->
-          <div class="hero-camera" @click=${() => fireEvent(this, "hass-more-info", { entityId: cameraEntity })}>
+          <div class="hero-camera">
             ${isStream ? b`
                   <ha-camera-stream
                     .hass=${this.hass}
@@ -9493,6 +9475,10 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
                     loading="lazy"
                   />
                 `}
+            <div
+              class="camera-click-overlay"
+              @click=${() => handleAction(this, this.hass, { entity: cameraEntity, tap_action: { action: "more-info" } }, "tap")}
+            ></div>
           </div>
 
           <!-- Device image panel — split into image + arm area when arms configured -->
@@ -9697,7 +9683,14 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         background: var(--ha-card-background, var(--card-background-color, #111));
         z-index: 1;
         clip-path: circle(closest-side at center);
+      }
+
+      .camera-click-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 10;
         cursor: pointer;
+        border-radius: 50%;
       }
 
       .camera-img {
@@ -10516,6 +10509,9 @@ const TIMELINE_LABELS = [
   "show_header_icon",
   "show_header_title",
   "show_header_hours",
+  "show_idle_events",
+  "show_event_time",
+  "show_event_duration",
   "label_idle",
   "label_cleaning",
   "label_scooping",
@@ -10586,6 +10582,27 @@ const computeSchema$1 = memoizeOne(
             { name: "show_header_icon", selector: { boolean: {} } },
             { name: "show_header_title", selector: { boolean: {} } },
             { name: "show_header_hours", selector: { boolean: {} } }
+          ]
+        }
+      ]
+    },
+    // ── Event display options ─────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "events_section",
+      flatten: true,
+      icon: "mdi:tune",
+      title: customLocalize(
+        "editor.card.petkit_litterbox_timeline.events_section"
+      ),
+      schema: [
+        {
+          type: "grid",
+          name: "",
+          schema: [
+            { name: "show_idle_events", selector: { boolean: {} } },
+            { name: "show_event_time", selector: { boolean: {} } },
+            { name: "show_event_duration", selector: { boolean: {} } }
           ]
         }
       ]

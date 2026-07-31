@@ -13,7 +13,6 @@ import { assert } from "superstruct";
 import {
   actionHandler,
   ActionHandlerEvent,
-  fireEvent,
   handleAction,
   HomeAssistant,
   LovelaceCard,
@@ -318,7 +317,7 @@ export class PetkitLitterboxDashboardCard
       <div class="hero hero-split" style=${heroStyle}>
         <div class="hero-split-inner">
           <!-- Camera panel -->
-          <div class="hero-camera" @click=${() => fireEvent(this, "hass-more-info", { entityId: cameraEntity })}>
+          <div class="hero-camera">
             ${isStream
               ? html`
                   <ha-camera-stream
@@ -335,6 +334,10 @@ export class PetkitLitterboxDashboardCard
                     loading="lazy"
                   />
                 `}
+            <div
+              class="camera-click-overlay"
+              @click=${() => handleAction(this, this.hass!, { entity: cameraEntity, tap_action: { action: "more-info" } }, "tap")}
+            ></div>
           </div>
 
           <!-- Device image panel — split into image + arm area when arms configured -->
@@ -594,7 +597,14 @@ export class PetkitLitterboxDashboardCard
         background: var(--ha-card-background, var(--card-background-color, #111));
         z-index: 1;
         clip-path: circle(closest-side at center);
+      }
+
+      .camera-click-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 10;
         cursor: pointer;
+        border-radius: 50%;
       }
 
       .camera-img {

@@ -203,7 +203,11 @@ export class PetkitLitterboxTimelineCard
         "GET",
         `history/period/${startTime.toISOString()}?filter_entity_id=${eid}&no_attributes=true&significant_changes_only=false`
       );
-      this._events = processHistory(raw?.[0] ?? []);
+      const events = processHistory(raw?.[0] ?? []);
+      this._events =
+        this._config.show_idle_events === false
+          ? events.filter((ev) => ev.state !== "idle")
+          : events;
     } catch (_) {
       this._events = [];
     } finally {
@@ -282,6 +286,8 @@ export class PetkitLitterboxTimelineCard
     isLast: boolean
   ): TemplateResult {
     const meta = getStateMeta(ev.state);
+    const showTime = this._config!.show_event_time !== false;
+    const showDuration = this._config!.show_event_duration !== false;
     return html`
       <div class="v-item ${meta.cssClass}">
         <div class="v-rail">
@@ -290,18 +296,21 @@ export class PetkitLitterboxTimelineCard
         </div>
         <div class="v-content">
           <div class="ev-header">
-            <div class="ev-icon">
-              <ha-icon .icon=${meta.icon}></ha-icon>
-            </div>
             <span class="ev-state">${this._stateLabel(ev.state)}</span>
             ${ev.isCurrent
               ? html`<span class="badge-now">Now</span>`
               : nothing}
           </div>
-          <div class="ev-meta">
-            <span class="ev-time">${formatTime(ev.startTime)}</span>
-            <span class="ev-dur">${formatDuration(ev.durationSeconds)}</span>
-          </div>
+          ${showTime || showDuration
+            ? html`<div class="ev-meta">
+                ${showTime
+                  ? html`<span class="ev-time">${formatTime(ev.startTime)}</span>`
+                  : nothing}
+                ${showDuration
+                  ? html`<span class="ev-dur">${formatDuration(ev.durationSeconds)}</span>`
+                  : nothing}
+              </div>`
+            : nothing}
         </div>
       </div>
     `;
@@ -328,6 +337,8 @@ export class PetkitLitterboxTimelineCard
     const meta = getStateMeta(ev.state);
     const isFirst = index === 0;
     const isLast = index === total - 1;
+    const showTime = this._config!.show_event_time !== false;
+    const showDuration = this._config!.show_event_duration !== false;
     return html`
       <div class="h-item ${meta.cssClass}">
         <div class="h-dot-row">
@@ -336,12 +347,13 @@ export class PetkitLitterboxTimelineCard
           <div class="${isLast ? "h-spacer" : "h-line"}"></div>
         </div>
         <div class="h-content">
-          <div class="ev-icon">
-            <ha-icon .icon=${meta.icon}></ha-icon>
-          </div>
           <span class="h-state">${this._stateLabel(ev.state)}</span>
-          <span class="h-time">${formatTime(ev.startTime)}</span>
-          <span class="h-dur">${formatDuration(ev.durationSeconds)}</span>
+          ${showTime
+            ? html`<span class="h-time">${formatTime(ev.startTime)}</span>`
+            : nothing}
+          ${showDuration
+            ? html`<span class="h-dur">${formatDuration(ev.durationSeconds)}</span>`
+            : nothing}
         </div>
       </div>
     `;
@@ -449,22 +461,6 @@ export class PetkitLitterboxTimelineCard
         50%       { box-shadow: 0 0 0 8px rgba(var(--ev-rgb), 0.32); }
       }
 
-      /* ── Shared: event icon chip ── */
-      .ev-icon {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        background: rgba(var(--ev-rgb), 0.12);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        color: rgb(var(--ev-rgb));
-      }
-      .ev-icon ha-icon {
-        --mdc-icon-size: 14px;
-      }
-
       /* ── Vertical layout ── */
       .timeline-v {
         padding: 16px 16px 8px;
@@ -519,7 +515,6 @@ export class PetkitLitterboxTimelineCard
         align-items: center;
         gap: 6px;
         margin-top: 4px;
-        padding-left: 34px;
       }
       .ev-time {
         font-size: 11px;
