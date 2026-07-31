@@ -16,8 +16,10 @@ export type TimelineLayout = "vertical" | "horizontal";
 export interface PetkitLitterboxTimelineCardConfig extends LovelaceCardConfig {
   entity: string;
   entity_icon?: string;
+  primary_column_title?: string;
   secondary_entity?: string;
   secondary_entity_icon?: string;
+  secondary_column_title?: string;
   layout?: TimelineLayout;
   hours_to_show?: number;
   // Header
@@ -51,8 +53,10 @@ export const petkitLitterboxTimelineCardConfigStruct = assign(
   object({
     entity: string(),
     entity_icon: optional(string()),
+    primary_column_title: optional(string()),
     secondary_entity: optional(string()),
     secondary_entity_icon: optional(string()),
+    secondary_column_title: optional(string()),
     layout: optional(union([literal("vertical"), literal("horizontal")])),
     hours_to_show: optional(number()),
     header_title: optional(string()),

@@ -317,6 +317,12 @@ export class PetkitLitterboxTimelineCard
       ? (secondaryStateObj?.attributes.friendly_name as string | undefined) ??
         this._config.secondary_entity!
       : "";
+    // Custom column titles override the entity friendly name in the legend.
+    const primaryColumnTitle =
+      this._config.primary_column_title?.trim() || entityName;
+    const secondaryColumnTitle = hasSecondary
+      ? this._config.secondary_column_title?.trim() || secondaryName
+      : "";
 
     const showIcon = this._config.show_header_icon !== false;
     const showTitle = this._config.show_header_title !== false;
@@ -366,8 +372,8 @@ export class PetkitLitterboxTimelineCard
             ? this._renderVerticalTwoColumn(
                 visibleEvents,
                 labelColorMap,
-                entityName,
-                secondaryName
+                primaryColumnTitle,
+                secondaryColumnTitle
               )
             : this._renderVertical(visibleEvents, labelColorMap)}
         </div>

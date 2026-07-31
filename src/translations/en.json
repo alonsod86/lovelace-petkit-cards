@@ -42,6 +42,8 @@
         "secondary_entity": "Secondary entity (optional, vertical only)",
         "entity_icon": "Primary entity icon (replaces dot)",
         "secondary_entity_icon": "Secondary entity icon (replaces dot)",
+        "primary_column_title": "Primary column title (optional)",
+        "secondary_column_title": "Secondary column title (optional)",
         "layout_vertical": "Vertical",
         "layout_horizontal": "Horizontal",
         "header_section": "Header",

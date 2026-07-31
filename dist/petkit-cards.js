@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "secondary_entity": "Secondary entity (optional, vertical only)", "entity_icon": "Primary entity icon (replaces dot)", "secondary_entity_icon": "Secondary entity icon (replaces dot)", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "events_section": "Event options", "show_idle_events": "Show idle events", "show_event_time": "Show event time", "show_event_duration": "Show event duration", "reverse_order": "Reverse order (oldest first)", "labels_section": "State labels", "unknown_label": "Unknown cat placeholder", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "secondary_entity": "Secondary entity (optional, vertical only)", "entity_icon": "Primary entity icon (replaces dot)", "secondary_entity_icon": "Secondary entity icon (replaces dot)", "primary_column_title": "Primary column title (optional)", "secondary_column_title": "Secondary column title (optional)", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "events_section": "Event options", "show_idle_events": "Show idle events", "show_event_time": "Show event time", "show_event_duration": "Show event duration", "reverse_order": "Reverse order (oldest first)", "labels_section": "State labels", "unknown_label": "Unknown cat placeholder", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -8669,8 +8669,10 @@ const petkitLitterboxTimelineCardConfigStruct = assign(
   object({
     entity: string(),
     entity_icon: optional(string()),
+    primary_column_title: optional(string()),
     secondary_entity: optional(string()),
     secondary_entity_icon: optional(string()),
+    secondary_column_title: optional(string()),
     layout: optional(union([literal("vertical"), literal("horizontal")])),
     hours_to_show: optional(number()),
     header_title: optional(string()),
@@ -8913,6 +8915,8 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
     const hasSecondary = !!this._config.secondary_entity;
     const secondaryStateObj = hasSecondary ? this.hass.states[this._config.secondary_entity] : void 0;
     const secondaryName = hasSecondary ? secondaryStateObj?.attributes.friendly_name ?? this._config.secondary_entity : "";
+    const primaryColumnTitle = this._config.primary_column_title?.trim() || entityName;
+    const secondaryColumnTitle = hasSecondary ? this._config.secondary_column_title?.trim() || secondaryName : "";
     const showIcon = this._config.show_header_icon !== false;
     const showTitle = this._config.show_header_title !== false;
     const showHours = this._config.show_header_hours !== false;
@@ -8940,8 +8944,8 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
               </div>` : layout === "horizontal" ? this._renderHorizontal(visibleEvents, labelColorMap) : hasSecondary ? this._renderVerticalTwoColumn(
       visibleEvents,
       labelColorMap,
-      entityName,
-      secondaryName
+      primaryColumnTitle,
+      secondaryColumnTitle
     ) : this._renderVertical(visibleEvents, labelColorMap)}
         </div>
       </ha-card>
@@ -10762,8 +10766,10 @@ const TIMELINE_LABELS = [
   "hours_to_show",
   "layout",
   "entity_icon",
+  "primary_column_title",
   "secondary_entity",
   "secondary_entity_icon",
+  "secondary_column_title",
   "header_title",
   "show_header_icon",
   "show_header_title",
@@ -10796,12 +10802,20 @@ const computeSchema$1 = memoizeOne(
       selector: { icon: {} }
     },
     {
+      name: "primary_column_title",
+      selector: { text: {} }
+    },
+    {
       name: "secondary_entity",
       selector: { entity: { domain: PETKIT_LITTERBOX_STATE_DOMAINS } }
     },
     {
       name: "secondary_entity_icon",
       selector: { icon: {} }
+    },
+    {
+      name: "secondary_column_title",
+      selector: { text: {} }
     },
     {
       name: "layout",

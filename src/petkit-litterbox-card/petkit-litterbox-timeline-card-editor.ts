@@ -21,8 +21,10 @@ const TIMELINE_LABELS = [
   "hours_to_show",
   "layout",
   "entity_icon",
+  "primary_column_title",
   "secondary_entity",
   "secondary_entity_icon",
+  "secondary_column_title",
   "header_title",
   "show_header_icon",
   "show_header_title",
@@ -59,12 +61,20 @@ const computeSchema = memoizeOne(
       selector: { icon: {} },
     },
     {
+      name: "primary_column_title",
+      selector: { text: {} },
+    },
+    {
       name: "secondary_entity",
       selector: { entity: { domain: PETKIT_LITTERBOX_STATE_DOMAINS } },
     },
     {
       name: "secondary_entity_icon",
       selector: { icon: {} },
+    },
+    {
+      name: "secondary_column_title",
+      selector: { text: {} },
     },
     {
       name: "layout",
