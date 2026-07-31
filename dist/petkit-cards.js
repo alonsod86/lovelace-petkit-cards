@@ -9516,7 +9516,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
     const name = customName || stateObj.attributes.friendly_name || entityId;
     return b`
       <div class="hero-arm hero-arm-${position}">
-        <div class="arm-line"></div>
+
         <div class="arm-badge">
           <span class="arm-name">${name}</span>
           <div class="arm-val-row">
@@ -9761,23 +9761,11 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       /* ── Sensor arm connectors (inside .hero-device-arms) ── */
       .hero-arm {
         position: absolute;
-        left: 0;
         right: 8px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 6px;
         pointer-events: none;
       }
       .hero-arm-top    { top: calc(33% - 18px); }
       .hero-arm-bottom { top: calc(67% - 18px); }
-
-      .arm-line {
-        width: 28px;
-        flex-shrink: 0;
-        height: 1px;
-        background: rgba(255, 255, 255, 0.55);
-      }
 
       .arm-badge {
         background: rgba(0, 0, 0, 0.38);
