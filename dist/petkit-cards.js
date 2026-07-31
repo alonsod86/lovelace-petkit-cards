@@ -8958,7 +8958,6 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
         <div class="v-content">
           <div class="ev-header">
             <span class="ev-state">${this._stateLabel(ev.state)}</span>
-            ${ev.isCurrent ? b`<span class="badge-now">Now</span>` : A}
           </div>
           ${showTime || showDuration ? b`<div class="ev-meta">
                 ${showTime ? b`<span class="ev-time">${formatTime(ev.startTime)}</span>` : A}
@@ -8997,7 +8996,6 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
     const content = b`
       <div class="ev-header">
         <span class="ev-state">${this._stateLabel(ev.state)}</span>
-        ${ev.isCurrent ? b`<span class="badge-now">Now</span>` : A}
       </div>
       ${showTime || showDuration ? b`<div class="ev-meta">
             ${showTime ? b`<span class="ev-time">${formatTime(ev.startTime)}</span>` : A}
@@ -9194,17 +9192,6 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
         font-weight: 600;
         color: var(--primary-text-color);
         flex: 1;
-      }
-      .badge-now {
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        color: rgb(var(--ev-rgb));
-        background: rgba(var(--ev-rgb), 0.12);
-        padding: 2px 7px;
-        border-radius: 999px;
-        flex-shrink: 0;
       }
       .ev-meta {
         display: flex;
