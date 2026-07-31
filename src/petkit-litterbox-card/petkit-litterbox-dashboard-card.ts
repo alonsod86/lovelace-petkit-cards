@@ -460,7 +460,10 @@ export class PetkitLitterboxDashboardCard
     icon: string
   ): TemplateResult {
     return html`
-      <div class="sensor-chip chip-${pos}">
+      <div class="sensor-chip chip-${pos}"
+        role="button" tabindex="0"
+        @click=${() => handleAction(this, this.hass!, { entity: stateObj.entity_id, tap_action: { action: "more-info" } }, "tap")}
+      >
         <div class="ring-wrap">
           <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle
@@ -497,7 +500,10 @@ export class PetkitLitterboxDashboardCard
     unit: string
   ): TemplateResult {
     return html`
-      <div class="sensor-chip chip-${pos}">
+      <div class="sensor-chip chip-${pos}"
+        role="button" tabindex="0"
+        @click=${() => handleAction(this, this.hass!, { entity: stateObj.entity_id, tap_action: { action: "more-info" } }, "tap")}
+      >
         <div class="icon-circle">
           <ha-icon .icon=${icon}></ha-icon>
         </div>
@@ -800,6 +806,13 @@ export class PetkitLitterboxDashboardCard
         flex: 1;
         min-width: 0;
         padding: 0 16px 0 0;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: background 120ms ease;
+      }
+
+      .sensor-chip:hover {
+        background: rgba(120,120,128,0.07);
       }
 
       .sensor-chip + .sensor-chip {
