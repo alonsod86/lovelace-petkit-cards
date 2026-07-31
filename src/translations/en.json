@@ -39,6 +39,7 @@
       "petkit_litterbox_timeline": {
         "layout": "Layout",
         "hours_to_show": "History window",
+        "secondary_entity": "Secondary entity (optional, vertical only)",
         "layout_vertical": "Vertical",
         "layout_horizontal": "Horizontal",
         "header_section": "Header",

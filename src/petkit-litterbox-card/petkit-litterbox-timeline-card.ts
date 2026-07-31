@@ -29,11 +29,14 @@ interface RawStateItem {
   last_changed: string;
 }
 
+type EventSource = "primary" | "secondary";
+
 interface TimelineEvent {
   state: string;
   startTime: Date;
   durationSeconds: number;
   isCurrent: boolean;
+  source: EventSource;
 }
 
 interface StateMeta {
@@ -97,7 +100,10 @@ function formatTime(date: Date): string {
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
-function processHistory(items: RawStateItem[]): TimelineEvent[] {
+function processHistory(
+  items: RawStateItem[],
+  source: EventSource
+): TimelineEvent[] {
   if (!items.length) return [];
   const now = new Date();
   return items
@@ -112,6 +118,7 @@ function processHistory(items: RawStateItem[]): TimelineEvent[] {
         startTime,
         durationSeconds,
         isCurrent: i === items.length - 1,
+        source,
       };
     })
     .reverse(); // newest first
@@ -187,11 +194,15 @@ export class PetkitLitterboxTimelineCard
         void this._fetchHistory();
         return;
       }
-      const id = this._config.entity;
-      if (
-        this.hass.states[id]?.last_changed !==
-        oldHass.states[id]?.last_changed
-      ) {
+      const ids = [this._config.entity, this._config.secondary_entity].filter(
+        (id): id is string => !!id
+      );
+      const changed = ids.some(
+        (id) =>
+          this.hass.states[id]?.last_changed !==
+          oldHass.states[id]?.last_changed
+      );
+      if (changed) {
         void this._fetchHistory();
       }
     }
@@ -233,16 +244,33 @@ export class PetkitLitterboxTimelineCard
     try {
       const hours = this._config.hours_to_show ?? 12;
       const startTime = new Date(Date.now() - hours * 3_600_000);
-      const eid = encodeURIComponent(this._config.entity);
-      const raw = await this.hass.callApi<RawStateItem[][]>(
-        "GET",
-        `history/period/${startTime.toISOString()}?filter_entity_id=${eid}&no_attributes=true&significant_changes_only=false`
-      );
-      const events = processHistory(raw?.[0] ?? []);
-      this._events =
-        this._config.show_idle_events === false
-          ? events.filter((ev) => ev.state !== "idle")
-          : events;
+      const startIso = startTime.toISOString();
+      const hideIdle = this._config.show_idle_events === false;
+
+      const fetchOne = async (
+        entityId: string,
+        source: EventSource
+      ): Promise<TimelineEvent[]> => {
+        const eid = encodeURIComponent(entityId);
+        const raw = await this.hass.callApi<RawStateItem[][]>(
+          "GET",
+          `history/period/${startIso}?filter_entity_id=${eid}&no_attributes=true&significant_changes_only=false`
+        );
+        const events = processHistory(raw?.[0] ?? [], source);
+        return hideIdle ? events.filter((ev) => ev.state !== "idle") : events;
+      };
+
+      const jobs: Promise<TimelineEvent[]>[] = [
+        fetchOne(this._config.entity, "primary"),
+      ];
+      if (this._config.secondary_entity) {
+        jobs.push(fetchOne(this._config.secondary_entity, "secondary"));
+      }
+      const results = await Promise.all(jobs);
+      // Merge and sort newest → oldest.
+      this._events = results
+        .flat()
+        .sort((a, b) => b.startTime.getTime() - a.startTime.getTime());
     } catch (_) {
       this._events = [];
     } finally {
@@ -260,6 +288,14 @@ export class PetkitLitterboxTimelineCard
       this._config.entity;
     const hours = this._config.hours_to_show ?? 12;
     const layout = this._config.layout ?? "vertical";
+    const hasSecondary = !!this._config.secondary_entity;
+    const secondaryStateObj: HassEntity | undefined = hasSecondary
+      ? this.hass.states[this._config.secondary_entity!]
+      : undefined;
+    const secondaryName = hasSecondary
+      ? (secondaryStateObj?.attributes.friendly_name as string | undefined) ??
+        this._config.secondary_entity!
+      : "";
 
     const showIcon = this._config.show_header_icon !== false;
     const showTitle = this._config.show_header_title !== false;
@@ -267,6 +303,12 @@ export class PetkitLitterboxTimelineCard
     const headerTitle = this._config.header_title?.trim() || entityName;
     const showHeader = showIcon || showTitle || showHours;
     const labelColorMap = this._buildLabelColorMap();
+    // Horizontal layout does not support the two-column merge; render only
+    // primary events there. Vertical merges both when a secondary is set.
+    const visibleEvents =
+      layout === "horizontal" && hasSecondary
+        ? this._events.filter((ev) => ev.source === "primary")
+        : this._events;
 
     return html`
       <ha-card>
@@ -292,25 +334,35 @@ export class PetkitLitterboxTimelineCard
                   <ha-icon icon="mdi:clock-outline"></ha-icon>
                 </div>
               </div>`
-            : this._events.length === 0
+            : visibleEvents.length === 0
             ? html`<div class="placeholder">
                 <ha-icon icon="mdi:history"></ha-icon>
                 <span>No events in the last ${hours}h</span>
               </div>`
             : layout === "horizontal"
-            ? this._renderHorizontal(labelColorMap)
-            : this._renderVertical(labelColorMap)}
+            ? this._renderHorizontal(visibleEvents, labelColorMap)
+            : hasSecondary
+            ? this._renderVerticalTwoColumn(
+                visibleEvents,
+                labelColorMap,
+                entityName,
+                secondaryName
+              )
+            : this._renderVertical(visibleEvents, labelColorMap)}
         </div>
       </ha-card>
     `;
   }
 
-  // ── Vertical ────────────────────────────────────────────────────────────────
+  // ── Vertical (single column) ────────────────────────────────────────────────
 
-  private _renderVertical(labelColorMap: Map<string, string>): TemplateResult {
+  private _renderVertical(
+    sourceEvents: TimelineEvent[],
+    labelColorMap: Map<string, string>
+  ): TemplateResult {
     const events = this._config!.reverse_order
-      ? [...this._events].reverse() // oldest → top
-      : this._events;               // newest → top (default)
+      ? [...sourceEvents].reverse() // oldest → top
+      : sourceEvents;               // newest → top (default)
     return html`
       <div class="timeline-v">
         ${events.map((ev, i) =>
@@ -358,13 +410,90 @@ export class PetkitLitterboxTimelineCard
     `;
   }
 
+  // ── Vertical (two columns: primary | rail | secondary) ─────────────────────
+
+  private _renderVerticalTwoColumn(
+    sourceEvents: TimelineEvent[],
+    labelColorMap: Map<string, string>,
+    primaryName: string,
+    secondaryName: string
+  ): TemplateResult {
+    const events = this._config!.reverse_order
+      ? [...sourceEvents].reverse() // oldest → top
+      : sourceEvents;               // newest → top (default)
+    return html`
+      <div class="timeline-v2">
+        <div class="v2-legend">
+          <span class="v2-legend-label v2-legend-left">${primaryName}</span>
+          <span class="v2-legend-rail"></span>
+          <span class="v2-legend-label v2-legend-right">${secondaryName}</span>
+        </div>
+        ${events.map((ev, i) =>
+          this._renderVerticalTwoColumnItem(
+            ev,
+            i === events.length - 1,
+            labelColorMap
+          )
+        )}
+      </div>
+    `;
+  }
+
+  private _renderVerticalTwoColumnItem(
+    ev: TimelineEvent,
+    isLast: boolean,
+    labelColorMap: Map<string, string>
+  ): TemplateResult {
+    const meta = getStateMeta(ev.state);
+    const labelColor = labelColorMap.get(ev.state);
+    const showTime = this._config!.show_event_time !== false;
+    const showDuration = this._config!.show_event_duration !== false;
+    const isPrimary = ev.source === "primary";
+    const content = html`
+      <div class="ev-header">
+        <span class="ev-state">${this._stateLabel(ev.state)}</span>
+        ${ev.isCurrent
+          ? html`<span class="badge-now">Now</span>`
+          : nothing}
+      </div>
+      ${showTime || showDuration
+        ? html`<div class="ev-meta">
+            ${showTime
+              ? html`<span class="ev-time">${formatTime(ev.startTime)}</span>`
+              : nothing}
+            ${showDuration
+              ? html`<span class="ev-dur">${formatDuration(ev.durationSeconds)}</span>`
+              : nothing}
+          </div>`
+        : nothing}
+    `;
+    return html`
+      <div class="v2-item ${meta.cssClass} ${isPrimary ? "src-primary" : "src-secondary"}"
+           style=${labelColor ? `--ev-rgb: ${labelColor}` : nothing}>
+        <div class="v2-left">
+          ${isPrimary ? content : nothing}
+        </div>
+        <div class="v2-rail">
+          <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
+          ${!isLast ? html`<div class="v-line"></div>` : nothing}
+        </div>
+        <div class="v2-right">
+          ${!isPrimary ? content : nothing}
+        </div>
+      </div>
+    `;
+  }
+
   // ── Horizontal ──────────────────────────────────────────────────────────────
 
-  private _renderHorizontal(labelColorMap: Map<string, string>): TemplateResult {
+  private _renderHorizontal(
+    sourceEvents: TimelineEvent[],
+    labelColorMap: Map<string, string>
+  ): TemplateResult {
     // Default: oldest → newest (left → right). reverse_order flips to newest → oldest.
     const events = this._config!.reverse_order
-      ? [...this._events]            // newest → left
-      : [...this._events].reverse(); // oldest → left (default)
+      ? [...sourceEvents]            // newest → left
+      : [...sourceEvents].reverse(); // oldest → left (default)
     return html`
       <div class="timeline-h">
         ${events.map((ev, i) =>
@@ -576,6 +705,61 @@ export class PetkitLitterboxTimelineCard
         background: var(--secondary-background-color, rgba(0, 0, 0, 0.05));
         padding: 1px 6px;
         border-radius: 999px;
+      }
+
+      /* ── Vertical two-column layout (primary | rail | secondary) ── */
+      .timeline-v2 {
+        padding: 12px 16px 8px;
+        display: flex;
+        flex-direction: column;
+      }
+      .v2-legend {
+        display: grid;
+        grid-template-columns: 1fr 22px 1fr;
+        gap: 0 12px;
+        align-items: center;
+        padding-bottom: 8px;
+        margin-bottom: 4px;
+        border-bottom: 1px dashed var(--divider-color);
+      }
+      .v2-legend-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+        color: var(--secondary-text-color);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .v2-legend-left  { text-align: right; }
+      .v2-legend-right { text-align: left; }
+      .v2-item {
+        display: grid;
+        grid-template-columns: 1fr 22px 1fr;
+        gap: 0 12px;
+      }
+      .v2-left {
+        text-align: right;
+        padding-bottom: 14px;
+      }
+      .v2-right {
+        text-align: left;
+        padding-bottom: 14px;
+      }
+      /* Right-align content in the .v2-left column */
+      .v2-left .ev-header,
+      .v2-left .ev-meta {
+        justify-content: flex-end;
+      }
+      .v2-left .ev-state {
+        flex: 0 0 auto;
+      }
+      .v2-rail {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 5px;
       }
 
       /* ── Horizontal layout ── */

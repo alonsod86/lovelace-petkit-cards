@@ -20,6 +20,7 @@ import {
 const TIMELINE_LABELS = [
   "hours_to_show",
   "layout",
+  "secondary_entity",
   "header_title",
   "show_header_icon",
   "show_header_title",
@@ -49,6 +50,10 @@ const computeSchema = memoizeOne(
   ): HaFormSchema[] => [
     {
       name: "entity",
+      selector: { entity: { domain: PETKIT_LITTERBOX_STATE_DOMAINS } },
+    },
+    {
+      name: "secondary_entity",
       selector: { entity: { domain: PETKIT_LITTERBOX_STATE_DOMAINS } },
     },
     {

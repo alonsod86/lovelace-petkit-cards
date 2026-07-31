@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "events_section": "Event options", "show_idle_events": "Show idle events", "show_event_time": "Show event time", "show_event_duration": "Show event duration", "reverse_order": "Reverse order (oldest first)", "labels_section": "State labels", "unknown_label": "Unknown cat placeholder", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "secondary_entity": "Secondary entity (optional, vertical only)", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "events_section": "Event options", "show_idle_events": "Show idle events", "show_event_time": "Show event time", "show_event_duration": "Show event duration", "reverse_order": "Reverse order (oldest first)", "labels_section": "State labels", "unknown_label": "Unknown cat placeholder", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -8668,6 +8668,7 @@ const petkitLitterboxTimelineCardConfigStruct = assign(
   lovelaceCardConfigStruct,
   object({
     entity: string(),
+    secondary_entity: optional(string()),
     layout: optional(union([literal("vertical"), literal("horizontal")])),
     hours_to_show: optional(number()),
     header_title: optional(string()),
@@ -8755,7 +8756,7 @@ function formatDuration(seconds) {
 function formatTime(date) {
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
-function processHistory(items) {
+function processHistory(items, source) {
   if (!items.length) return [];
   const now = /* @__PURE__ */ new Date();
   return items.map((item, i4) => {
@@ -8766,7 +8767,8 @@ function processHistory(items) {
       state: item.state,
       startTime,
       durationSeconds,
-      isCurrent: i4 === items.length - 1
+      isCurrent: i4 === items.length - 1,
+      source
     };
   }).reverse();
 }
@@ -8817,8 +8819,13 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
         void this._fetchHistory();
         return;
       }
-      const id = this._config.entity;
-      if (this.hass.states[id]?.last_changed !== oldHass.states[id]?.last_changed) {
+      const ids = [this._config.entity, this._config.secondary_entity].filter(
+        (id) => !!id
+      );
+      const changed = ids.some(
+        (id) => this.hass.states[id]?.last_changed !== oldHass.states[id]?.last_changed
+      );
+      if (changed) {
         void this._fetchHistory();
       }
     }
@@ -8857,13 +8864,25 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
     try {
       const hours = this._config.hours_to_show ?? 12;
       const startTime = new Date(Date.now() - hours * 36e5);
-      const eid = encodeURIComponent(this._config.entity);
-      const raw = await this.hass.callApi(
-        "GET",
-        `history/period/${startTime.toISOString()}?filter_entity_id=${eid}&no_attributes=true&significant_changes_only=false`
-      );
-      const events = processHistory(raw?.[0] ?? []);
-      this._events = this._config.show_idle_events === false ? events.filter((ev) => ev.state !== "idle") : events;
+      const startIso = startTime.toISOString();
+      const hideIdle = this._config.show_idle_events === false;
+      const fetchOne = async (entityId, source) => {
+        const eid = encodeURIComponent(entityId);
+        const raw = await this.hass.callApi(
+          "GET",
+          `history/period/${startIso}?filter_entity_id=${eid}&no_attributes=true&significant_changes_only=false`
+        );
+        const events = processHistory(raw?.[0] ?? [], source);
+        return hideIdle ? events.filter((ev) => ev.state !== "idle") : events;
+      };
+      const jobs = [
+        fetchOne(this._config.entity, "primary")
+      ];
+      if (this._config.secondary_entity) {
+        jobs.push(fetchOne(this._config.secondary_entity, "secondary"));
+      }
+      const results = await Promise.all(jobs);
+      this._events = results.flat().sort((a2, b2) => b2.startTime.getTime() - a2.startTime.getTime());
     } catch (_2) {
       this._events = [];
     } finally {
@@ -8876,12 +8895,16 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
     const entityName = stateObj?.attributes.friendly_name ?? this._config.entity;
     const hours = this._config.hours_to_show ?? 12;
     const layout = this._config.layout ?? "vertical";
+    const hasSecondary = !!this._config.secondary_entity;
+    const secondaryStateObj = hasSecondary ? this.hass.states[this._config.secondary_entity] : void 0;
+    const secondaryName = hasSecondary ? secondaryStateObj?.attributes.friendly_name ?? this._config.secondary_entity : "";
     const showIcon = this._config.show_header_icon !== false;
     const showTitle = this._config.show_header_title !== false;
     const showHours = this._config.show_header_hours !== false;
     const headerTitle = this._config.header_title?.trim() || entityName;
     const showHeader = showIcon || showTitle || showHours;
     const labelColorMap = this._buildLabelColorMap();
+    const visibleEvents = layout === "horizontal" && hasSecondary ? this._events.filter((ev) => ev.source === "primary") : this._events;
     return b`
       <ha-card>
         ${showHeader ? b`
@@ -8896,17 +8919,22 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
                 <div class="placeholder-icon">
                   <ha-icon icon="mdi:clock-outline"></ha-icon>
                 </div>
-              </div>` : this._events.length === 0 ? b`<div class="placeholder">
+              </div>` : visibleEvents.length === 0 ? b`<div class="placeholder">
                 <ha-icon icon="mdi:history"></ha-icon>
                 <span>No events in the last ${hours}h</span>
-              </div>` : layout === "horizontal" ? this._renderHorizontal(labelColorMap) : this._renderVertical(labelColorMap)}
+              </div>` : layout === "horizontal" ? this._renderHorizontal(visibleEvents, labelColorMap) : hasSecondary ? this._renderVerticalTwoColumn(
+      visibleEvents,
+      labelColorMap,
+      entityName,
+      secondaryName
+    ) : this._renderVertical(visibleEvents, labelColorMap)}
         </div>
       </ha-card>
     `;
   }
-  // ── Vertical ────────────────────────────────────────────────────────────────
-  _renderVertical(labelColorMap) {
-    const events = this._config.reverse_order ? [...this._events].reverse() : this._events;
+  // ── Vertical (single column) ────────────────────────────────────────────────
+  _renderVertical(sourceEvents, labelColorMap) {
+    const events = this._config.reverse_order ? [...sourceEvents].reverse() : sourceEvents;
     return b`
       <div class="timeline-v">
         ${events.map(
@@ -8940,9 +8968,61 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
       </div>
     `;
   }
+  // ── Vertical (two columns: primary | rail | secondary) ─────────────────────
+  _renderVerticalTwoColumn(sourceEvents, labelColorMap, primaryName, secondaryName) {
+    const events = this._config.reverse_order ? [...sourceEvents].reverse() : sourceEvents;
+    return b`
+      <div class="timeline-v2">
+        <div class="v2-legend">
+          <span class="v2-legend-label v2-legend-left">${primaryName}</span>
+          <span class="v2-legend-rail"></span>
+          <span class="v2-legend-label v2-legend-right">${secondaryName}</span>
+        </div>
+        ${events.map(
+      (ev, i4) => this._renderVerticalTwoColumnItem(
+        ev,
+        i4 === events.length - 1,
+        labelColorMap
+      )
+    )}
+      </div>
+    `;
+  }
+  _renderVerticalTwoColumnItem(ev, isLast, labelColorMap) {
+    const meta = getStateMeta(ev.state);
+    const labelColor = labelColorMap.get(ev.state);
+    const showTime = this._config.show_event_time !== false;
+    const showDuration = this._config.show_event_duration !== false;
+    const isPrimary = ev.source === "primary";
+    const content = b`
+      <div class="ev-header">
+        <span class="ev-state">${this._stateLabel(ev.state)}</span>
+        ${ev.isCurrent ? b`<span class="badge-now">Now</span>` : A}
+      </div>
+      ${showTime || showDuration ? b`<div class="ev-meta">
+            ${showTime ? b`<span class="ev-time">${formatTime(ev.startTime)}</span>` : A}
+            ${showDuration ? b`<span class="ev-dur">${formatDuration(ev.durationSeconds)}</span>` : A}
+          </div>` : A}
+    `;
+    return b`
+      <div class="v2-item ${meta.cssClass} ${isPrimary ? "src-primary" : "src-secondary"}"
+           style=${labelColor ? `--ev-rgb: ${labelColor}` : A}>
+        <div class="v2-left">
+          ${isPrimary ? content : A}
+        </div>
+        <div class="v2-rail">
+          <div class="dot ${ev.isCurrent ? "current" : ""}"></div>
+          ${!isLast ? b`<div class="v-line"></div>` : A}
+        </div>
+        <div class="v2-right">
+          ${!isPrimary ? content : A}
+        </div>
+      </div>
+    `;
+  }
   // ── Horizontal ──────────────────────────────────────────────────────────────
-  _renderHorizontal(labelColorMap) {
-    const events = this._config.reverse_order ? [...this._events] : [...this._events].reverse();
+  _renderHorizontal(sourceEvents, labelColorMap) {
+    const events = this._config.reverse_order ? [...sourceEvents] : [...sourceEvents].reverse();
     return b`
       <div class="timeline-h">
         ${events.map(
@@ -9142,6 +9222,61 @@ let PetkitLitterboxTimelineCard = class extends i$2 {
         background: var(--secondary-background-color, rgba(0, 0, 0, 0.05));
         padding: 1px 6px;
         border-radius: 999px;
+      }
+
+      /* ── Vertical two-column layout (primary | rail | secondary) ── */
+      .timeline-v2 {
+        padding: 12px 16px 8px;
+        display: flex;
+        flex-direction: column;
+      }
+      .v2-legend {
+        display: grid;
+        grid-template-columns: 1fr 22px 1fr;
+        gap: 0 12px;
+        align-items: center;
+        padding-bottom: 8px;
+        margin-bottom: 4px;
+        border-bottom: 1px dashed var(--divider-color);
+      }
+      .v2-legend-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+        color: var(--secondary-text-color);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .v2-legend-left  { text-align: right; }
+      .v2-legend-right { text-align: left; }
+      .v2-item {
+        display: grid;
+        grid-template-columns: 1fr 22px 1fr;
+        gap: 0 12px;
+      }
+      .v2-left {
+        text-align: right;
+        padding-bottom: 14px;
+      }
+      .v2-right {
+        text-align: left;
+        padding-bottom: 14px;
+      }
+      /* Right-align content in the .v2-left column */
+      .v2-left .ev-header,
+      .v2-left .ev-meta {
+        justify-content: flex-end;
+      }
+      .v2-left .ev-state {
+        flex: 0 0 auto;
+      }
+      .v2-rail {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 5px;
       }
 
       /* ── Horizontal layout ── */
@@ -10585,6 +10720,7 @@ var __decorateClass$1 = (decorators, target, key, kind) => {
 const TIMELINE_LABELS = [
   "hours_to_show",
   "layout",
+  "secondary_entity",
   "header_title",
   "show_header_icon",
   "show_header_title",
@@ -10610,6 +10746,10 @@ const computeSchema$1 = memoizeOne(
   (_localize, customLocalize) => [
     {
       name: "entity",
+      selector: { entity: { domain: PETKIT_LITTERBOX_STATE_DOMAINS } }
+    },
+    {
+      name: "secondary_entity",
       selector: { entity: { domain: PETKIT_LITTERBOX_STATE_DOMAINS } }
     },
     {
