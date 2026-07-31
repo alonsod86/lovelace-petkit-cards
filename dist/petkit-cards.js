@@ -10095,12 +10095,12 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         min-width: 0;
         padding: 0 16px 0 0;
         cursor: pointer;
-        border-radius: 10px;
         transition: background 120ms ease;
       }
 
       .sensor-chip:hover {
         background: rgba(120,120,128,0.07);
+        border-radius: 10px;
       }
 
       .sensor-chip + .sensor-chip {
