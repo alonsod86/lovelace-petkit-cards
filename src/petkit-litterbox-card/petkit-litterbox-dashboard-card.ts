@@ -511,7 +511,7 @@ export class PetkitLitterboxDashboardCard
       ha-card {
         overflow: hidden;
         border-radius: var(--ha-card-border-radius, 12px);
-        padding-bottom: 20px;
+        padding-bottom: 8px;
         container-type: inline-size;
       }
 
