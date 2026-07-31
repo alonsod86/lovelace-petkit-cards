@@ -336,7 +336,7 @@ export class PetkitLitterboxDashboardCard
                 `}
             <div
               class="camera-click-overlay"
-              @click=${() => handleAction(this, this.hass!, { entity: cameraStateObj.entity_id, tap_action: { action: "more-info" } }, "tap")}
+              @click=${() => this._openMoreInfo(cameraEntity!)}
             ></div>
           </div>
 
@@ -375,6 +375,14 @@ export class PetkitLitterboxDashboardCard
     `;
   }
 
+  private _openMoreInfo(entityId: string): void {
+    this.dispatchEvent(new CustomEvent("hass-more-info", {
+      bubbles: true,
+      composed: true,
+      detail: { entityId },
+    }));
+  }
+
   private _renderArm(
     position: "top" | "bottom",
     entityId: string
@@ -393,8 +401,11 @@ export class PetkitLitterboxDashboardCard
       entityId;
     return html`
       <div class="hero-arm hero-arm-${position}">
-
-        <div class="arm-badge">
+        <div
+          class="arm-badge"
+          role="button" tabindex="0"
+          @click=${() => this._openMoreInfo(entityId)}
+        >
           <span class="arm-name">${name}</span>
           <div class="arm-val-row">
             <span class="arm-value">${value}</span
@@ -462,7 +473,7 @@ export class PetkitLitterboxDashboardCard
     return html`
       <div class="sensor-chip chip-${pos}"
         role="button" tabindex="0"
-        @click=${() => handleAction(this, this.hass!, { entity: stateObj.entity_id, tap_action: { action: "more-info" } }, "tap")}
+        @click=${() => this._openMoreInfo(stateObj.entity_id)}
       >
         <div class="ring-wrap">
           <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -502,7 +513,7 @@ export class PetkitLitterboxDashboardCard
     return html`
       <div class="sensor-chip chip-${pos}"
         role="button" tabindex="0"
-        @click=${() => handleAction(this, this.hass!, { entity: stateObj.entity_id, tap_action: { action: "more-info" } }, "tap")}
+        @click=${() => this._openMoreInfo(stateObj.entity_id)}
       >
         <div class="icon-circle">
           <ha-icon .icon=${icon}></ha-icon>
@@ -718,6 +729,13 @@ export class PetkitLitterboxDashboardCard
         box-sizing: border-box;
         gap: 1px;
         max-width: 76px;
+        cursor: pointer;
+        transition: background 120ms ease;
+      }
+
+      .arm-badge:hover {
+        background: rgba(0, 0, 0, 0.55);
+        border-color: rgba(255, 255, 255, 0.35);
       }
       .arm-name {
         font-size: 10px;

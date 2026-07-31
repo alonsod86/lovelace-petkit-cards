@@ -9473,8 +9473,8 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
   }
   _renderHero(picture, stateObj) {
     const imgUrl = picture ?? PETKIT_DEVICE_IMAGE_URL;
-    const cameraEntity = this._config.camera_entity;
-    const cameraStateObj = cameraEntity ? this.hass.states[cameraEntity] : void 0;
+    const cameraEntity2 = this._config.camera_entity;
+    const cameraStateObj = cameraEntity2 ? this.hass.states[cameraEntity2] : void 0;
     if (cameraStateObj) {
       return this._renderSplitHero(imgUrl, stateObj, cameraStateObj);
     }
@@ -9527,7 +9527,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
                 `}
             <div
               class="camera-click-overlay"
-              @click=${() => handleAction(this, this.hass, { entity: cameraStateObj.entity_id, tap_action: { action: "more-info" } }, "tap")}
+              @click=${() => this._openMoreInfo(cameraEntity)}
             ></div>
           </div>
 
@@ -9554,6 +9554,13 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
       </div>
     `;
   }
+  _openMoreInfo(entityId) {
+    this.dispatchEvent(new CustomEvent("hass-more-info", {
+      bubbles: true,
+      composed: true,
+      detail: { entityId }
+    }));
+  }
   _renderArm(position, entityId) {
     const stateObj = this.hass?.states[entityId];
     if (!stateObj) return b``;
@@ -9563,8 +9570,11 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
     const name = customName || stateObj.attributes.friendly_name || entityId;
     return b`
       <div class="hero-arm hero-arm-${position}">
-
-        <div class="arm-badge">
+        <div
+          class="arm-badge"
+          role="button" tabindex="0"
+          @click=${() => this._openMoreInfo(entityId)}
+        >
           <span class="arm-name">${name}</span>
           <div class="arm-val-row">
             <span class="arm-value">${value}</span
@@ -9609,7 +9619,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
     return b`
       <div class="sensor-chip chip-${pos}"
         role="button" tabindex="0"
-        @click=${() => handleAction(this, this.hass, { entity: stateObj.entity_id, tap_action: { action: "more-info" } }, "tap")}
+        @click=${() => this._openMoreInfo(stateObj.entity_id)}
       >
         <div class="ring-wrap">
           <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -9642,7 +9652,7 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
     return b`
       <div class="sensor-chip chip-${pos}"
         role="button" tabindex="0"
-        @click=${() => handleAction(this, this.hass, { entity: stateObj.entity_id, tap_action: { action: "more-info" } }, "tap")}
+        @click=${() => this._openMoreInfo(stateObj.entity_id)}
       >
         <div class="icon-circle">
           <ha-icon .icon=${icon}></ha-icon>
@@ -9854,6 +9864,13 @@ let PetkitLitterboxDashboardCard = class extends i$2 {
         box-sizing: border-box;
         gap: 1px;
         max-width: 76px;
+        cursor: pointer;
+        transition: background 120ms ease;
+      }
+
+      .arm-badge:hover {
+        background: rgba(0, 0, 0, 0.55);
+        border-color: rgba(255, 255, 255, 0.35);
       }
       .arm-name {
         font-size: 10px;
