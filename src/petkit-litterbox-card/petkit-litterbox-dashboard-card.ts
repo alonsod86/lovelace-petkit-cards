@@ -608,7 +608,7 @@ export class PetkitLitterboxDashboardCard
       .hero.hero-split .hero-device-with-arms .hero-device-img {
         position: absolute;
         inset: 0;
-        background-position: center;
+        background-position: left center;  /* anchor to column left so line visually connects */
       }
       .hero.hero-split .hero-device-arms {
         position: absolute;
@@ -707,8 +707,8 @@ export class PetkitLitterboxDashboardCard
       /* ── Glass state badge ── */
       .state-badge {
         position: absolute;
-        bottom: 14px;
-        left: 14px;
+        top: 12px;
+        right: 12px;
         display: inline-flex;
         align-items: center;
         gap: 7px;
