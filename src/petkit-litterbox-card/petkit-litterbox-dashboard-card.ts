@@ -506,6 +506,7 @@ export class PetkitLitterboxDashboardCard
         overflow: hidden;
         border-radius: var(--ha-card-border-radius, 12px);
         padding-bottom: 20px;
+        container-type: inline-size;
       }
 
       .card-header {
@@ -521,7 +522,7 @@ export class PetkitLitterboxDashboardCard
       .hero {
         position: relative;
         width: 100%;
-        height: clamp(170px, 48vw, 220px);
+        height: 220px;
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
@@ -758,7 +759,7 @@ export class PetkitLitterboxDashboardCard
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 12px clamp(10px, 4vw, 20px) 10px;
+        padding: 14px 20px 12px;
         gap: 0;
       }
 
@@ -767,14 +768,14 @@ export class PetkitLitterboxDashboardCard
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: clamp(8px, 2.5vw, 12px);
+        gap: 12px;
         flex: 1;
         min-width: 0;
-        padding: 0 clamp(8px, 3vw, 16px) 0 0;
+        padding: 0 16px 0 0;
       }
 
       .sensor-chip + .sensor-chip {
-        padding: 0 clamp(8px, 3vw, 16px) 0 clamp(8px, 3vw, 16px);
+        padding: 0 16px 0 16px;
         border-left: 1px solid var(--divider-color, rgba(120,120,128,0.2));
       }
 
@@ -789,8 +790,8 @@ export class PetkitLitterboxDashboardCard
       /* ── SVG ring chip ── */
       .ring-wrap {
         position: relative;
-        width: clamp(38px, 11vw, 48px);
-        height: clamp(38px, 11vw, 48px);
+        width: 48px;
+        height: 48px;
         flex-shrink: 0;
       }
 
@@ -809,14 +810,12 @@ export class PetkitLitterboxDashboardCard
         color: rgb(var(--chip-rgb));
       }
 
-      .ring-icon ha-icon {
-        --mdc-icon-size: clamp(14px, 4vw, 17px);
-      }
+      .ring-icon ha-icon { --mdc-icon-size: 17px; }
 
       /* ── Icon circle chip ── */
       .icon-circle {
-        width: clamp(36px, 10vw, 44px);
-        height: clamp(36px, 10vw, 44px);
+        width: 44px;
+        height: 44px;
         flex-shrink: 0;
         border-radius: 50%;
         background: rgba(var(--chip-rgb), 0.12);
@@ -826,9 +825,7 @@ export class PetkitLitterboxDashboardCard
         color: rgb(var(--chip-rgb));
       }
 
-      .icon-circle ha-icon {
-        --mdc-icon-size: clamp(17px, 5vw, 22px);
-      }
+      .icon-circle ha-icon { --mdc-icon-size: 22px; }
 
       /* ── Chip text column ── */
       .chip-text {
@@ -839,20 +836,20 @@ export class PetkitLitterboxDashboardCard
       }
 
       .chip-value {
-        font-size: clamp(14px, 4.2vw, 18px);
+        font-size: 18px;
         font-weight: 700;
         color: var(--primary-text-color);
         line-height: 1;
       }
 
       .chip-unit {
-        font-size: clamp(10px, 2.8vw, 12px);
+        font-size: 12px;
         font-weight: 400;
         color: var(--secondary-text-color);
       }
 
       .chip-label {
-        font-size: clamp(10px, 2.6vw, 11px);
+        font-size: 11px;
         color: var(--secondary-text-color);
         line-height: 1.2;
         overflow: hidden;
@@ -860,23 +857,21 @@ export class PetkitLitterboxDashboardCard
         white-space: nowrap;
       }
 
-      .sensor-chip.unavailable {
-        opacity: 0.3;
-      }
+      .sensor-chip.unavailable { opacity: 0.3; }
 
       /* ── Action buttons ── */
       .actions-row {
         display: flex;
         flex-direction: row;
         gap: 0;
-        padding: 4px clamp(8px, 3vw, 16px) 0;
+        padding: 4px 16px 0;
       }
 
       /* Hairline separator when sensors sit above buttons */
       .sensors-row + .actions-row {
         margin: 0 4px;
-        padding-left: clamp(6px, 2.5vw, 12px);
-        padding-right: clamp(6px, 2.5vw, 12px);
+        padding-left: 12px;
+        padding-right: 12px;
         border-top: 1px solid var(--divider-color, rgba(120,120,128,0.18));
       }
 
@@ -885,8 +880,8 @@ export class PetkitLitterboxDashboardCard
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: clamp(8px, 2.5vw, 12px);
-        padding: 10px clamp(8px, 3vw, 14px);
+        gap: 12px;
+        padding: 12px 14px;
         border-radius: 0;
         background: none;
         border: none;
@@ -901,9 +896,7 @@ export class PetkitLitterboxDashboardCard
         border-radius: 12px;
       }
 
-      .action-btn:active {
-        transform: scale(0.97);
-      }
+      .action-btn:active { transform: scale(0.97); }
 
       /* Vertical hairline between the two buttons */
       .action-btn + .action-btn {
@@ -912,8 +905,8 @@ export class PetkitLitterboxDashboardCard
 
       .action-btn-icon {
         flex-shrink: 0;
-        width: clamp(32px, 9vw, 40px);
-        height: clamp(32px, 9vw, 40px);
+        width: 40px;
+        height: 40px;
         border-radius: 10px;
         background: rgba(var(--rgb-primary-color, 3,169,244), 0.12);
         display: flex;
@@ -922,18 +915,64 @@ export class PetkitLitterboxDashboardCard
         color: rgb(var(--rgb-primary-color, 3,169,244));
       }
 
-      .action-btn-icon ha-state-icon {
-        --mdc-icon-size: clamp(16px, 4.5vw, 20px);
-      }
+      .action-btn-icon ha-state-icon { --mdc-icon-size: 20px; }
 
       .action-btn-label {
-        font-size: clamp(11px, 3.2vw, 13px);
+        font-size: 13px;
         font-weight: 600;
         color: var(--primary-text-color);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         line-height: 1.3;
+      }
+
+      /* ─────────────────────────────────────────────────────────────
+         Small-card layout  (container ≤ 460 px — primary)
+         ───────────────────────────────────────────────────────────── */
+      @container (max-width: 460px) {
+        .hero                        { height: 165px; }
+        .hero-split-inner            { margin: 0 10px; }
+        .sensors-row                 { padding: 10px 12px 8px; }
+        .sensor-chip                 { gap: 8px; padding: 0 10px 0 0; }
+        .sensor-chip + .sensor-chip  { padding: 0 10px; }
+        .ring-wrap                   { width: 36px; height: 36px; }
+        .ring-icon ha-icon           { --mdc-icon-size: 13px; }
+        .icon-circle                 { width: 34px; height: 34px; }
+        .icon-circle ha-icon         { --mdc-icon-size: 16px; }
+        .chip-value                  { font-size: 14px; }
+        .chip-unit                   { font-size: 10px; }
+        .chip-label                  { font-size: 10px; }
+        .actions-row                 { padding: 4px 12px 0; }
+        .sensors-row + .actions-row  { padding-left: 8px; padding-right: 8px; }
+        .action-btn                  { gap: 8px; padding: 10px 10px; }
+        .action-btn-icon             { width: 32px; height: 32px; border-radius: 8px; }
+        .action-btn-icon ha-state-icon { --mdc-icon-size: 16px; }
+        .action-btn-label            { font-size: 11px; }
+      }
+
+      /* ─────────────────────────────────────────────────────────────
+         Small-card layout  (@media fallback for older engines)
+         ───────────────────────────────────────────────────────────── */
+      @media (max-width: 460px) {
+        .hero                        { height: 165px; }
+        .hero-split-inner            { margin: 0 10px; }
+        .sensors-row                 { padding: 10px 12px 8px; }
+        .sensor-chip                 { gap: 8px; padding: 0 10px 0 0; }
+        .sensor-chip + .sensor-chip  { padding: 0 10px; }
+        .ring-wrap                   { width: 36px; height: 36px; }
+        .ring-icon ha-icon           { --mdc-icon-size: 13px; }
+        .icon-circle                 { width: 34px; height: 34px; }
+        .icon-circle ha-icon         { --mdc-icon-size: 16px; }
+        .chip-value                  { font-size: 14px; }
+        .chip-unit                   { font-size: 10px; }
+        .chip-label                  { font-size: 10px; }
+        .actions-row                 { padding: 4px 12px 0; }
+        .sensors-row + .actions-row  { padding-left: 8px; padding-right: 8px; }
+        .action-btn                  { gap: 8px; padding: 10px 10px; }
+        .action-btn-icon             { width: 32px; height: 32px; border-radius: 8px; }
+        .action-btn-icon ha-state-icon { --mdc-icon-size: 16px; }
+        .action-btn-label            { font-size: 11px; }
       }
     `;
   }
