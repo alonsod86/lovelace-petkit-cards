@@ -308,10 +308,13 @@ export class PetkitLitterboxTimelineCard
   // ── Vertical ────────────────────────────────────────────────────────────────
 
   private _renderVertical(labelColorMap: Map<string, string>): TemplateResult {
+    const events = this._config!.reverse_order
+      ? [...this._events].reverse() // oldest → top
+      : this._events;               // newest → top (default)
     return html`
       <div class="timeline-v">
-        ${this._events.map((ev, i) =>
-          this._renderVerticalItem(ev, i === this._events.length - 1, labelColorMap)
+        ${events.map((ev, i) =>
+          this._renderVerticalItem(ev, i === events.length - 1, labelColorMap)
         )}
       </div>
     `;
@@ -358,7 +361,10 @@ export class PetkitLitterboxTimelineCard
   // ── Horizontal ──────────────────────────────────────────────────────────────
 
   private _renderHorizontal(labelColorMap: Map<string, string>): TemplateResult {
-    const events = [...this._events].reverse(); // oldest → newest (left → right)
+    // Default: oldest → newest (left → right). reverse_order flips to newest → oldest.
+    const events = this._config!.reverse_order
+      ? [...this._events]            // newest → left
+      : [...this._events].reverse(); // oldest → left (default)
     return html`
       <div class="timeline-h">
         ${events.map((ev, i) =>

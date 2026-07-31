@@ -50,6 +50,7 @@
         "show_idle_events": "Show idle events",
         "show_event_time": "Show event time",
         "show_event_duration": "Show event duration",
+        "reverse_order": "Reverse order (oldest first)",
         "labels_section": "State labels",
         "unknown_label": "Unknown cat placeholder",
         "label_idle": "Idle",
