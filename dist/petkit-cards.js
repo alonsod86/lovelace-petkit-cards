@@ -11407,7 +11407,7 @@ const PETKIT_LITTERBOX_LABELS = [
   "footer_1",
   "footer_2"
 ];
-const computeSchema$3 = memoizeOne(
+const computeSchema$2 = memoizeOne(
   (localize, customLocalize, version) => [
     {
       name: "entity",
@@ -11559,7 +11559,7 @@ let PetkitLitterboxCardEditor = class extends MushroomBaseElement {
       return A;
     }
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema$3(
+    const schema = computeSchema$2(
       this.hass.localize,
       customLocalize,
       this.hass.config.version
@@ -11629,7 +11629,7 @@ const TIMELINE_LABELS = [
   "label_resetting",
   "label_paused"
 ];
-const computeSchema$2 = memoizeOne(
+const computeSchema$1 = memoizeOne(
   (_localize, customLocalize) => [
     {
       name: "entity",
@@ -11794,7 +11794,7 @@ let PetkitLitterboxTimelineCardEditor = class extends MushroomBaseElement {
   render() {
     if (!this.hass || !this._config) return A;
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema$2(this.hass.localize, customLocalize);
+    const schema = computeSchema$1(this.hass.localize, customLocalize);
     return b`
       <ha-form
         .hass=${this.hass}
@@ -11867,7 +11867,7 @@ const DASHBOARD_LABELS = [
   "btn_2_icon",
   "btn_2_icon_color"
 ];
-const computeSchema$1 = memoizeOne(
+const computeSchema = memoizeOne(
   (_localize, customLocalize) => [
     {
       name: "entity",
@@ -12114,7 +12114,7 @@ let PetkitLitterboxDashboardCardEditor = class extends MushroomBaseElement {
   render() {
     if (!this.hass || !this._config) return A;
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema$1(this.hass.localize, customLocalize);
+    const schema = computeSchema(this.hass.localize, customLocalize);
     return b`
       <ha-form
         .hass=${this.hass}
@@ -12141,6 +12141,49 @@ const petkitLitterboxDashboardCardEditor = /* @__PURE__ */ Object.freeze(/* @__P
     return PetkitLitterboxDashboardCardEditor;
   }
 }, Symbol.toStringTag, { value: "Module" }));
+function findDockstream2EntityIds(hass) {
+  if (!hass?.devices || !hass.entities) return null;
+  const MODEL_HINTS = [
+    "dockstream 2 smart fountain",
+    "dockstream 2 smart cordless fountain",
+    "plwf106",
+    "plwf116"
+  ];
+  const NAME_HINTS = ["dockstream 2"];
+  const isDockstream2 = (device) => {
+    const mfr = (device.manufacturer ?? "").toLowerCase();
+    const model = (device.model ?? "").toLowerCase();
+    const name = (device.name ?? "").toLowerCase();
+    if (!mfr.includes("petlibro")) return false;
+    if (MODEL_HINTS.some((h2) => model.includes(h2))) return true;
+    if (model === "" && NAME_HINTS.some((h2) => name.includes(h2))) return true;
+    return false;
+  };
+  const deviceIds = /* @__PURE__ */ new Set();
+  for (const device of Object.values(hass.devices)) {
+    if (isDockstream2(device)) deviceIds.add(device.id);
+  }
+  if (deviceIds.size === 0) return null;
+  const entityIds = /* @__PURE__ */ new Set();
+  for (const entity of Object.values(hass.entities)) {
+    if (entity.device_id && deviceIds.has(entity.device_id)) {
+      entityIds.add(entity.entity_id);
+    }
+  }
+  return entityIds.size > 0 ? entityIds : null;
+}
+function filterDockstream2ByDomains(hass, entityIds, domains) {
+  if (!hass || !entityIds) return void 0;
+  const domainList = Array.isArray(domains) ? domains : typeof domains === "string" ? [domains] : [];
+  const allowed = [];
+  for (const id of entityIds) {
+    const domain = id.split(".", 1)[0];
+    if (domainList.length === 0 || domainList.includes(domain)) {
+      allowed.push(id);
+    }
+  }
+  return allowed.length > 0 ? allowed : void 0;
+}
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __decorateClass = (decorators, target, key, kind) => {
@@ -12179,11 +12222,18 @@ const DOCKSTREAM_2_LABELS = [
   "btn_2_icon",
   "btn_2_icon_color"
 ];
-const computeSchema = memoizeOne(
-  (_localize, customLocalize) => [
+function buildSchema(customLocalize, dockstreamEntityIds, hass) {
+  const domainIds = (domains) => filterDockstream2ByDomains(hass, dockstreamEntityIds, domains);
+  const anyEntity = { entity: {} };
+  return [
     {
       name: "entity",
-      selector: { entity: { domain: PETLIBRO_DOCKSTREAM_2_STATE_DOMAINS } }
+      selector: {
+        entity: {
+          domain: PETLIBRO_DOCKSTREAM_2_STATE_DOMAINS,
+          include_entities: domainIds(PETLIBRO_DOCKSTREAM_2_STATE_DOMAINS)
+        }
+      }
     },
     { name: "picture", selector: { text: {} } },
     { name: "title", selector: { text: {} } },
@@ -12199,13 +12249,34 @@ const computeSchema = memoizeOne(
         "editor.card.petlibro_dockstream_2.sensors_section"
       ),
       schema: [
-        { name: "water_level_entity", selector: { entity: { domain: ["sensor"] } } },
-        { name: "water_volume_entity", selector: { entity: { domain: ["sensor"] } } },
-        { name: "today_water_entity", selector: { entity: { domain: ["sensor"] } } },
-        { name: "yesterday_water_entity", selector: { entity: { domain: ["sensor"] } } },
-        { name: "filter_days_entity", selector: { entity: { domain: ["sensor"] } } },
-        { name: "cleaning_days_entity", selector: { entity: { domain: ["sensor"] } } },
-        { name: "battery_entity", selector: { entity: { domain: ["sensor"] } } }
+        {
+          name: "water_level_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
+        },
+        {
+          name: "water_volume_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
+        },
+        {
+          name: "today_water_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
+        },
+        {
+          name: "yesterday_water_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
+        },
+        {
+          name: "filter_days_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
+        },
+        {
+          name: "cleaning_days_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
+        },
+        {
+          name: "battery_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
+        }
       ]
     },
     // ── Status (binary_sensor + select) ───────────────────────────────
@@ -12218,10 +12289,22 @@ const computeSchema = memoizeOne(
         "editor.card.petlibro_dockstream_2.status_section"
       ),
       schema: [
-        { name: "power_entity", selector: { entity: { domain: ["binary_sensor"] } } },
-        { name: "connectivity_entity", selector: { entity: { domain: ["binary_sensor"] } } },
-        { name: "dispensing_entity", selector: { entity: { domain: ["binary_sensor"] } } },
-        { name: "mode_entity", selector: { entity: { domain: ["select"] } } }
+        {
+          name: "power_entity",
+          selector: { entity: { domain: ["binary_sensor"], include_entities: domainIds(["binary_sensor"]) } }
+        },
+        {
+          name: "connectivity_entity",
+          selector: { entity: { domain: ["binary_sensor"], include_entities: domainIds(["binary_sensor"]) } }
+        },
+        {
+          name: "dispensing_entity",
+          selector: { entity: { domain: ["binary_sensor"], include_entities: domainIds(["binary_sensor"]) } }
+        },
+        {
+          name: "mode_entity",
+          selector: { entity: { domain: ["select"], include_entities: domainIds(["select"]) } }
+        }
       ]
     },
     // ── Action buttons ───────────────────────────────────────────────
@@ -12243,7 +12326,7 @@ const computeSchema = memoizeOne(
             "editor.card.petlibro_dockstream_2.btn_1_section"
           ),
           schema: [
-            { name: "btn_1_entity", selector: { entity: {} } },
+            { name: "btn_1_entity", selector: anyEntity },
             { name: "btn_1_name", selector: { text: {} } },
             {
               name: "btn_1_icon",
@@ -12262,7 +12345,7 @@ const computeSchema = memoizeOne(
             "editor.card.petlibro_dockstream_2.btn_2_section"
           ),
           schema: [
-            { name: "btn_2_entity", selector: { entity: {} } },
+            { name: "btn_2_entity", selector: anyEntity },
             { name: "btn_2_name", selector: { text: {} } },
             {
               name: "btn_2_icon",
@@ -12274,8 +12357,8 @@ const computeSchema = memoizeOne(
         }
       ]
     }
-  ]
-);
+  ];
+}
 let PetlibroDockstream2CardEditor = class extends MushroomBaseElement {
   constructor() {
     super(...arguments);
@@ -12305,7 +12388,8 @@ let PetlibroDockstream2CardEditor = class extends MushroomBaseElement {
   render() {
     if (!this.hass || !this._config) return A;
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema(this.hass.localize, customLocalize);
+    const dockstreamEntityIds = findDockstream2EntityIds(this.hass);
+    const schema = buildSchema(customLocalize, dockstreamEntityIds, this.hass);
     return b`
       <ha-form
         .hass=${this.hass}
@@ -12320,6 +12404,9 @@ let PetlibroDockstream2CardEditor = class extends MushroomBaseElement {
     fireEvent(this, "config-changed", { config: ev.detail.value });
   }
 };
+__decorateClass([
+  n$1({ attribute: false })
+], PetlibroDockstream2CardEditor.prototype, "hass", 2);
 __decorateClass([
   r()
 ], PetlibroDockstream2CardEditor.prototype, "_config", 2);

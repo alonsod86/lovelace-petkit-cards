@@ -1,8 +1,8 @@
 import { html, nothing } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
-import { LocalizeFunc, LovelaceCardEditor, fireEvent } from "../ha";
+import { LocalizeFunc, LovelaceCardEditor, fireEvent, HomeAssistant } from "../ha";
 import setupCustomlocalize from "../localize";
 import { MushroomBaseElement } from "../utils/base-element";
 import { GENERIC_LABELS } from "../utils/form/generic-fields";
@@ -16,6 +16,10 @@ import {
   PetlibroDockstream2CardConfig,
   petlibroDockstream2CardConfigStruct,
 } from "./petlibro-dockstream-2-card-config";
+import {
+  filterDockstream2ByDomains,
+  findDockstream2EntityIds,
+} from "./device-match";
 
 const DOCKSTREAM_2_LABELS = [
   "picture",
@@ -46,14 +50,30 @@ const DOCKSTREAM_2_LABELS = [
   "btn_2_icon_color",
 ];
 
-const computeSchema = memoizeOne(
-  (
-    _localize: LocalizeFunc,
-    customLocalize: ReturnType<typeof setupCustomlocalize>
-  ): HaFormSchema[] => [
+/**
+ * Build the editor schema with the given Dockstream 2 entity set pre-filtered.
+ * Pass `null` to fall back to the original domain-only selector.
+ */
+function buildSchema(
+  customLocalize: ReturnType<typeof setupCustomlocalize>,
+  dockstreamEntityIds: Set<string> | null,
+  hass: HomeAssistant | undefined
+): HaFormSchema[] {
+  const domainIds = (domains: readonly string[] | string) =>
+    filterDockstream2ByDomains(hass, dockstreamEntityIds, domains);
+
+  // Free-form entity pickers (any domain, no include list) — keep unfiltered.
+  const anyEntity = { entity: {} as { multiple?: boolean; include_entities?: string[] } };
+
+  return [
     {
       name: "entity",
-      selector: { entity: { domain: PETLIBRO_DOCKSTREAM_2_STATE_DOMAINS } },
+      selector: {
+        entity: {
+          domain: PETLIBRO_DOCKSTREAM_2_STATE_DOMAINS,
+          include_entities: domainIds(PETLIBRO_DOCKSTREAM_2_STATE_DOMAINS),
+        },
+      },
     },
     { name: "picture", selector: { text: {} } },
     { name: "title", selector: { text: {} } },
@@ -69,13 +89,34 @@ const computeSchema = memoizeOne(
         "editor.card.petlibro_dockstream_2.sensors_section"
       ),
       schema: [
-        { name: "water_level_entity",     selector: { entity: { domain: ["sensor"] } } },
-        { name: "water_volume_entity",    selector: { entity: { domain: ["sensor"] } } },
-        { name: "today_water_entity",     selector: { entity: { domain: ["sensor"] } } },
-        { name: "yesterday_water_entity", selector: { entity: { domain: ["sensor"] } } },
-        { name: "filter_days_entity",     selector: { entity: { domain: ["sensor"] } } },
-        { name: "cleaning_days_entity",   selector: { entity: { domain: ["sensor"] } } },
-        { name: "battery_entity",         selector: { entity: { domain: ["sensor"] } } },
+        {
+          name: "water_level_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } },
+        },
+        {
+          name: "water_volume_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } },
+        },
+        {
+          name: "today_water_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } },
+        },
+        {
+          name: "yesterday_water_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } },
+        },
+        {
+          name: "filter_days_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } },
+        },
+        {
+          name: "cleaning_days_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } },
+        },
+        {
+          name: "battery_entity",
+          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } },
+        },
       ],
     },
     // ── Status (binary_sensor + select) ───────────────────────────────
@@ -88,10 +129,22 @@ const computeSchema = memoizeOne(
         "editor.card.petlibro_dockstream_2.status_section"
       ),
       schema: [
-        { name: "power_entity",        selector: { entity: { domain: ["binary_sensor"] } } },
-        { name: "connectivity_entity", selector: { entity: { domain: ["binary_sensor"] } } },
-        { name: "dispensing_entity",   selector: { entity: { domain: ["binary_sensor"] } } },
-        { name: "mode_entity",         selector: { entity: { domain: ["select"] } } },
+        {
+          name: "power_entity",
+          selector: { entity: { domain: ["binary_sensor"], include_entities: domainIds(["binary_sensor"]) } },
+        },
+        {
+          name: "connectivity_entity",
+          selector: { entity: { domain: ["binary_sensor"], include_entities: domainIds(["binary_sensor"]) } },
+        },
+        {
+          name: "dispensing_entity",
+          selector: { entity: { domain: ["binary_sensor"], include_entities: domainIds(["binary_sensor"]) } },
+        },
+        {
+          name: "mode_entity",
+          selector: { entity: { domain: ["select"], include_entities: domainIds(["select"]) } },
+        },
       ],
     },
     // ── Action buttons ───────────────────────────────────────────────
@@ -113,7 +166,7 @@ const computeSchema = memoizeOne(
             "editor.card.petlibro_dockstream_2.btn_1_section"
           ),
           schema: [
-            { name: "btn_1_entity", selector: { entity: {} } },
+            { name: "btn_1_entity", selector: anyEntity },
             { name: "btn_1_name",   selector: { text: {} } },
             {
               name: "btn_1_icon",
@@ -132,7 +185,7 @@ const computeSchema = memoizeOne(
             "editor.card.petlibro_dockstream_2.btn_2_section"
           ),
           schema: [
-            { name: "btn_2_entity", selector: { entity: {} } },
+            { name: "btn_2_entity", selector: anyEntity },
             { name: "btn_2_name",   selector: { text: {} } },
             {
               name: "btn_2_icon",
@@ -144,14 +197,15 @@ const computeSchema = memoizeOne(
         },
       ],
     },
-  ]
-);
+  ];
+}
 
 @customElement(PETLIBRO_DOCKSTREAM_2_CARD_EDITOR_NAME)
 export class PetlibroDockstream2CardEditor
   extends MushroomBaseElement
   implements LovelaceCardEditor
 {
+  @property({ attribute: false }) public hass!: HomeAssistant;
   @state() private _config?: PetlibroDockstream2CardConfig;
 
   connectedCallback() {
@@ -183,7 +237,8 @@ export class PetlibroDockstream2CardEditor
     if (!this.hass || !this._config) return nothing;
 
     const customLocalize = setupCustomlocalize(this.hass!);
-    const schema = computeSchema(this.hass!.localize, customLocalize);
+    const dockstreamEntityIds = findDockstream2EntityIds(this.hass);
+    const schema = buildSchema(customLocalize, dockstreamEntityIds, this.hass);
 
     return html`
       <ha-form
