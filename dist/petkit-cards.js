@@ -10810,6 +10810,19 @@ let PetlibroDockstream2Card = class extends i$2 {
       .hero-arm-top    { top: calc(33% - 18px); }
       .hero-arm-bottom { top: calc(67% - 18px); }
 
+      /* Horizontal connector line from the image's right edge to the badge. */
+      .hero-arm::before {
+        content: '';
+        position: absolute;
+        right: 100%;
+        margin-right: -2px;
+        width: 24px;
+        top: 50%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.55);
+        pointer-events: none;
+      }
+
       .arm-badge {
         background: rgba(0, 0, 0, 0.38);
         backdrop-filter: blur(6px);
