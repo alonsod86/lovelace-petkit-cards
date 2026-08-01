@@ -10532,10 +10532,7 @@ let PetlibroDockstream2Card = class extends i$2 {
           <div
             class="hero-device-img"
             style=${o({ backgroundImage: `url('${imgUrl}')` })}
-          >
-            ${cfg.arm_top_entity && cfg.arm_top_visible !== false ? b`<span class="arm-connector arm-connector-top"></span>` : A}
-            ${cfg.arm_bottom_entity && cfg.arm_bottom_visible !== false ? b`<span class="arm-connector arm-connector-bottom"></span>` : A}
-          </div>
+          ></div>
           <div class="hero-device-arms">
             ${cfg.arm_top_entity && cfg.arm_top_visible !== false ? this._renderArm("top", cfg.arm_top_entity) : A}
             ${cfg.arm_bottom_entity && cfg.arm_bottom_visible !== false ? this._renderArm("bottom", cfg.arm_bottom_entity) : A}
@@ -10763,13 +10760,6 @@ let PetlibroDockstream2Card = class extends i$2 {
         overflow: hidden;
       }
 
-      /* When arms are present the connector line must extend into the arm
-         column, which lives outside the image's column. Disable clipping so
-         it can be drawn. */
-      .hero.hero-device-with-arms {
-        overflow: visible;
-      }
-
       .hero-gradient {
         position: absolute;
         inset: 0;
@@ -10811,6 +10801,26 @@ let PetlibroDockstream2Card = class extends i$2 {
         display: none;
       }
 
+      /* ── Arm connector lines ──
+         Drawn as pseudo-elements on the arms column so they can extend
+         leftward into the image column without needing overflow:visible.
+         Each line starts at the arm column's left edge (left: 0) and
+         extends a fixed width into the image area. The vertical position
+         matches the badge's 33% / 67% offset. */
+      .hero-device-arms::before,
+      .hero-device-arms::after {
+        content: '';
+        position: absolute;
+        left: -26px;
+        width: 26px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.9);
+        pointer-events: none;
+        z-index: 2;
+      }
+      .hero-device-arms::before { top: calc(33%); }
+      .hero-device-arms::after  { top: calc(67%); }
+
       /* ── Arm connectors ── */
       .hero-arm {
         position: absolute;
@@ -10819,24 +10829,6 @@ let PetlibroDockstream2Card = class extends i$2 {
       }
       .hero-arm-top    { top: calc(33% - 18px); }
       .hero-arm-bottom { top: calc(67% - 18px); }
-
-      /* ── Arm connector lines ──
-         Each line originates at the right edge of the image column
-         (inside .hero-device-img) so it always meets the fountain
-         border, regardless of how the picture fits in the column.
-         The line extends into the arm column via a negative right
-         offset and stops just before the badge. */
-      .arm-connector {
-        position: absolute;
-        right: -22px;
-        width: 22px;
-        height: 2px;
-        background: rgba(255, 255, 255, 0.85);
-        pointer-events: none;
-        z-index: 2;
-      }
-      .arm-connector-top    { top: calc(33%); }
-      .arm-connector-bottom { top: calc(67%); }
 
       .arm-badge {
         background: rgba(0, 0, 0, 0.38);
