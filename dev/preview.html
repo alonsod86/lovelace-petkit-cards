@@ -379,20 +379,13 @@ const dock2Base = {
   entity: 'sensor.dockstream2_weight_percent',
   show_name: true,
   show_state: true,
-  water_level_entity: 'sensor.dockstream2_weight_percent',
-  water_volume_entity: 'sensor.dockstream2_remaining_water',
-  today_water_entity: 'sensor.dockstream2_today_water',
-  yesterday_water_entity: 'sensor.dockstream2_yesterday_water',
-  filter_days_entity: 'sensor.dockstream2_filter_days',
-  cleaning_days_entity: 'sensor.dockstream2_cleaning_days',
-  battery_entity: 'sensor.dockstream2_battery',
-  power_entity: 'binary_sensor.dockstream2_power',
-  connectivity_entity: 'binary_sensor.dockstream2_online',
-  dispensing_entity: 'binary_sensor.dockstream2_water_state',
-  mode_entity: 'select.dockstream2_mode',
+  sensor_1_entity: 'sensor.dockstream2_weight_percent',
+  sensor_2_entity: 'sensor.dockstream2_remaining_water',
+  sensor_3_entity: 'sensor.dockstream2_filter_days',
+  sensor_4_entity: 'sensor.dockstream2_battery',
 };
 
-// 1. Full configuration, all sensors + actions
+// 1. Full configuration, four sensor chips + two action buttons
 document.getElementById('dock2-1').setConfig({
   ...dock2Base,
   title: 'Dockstream 2 (Cordless)',
@@ -405,14 +398,12 @@ document.getElementById('dock2-1').setConfig({
 });
 document.getElementById('dock2-1').hass = hass;
 
-// 2. Minimal: only primary ring + status pills + dispensing mode
+// 2. Two-chip layout (water level + remaining water)
 document.getElementById('dock2-2').setConfig({
   ...dock2Base,
   title: 'Dockstream 2 (Minimal)',
-  today_water_entity: undefined,
-  yesterday_water_entity: undefined,
-  cleaning_days_entity: undefined,
-  battery_entity: undefined,
+  sensor_3_entity: undefined,
+  sensor_4_entity: undefined,
   btn_1_entity: 'button.dockstream2_filter_reset',
   btn_1_name: 'Reset Filter',
 });
@@ -421,16 +412,10 @@ document.getElementById('dock2-2').hass = hass;
 // 3. Low-water scenario (warning state, low filter)
 hass.states['sensor.dockstream2_weight_percent'].state = '12';
 hass.states['sensor.dockstream2_filter_days'].state = '2';
-hass.states['select.dockstream2_mode'].state = 'Sensor-Activated (Near)';
+hass.states['sensor.dockstream2_battery'].state = '34';
 document.getElementById('dock2-3').setConfig({
   ...dock2Base,
   title: 'Dockstream 2 (Low Water)',
-  today_water_entity: undefined,
-  yesterday_water_entity: undefined,
-  cleaning_days_entity: undefined,
-  battery_entity: undefined,
-  power_entity: undefined,
-  connectivity_entity: undefined,
 });
 document.getElementById('dock2-3').hass = hass;
 

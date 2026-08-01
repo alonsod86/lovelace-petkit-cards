@@ -132,7 +132,7 @@ export class PetlibroDockstream2Card
   }
 
   public getCardSize(): number {
-    return 6;
+    return 5;
   }
 
   // ─── Render ────────────────────────────────────────────────────────────────
@@ -141,45 +141,56 @@ export class PetlibroDockstream2Card
     if (!this._config || !this.hass) return nothing;
 
     const cfg = this._config;
-
     const stateObj = this.hass.states[cfg.entity] as HassEntity | undefined;
 
     // Resolve picture URL: config override → undefined (falls back to asset).
     const picture = cfg.picture || undefined;
 
+    // Collect configured sensor slots
+    const sensors = (
+      [1, 2, 3, 4] as const
+    ).map((n) => ({
+      pos: n,
+      entity: cfg[`sensor_${n}_entity` as keyof PetlibroDockstream2CardConfig] as
+        | string
+        | undefined,
+      name: cfg[`sensor_${n}_name` as keyof PetlibroDockstream2CardConfig] as
+        | string
+        | undefined,
+      icon: cfg[`sensor_${n}_icon` as keyof PetlibroDockstream2CardConfig] as
+        | string
+        | undefined,
+    })).filter((s) => s.entity);
+
     const showName = cfg.show_name !== false;
     const showState = cfg.show_state !== false;
-
     const titleText =
       cfg.title?.trim() ||
-      stateObj?.attributes?.friendly_name ||
+      (stateObj?.attributes?.friendly_name as string | undefined) ||
       cfg.entity;
-
-    // Resolve a state badge even when the primary entity is a sensor (e.g.
-    // weight %) — prefer dispensing binary sensor, then mode select, then the
-    // primary entity.
-    const badgeSource =
-      this.hass.states[cfg.dispensing_entity ?? ""] ??
-      this.hass.states[cfg.mode_entity ?? ""] ??
-      stateObj;
-    const badgeState = badgeSource ? String(badgeSource.state) : "";
 
     return html`
       <ha-card>
-        ${showName || (showState && badgeSource)
+        ${showName || (showState && stateObj)
           ? html`
               <div class="card-header">
                 ${showName
                   ? html`<span class="card-title">${titleText}</span>`
                   : nothing}
-                ${showState && badgeSource
-                  ? this._renderStateBadge(badgeState)
+                ${showState && stateObj
+                  ? this._renderStateBadge(stateObj)
                   : nothing}
               </div>
             `
           : nothing}
         ${this._renderHero(picture)}
-        ${this._renderMetrics()}
+        ${sensors.length > 0
+          ? html`
+              <div class="sensors-row">
+                ${sensors.map((s) => this._renderSensor(s.entity!, s.pos, s.name, s.icon))}
+              </div>
+            `
+          : nothing}
         ${this._renderActions()}
       </ha-card>
     `;
@@ -192,270 +203,6 @@ export class PetlibroDockstream2Card
     return html`
       <div class="hero" style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}>
         <div class="hero-gradient"></div>
-      </div>
-    `;
-  }
-
-  // ─── Metrics ──────────────────────────────────────────────────────────────
-
-  private _renderMetrics(): TemplateResult | typeof nothing {
-    const cfg = this._config;
-
-    // Primary ring slot (water level %).
-    const primary = cfg.water_level_entity
-      ? this._renderRingChipEntity(
-          cfg.water_level_entity,
-          "mdi:water-percent",
-          "Water Level",
-          this._waterPctColor()
-        )
-      : nothing;
-
-    // Secondary metric tiles laid out in a 2-column grid.
-    const tiles: (TemplateResult | typeof nothing)[] = [];
-    const tileDefs: Array<{
-      key?: string;
-      icon: string;
-      label: string;
-      unitHint?: string;
-      accent?: string;
-    }> = [
-      {
-        key: cfg.water_volume_entity,
-        icon: "mdi:water",
-        label: "Remaining Water",
-        accent: "59, 130, 246",
-      },
-      {
-        key: cfg.today_water_entity,
-        icon: "mdi:cup-water",
-        label: "Today",
-        accent: "3, 169, 244",
-      },
-      {
-        key: cfg.yesterday_water_entity,
-        icon: "mdi:cup-water-outline",
-        label: "Yesterday",
-        accent: "156, 163, 175",
-      },
-      {
-        key: cfg.filter_days_entity,
-        icon: "mdi:air-filter",
-        label: "Filter",
-        accent: "76, 175, 80",
-      },
-      {
-        key: cfg.cleaning_days_entity,
-        icon: "mdi:broom",
-        label: "Cleaning",
-        accent: "255, 152, 0",
-      },
-      {
-        key: cfg.battery_entity,
-        icon: "mdi:battery",
-        label: "Battery",
-        accent: "139, 195, 74",
-      },
-    ];
-    for (const def of tileDefs) {
-      if (def.key) {
-        tiles.push(this._renderTileEntity(def.key!, def.icon, def.label, def.accent!));
-      }
-    }
-
-    // Status pills row — connectivity, power, dispensing, mode.
-    const pills: (TemplateResult | typeof nothing)[] = [];
-    const pillDefs: Array<{ key?: string; icon: string; label: string; isBinary?: boolean }> = [
-      { key: cfg.connectivity_entity, icon: "mdi:wifi", label: "Wi-Fi", isBinary: true },
-      { key: cfg.power_entity, icon: "mdi:power-plug", label: "Power", isBinary: true },
-      { key: cfg.dispensing_entity, icon: "mdi:water-pump", label: "Dispensing", isBinary: true },
-      { key: cfg.mode_entity, icon: "mdi:waves", label: "Mode", isBinary: false },
-    ];
-    for (const def of pillDefs) {
-      if (def.key) {
-        pills.push(
-          this._renderPillEntity(def.key!, def.icon, def.label, !!def.isBinary)
-        );
-      }
-    }
-
-    if (primary === nothing && tiles.length === 0 && pills.length === 0) {
-      return nothing;
-    }
-
-    return html`
-      <div class="metrics">
-        ${primary !== nothing
-          ? html`
-              <div class="metrics-primary">${primary}</div>
-            `
-          : nothing}
-        ${tiles.length > 0
-          ? html`
-              <div class="metrics-tiles">
-                ${tiles.map((t) => html`<div class="metric-tile">${t}</div>`)}
-              </div>
-            `
-          : nothing}
-        ${pills.length > 0
-          ? html`
-              <div class="metrics-pills">
-                ${pills.map((p) => p)}
-              </div>
-            `
-          : nothing}
-      </div>
-    `;
-  }
-
-  private _waterPctColor(): string {
-    return "var(--rgb-state-water, 3, 169, 244)";
-  }
-
-  // ─── Chip renderers ───────────────────────────────────────────────────────
-
-  private _renderRingChipEntity(
-    entityId: string,
-    icon: string,
-    labelFallback: string,
-    _rgb: string
-  ): TemplateResult | typeof nothing {
-    const stateObj = this.hass.states[entityId] as HassEntity | undefined;
-    if (!stateObj) return nothing;
-    const pct = parseFloat(stateObj.state);
-    const label =
-      (stateObj.attributes?.friendly_name as string | undefined) ||
-      labelFallback;
-    return this._renderRing(stateObj, isNaN(pct) ? 0 : pct, label, icon);
-  }
-
-  private _renderRing(
-    stateObj: HassEntity,
-    pct: number,
-    label: string,
-    icon: string
-  ): TemplateResult {
-    return html`
-      <div
-        class="ring-chip"
-        role="button"
-        tabindex="0"
-        @click=${() => this._openMoreInfo(stateObj.entity_id)}
-      >
-        <div class="ring-wrap">
-          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle
-              cx="32" cy="32" r="26"
-              stroke="var(--divider-color, rgba(0,0,0,0.12))"
-              stroke-width="3.5"
-            />
-            <circle
-              cx="32" cy="32" r="26"
-              stroke="var(--chip-rgb, var(--rgb-state-water, 3, 169, 244))"
-              stroke-width="3.5"
-              stroke-linecap="round"
-              stroke-dasharray="${ringDash(pct)}"
-              transform="rotate(-90 32 32)"
-            />
-          </svg>
-          <div class="ring-icon">
-            <ha-icon .icon=${icon}></ha-icon>
-          </div>
-        </div>
-        <div class="ring-text">
-          <div class="ring-value">${stateObj.state}<span class="ring-unit">%</span></div>
-          <div class="ring-label">${label}</div>
-        </div>
-      </div>
-    `;
-  }
-
-  private _renderTileEntity(
-    entityId: string,
-    icon: string,
-    labelFallback: string,
-    rgb: string
-  ): TemplateResult | typeof nothing {
-    const stateObj = this.hass.states[entityId] as HassEntity | undefined;
-    if (!stateObj) return nothing;
-    const unit: string = stateObj.attributes?.unit_of_measurement ?? "";
-    const label =
-      (stateObj.attributes?.friendly_name as string | undefined) ||
-      labelFallback;
-    const unavailable =
-      stateObj.state === "unavailable" || stateObj.state === "unknown";
-    return html`
-      <div
-        class="tile"
-        style=${styleMap({ "--tile-rgb": rgb })}
-        role="button"
-        tabindex="0"
-        @click=${() => this._openMoreInfo(entityId)}
-      >
-        <div class="tile-icon">
-          <ha-icon .icon=${icon}></ha-icon>
-        </div>
-        <div class="tile-text">
-          <div class="tile-value">
-            ${stateObj.state}${unit
-              ? html`<span class="tile-unit"> ${unit}</span>`
-              : nothing}
-          </div>
-          <div class="tile-label ${unavailable ? "tile-unavail" : ""}">${label}</div>
-        </div>
-      </div>
-    `;
-  }
-
-  private _renderPillEntity(
-    entityId: string,
-    icon: string,
-    labelFallback: string,
-    isBinary: boolean
-  ): TemplateResult | typeof nothing {
-    const stateObj = this.hass.states[entityId] as HassEntity | undefined;
-    if (!stateObj) return nothing;
-    const label =
-      (stateObj.attributes?.friendly_name as string | undefined) ||
-      labelFallback;
-    const s = String(stateObj.state);
-    let active = false;
-    if (isBinary) {
-      active = s.toLowerCase() === "on" || s.toLowerCase() === "true";
-    } else {
-      active = MODE_STATES.has(s) && s !== "Off";
-    }
-    return html`
-      <div
-        class="pill ${active ? "pill-on" : ""}"
-        role="button"
-        tabindex="0"
-        @click=${() => this._openMoreInfo(entityId)}
-      >
-        <ha-icon .icon=${icon}></ha-icon>
-        <span class="pill-label">${label}</span>
-        <span class="pill-state">${defaultLabel(s)}</span>
-      </div>
-    `;
-  }
-
-  // ─── State badge ──────────────────────────────────────────────────────────
-
-  private _renderStateBadge(stateRaw: string): TemplateResult {
-    const key = stateBadgeKey(stateRaw);
-    const rgb = STATE_RGB[key] ?? DEFAULT_STATE_RGB;
-    const icon = STATE_ICONS[key] ?? DEFAULT_STATE_ICON;
-    const label = defaultLabel(stateRaw);
-    const isActive = ACTIVE_STATES.has(key);
-
-    return html`
-      <div class="state-badge">
-        <span
-          class="state-dot ${isActive ? "pulse" : ""}"
-          style="background: rgb(${rgb});"
-        ></span>
-        <ha-icon class="state-icon" .icon=${icon}></ha-icon>
-        <span class="state-label">${label}</span>
       </div>
     `;
   }
@@ -532,6 +279,123 @@ export class PetlibroDockstream2Card
     `;
   }
 
+  // ─── State badge ──────────────────────────────────────────────────────────
+
+  private _renderStateBadge(stateObj: HassEntity): TemplateResult {
+    const s = String(stateObj.state);
+    const key = stateBadgeKey(s);
+    const rgb = STATE_RGB[key] ?? DEFAULT_STATE_RGB;
+    const icon = STATE_ICONS[key] ?? DEFAULT_STATE_ICON;
+    const label = defaultLabel(s);
+    const isActive = ACTIVE_STATES.has(key);
+
+    return html`
+      <div class="state-badge">
+        <span
+          class="state-dot ${isActive ? "pulse" : ""}"
+          style="background: rgb(${rgb});"
+        ></span>
+        <ha-icon class="state-icon" .icon=${icon}></ha-icon>
+        <span class="state-label">${label}</span>
+      </div>
+    `;
+  }
+
+  // ─── Sensors ──────────────────────────────────────────────────────────────
+
+  private _renderSensor(
+    entityId: string,
+    pos: 1 | 2 | 3 | 4,
+    nameOverride?: string,
+    iconOverride?: string
+  ): TemplateResult {
+    const stateObj = this.hass.states[entityId] as HassEntity | undefined;
+    if (!stateObj) {
+      return html`<div class="sensor-chip chip-${pos} unavailable"></div>`;
+    }
+
+    const unit: string = stateObj.attributes?.unit_of_measurement ?? "";
+    const label =
+      nameOverride ||
+      (stateObj.attributes?.friendly_name as string | undefined) ||
+      entityId;
+    const icon =
+      iconOverride || (stateObj.attributes?.icon as string | undefined) || "mdi:gauge";
+
+    if (unit === "%") {
+      const pct = parseFloat(stateObj.state);
+      return this._renderRingChip(stateObj, isNaN(pct) ? 0 : pct, pos, label, icon);
+    }
+    return this._renderIconChip(stateObj, pos, label, icon, unit);
+  }
+
+  private _renderRingChip(
+    stateObj: HassEntity,
+    pct: number,
+    pos: 1 | 2 | 3 | 4,
+    label: string,
+    icon: string
+  ): TemplateResult {
+    return html`
+      <div class="sensor-chip chip-${pos}"
+        role="button" tabindex="0"
+        @click=${() => this._openMoreInfo(stateObj.entity_id)}
+      >
+        <div class="ring-wrap">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle
+              cx="32" cy="32" r="26"
+              stroke="var(--divider-color, rgba(0,0,0,0.12))"
+              stroke-width="3.5"
+            />
+            <circle
+              cx="32" cy="32" r="26"
+              stroke="rgb(var(--chip-rgb))"
+              stroke-width="3.5"
+              stroke-linecap="round"
+              stroke-dasharray="${ringDash(pct)}"
+              transform="rotate(-90 32 32)"
+            />
+          </svg>
+          <div class="ring-icon">
+            <ha-icon .icon=${icon}></ha-icon>
+          </div>
+        </div>
+        <div class="chip-text">
+          <div class="chip-value">${stateObj.state}<span class="chip-unit">%</span></div>
+          <div class="chip-label">${label}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  private _renderIconChip(
+    stateObj: HassEntity,
+    pos: 1 | 2 | 3 | 4,
+    label: string,
+    icon: string,
+    unit: string
+  ): TemplateResult {
+    return html`
+      <div class="sensor-chip chip-${pos}"
+        role="button" tabindex="0"
+        @click=${() => this._openMoreInfo(stateObj.entity_id)}
+      >
+        <div class="icon-circle">
+          <ha-icon .icon=${icon}></ha-icon>
+        </div>
+        <div class="chip-text">
+          <div class="chip-value">
+            ${stateObj.state}${unit
+              ? html`<span class="chip-unit"> ${unit}</span>`
+              : nothing}
+          </div>
+          <div class="chip-label">${label}</div>
+        </div>
+      </div>
+    `;
+  }
+
   private _openMoreInfo(entityId: string): void {
     this.dispatchEvent(
       new CustomEvent("hass-more-info", {
@@ -578,7 +442,7 @@ export class PetlibroDockstream2Card
       .hero {
         position: relative;
         width: 100%;
-        height: 260px;
+        height: 220px;
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
@@ -591,13 +455,13 @@ export class PetlibroDockstream2Card
         inset: 0;
         background: linear-gradient(
           to bottom,
-          transparent 45%,
-          rgba(0, 0, 0, 0.25) 100%
+          transparent 40%,
+          rgba(0, 0, 0, 0.32) 100%
         );
         pointer-events: none;
       }
 
-      /* ── State badge ── */
+      /* ── Glass state badge ── */
       .state-badge {
         flex-shrink: 0;
         display: inline-flex;
@@ -640,55 +504,50 @@ export class PetlibroDockstream2Card
         white-space: nowrap;
       }
 
-      /* ── Metrics container ── */
-      .metrics {
-        padding: 14px 16px 4px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .metrics-primary {
-        display: flex;
-        justify-content: center;
-      }
-
-      .metrics-tiles {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
-      }
-
-      .metric-tile { min-width: 0; }
-
-      .metrics-pills {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 8px;
-        padding-top: 2px;
-      }
-
-      /* ── Ring chip (primary metric) ── */
-      .ring-chip {
+      /* ── Sensor strip ── */
+      .sensors-row {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 14px;
-        padding: 8px 16px;
+        padding: 14px 20px 12px;
+        gap: 0;
+      }
+
+      .sensor-chip {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        flex: 1;
+        min-width: 0;
+        padding: 0 16px 0 0;
         cursor: pointer;
         transition: background 120ms ease;
-        border-radius: 14px;
       }
 
-      .ring-chip:hover {
+      .sensor-chip:hover {
         background: rgba(120, 120, 128, 0.07);
+        border-radius: 10px;
       }
 
+      .sensor-chip + .sensor-chip {
+        padding: 0 16px 0 16px;
+        border-left: 1px solid var(--divider-color, rgba(120, 120, 128, 0.2));
+      }
+
+      .sensor-chip:last-child { padding-right: 0; }
+
+      /* Per-slot accent colors */
+      .chip-1 { --chip-rgb: var(--rgb-state-water, 3, 169, 244); }
+      .chip-2 { --chip-rgb: 76, 175, 80; }
+      .chip-3 { --chip-rgb: 255, 152, 0; }
+      .chip-4 { --chip-rgb: 156, 39, 176; }
+
+      /* ── SVG ring chip ── */
       .ring-wrap {
         position: relative;
-        width: 64px;
-        height: 64px;
+        width: 48px;
+        height: 48px;
         flex-shrink: 0;
       }
 
@@ -700,153 +559,70 @@ export class PetlibroDockstream2Card
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--chip-rgb, var(--rgb-state-water, 3, 169, 244));
+        color: rgb(var(--chip-rgb));
       }
 
-      .ring-icon ha-icon { --mdc-icon-size: 22px; }
+      .ring-icon ha-icon { --mdc-icon-size: 17px; }
 
-      .ring-text {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        min-width: 0;
-      }
-
-      .ring-value {
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--primary-text-color);
-        line-height: 1;
-      }
-
-      .ring-unit {
-        font-size: 14px;
-        font-weight: 400;
-        color: var(--secondary-text-color);
-      }
-
-      .ring-label {
-        font-size: 12px;
-        color: var(--secondary-text-color);
-        line-height: 1.2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      /* ── Tile ── */
-      .tile {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 6px;
-        padding: 10px 6px;
-        border-radius: 12px;
-        background: color-mix(in srgb, rgb(var(--tile-rgb, 59, 130, 246)) 8%, transparent);
-        cursor: pointer;
-        transition: background 120ms ease;
-        min-width: 0;
-      }
-
-      .tile:hover {
-        background: color-mix(in srgb, rgb(var(--tile-rgb, 59, 130, 246)) 14%, transparent);
-      }
-
-      .tile-icon {
-        width: 36px;
-        height: 36px;
+      /* ── Icon circle chip ── */
+      .icon-circle {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
         border-radius: 50%;
-        background: color-mix(in srgb, rgb(var(--tile-rgb, 59, 130, 246)) 18%, transparent);
+        background: rgba(var(--chip-rgb), 0.12);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: rgb(var(--tile-rgb, 59, 130, 246));
-        flex-shrink: 0;
+        color: rgb(var(--chip-rgb));
       }
 
-      .tile-icon ha-icon { --mdc-icon-size: 18px; }
+      .icon-circle ha-icon { --mdc-icon-size: 22px; }
 
-      .tile-text {
+      /* ── Chip text ── */
+      .chip-text {
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: 3px;
         min-width: 0;
-        max-width: 100%;
       }
 
-      .tile-value {
-        font-size: 14px;
+      .chip-value {
+        font-size: 18px;
         font-weight: 700;
         color: var(--primary-text-color);
-        line-height: 1.1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        line-height: 1;
       }
 
-      .tile-unit {
-        font-size: 10px;
+      .chip-unit {
+        font-size: 12px;
         font-weight: 400;
         color: var(--secondary-text-color);
       }
 
-      .tile-label {
-        font-size: 10px;
+      .chip-label {
+        font-size: 11px;
         color: var(--secondary-text-color);
         line-height: 1.2;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        max-width: 100%;
       }
 
-      .tile-unavail { opacity: 0.5; }
-
-      /* ── Pills ── */
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 4px 10px;
-        border-radius: 999px;
-        background: var(--secondary-background-color, rgba(120, 120, 128, 0.08));
-        border: 1px solid var(--divider-color, rgba(120, 120, 128, 0.2));
-        color: var(--primary-text-color);
-        font-size: 11px;
-        line-height: 1;
-        cursor: pointer;
-        transition: background 120ms ease;
-      }
-
-      .pill:hover {
-        background: rgba(120, 120, 128, 0.14);
-      }
-
-      .pill ha-icon { --mdc-icon-size: 14px; opacity: 0.85; }
-
-      .pill-on {
-        background: color-mix(in srgb, var(--rgb-state-water, 3, 169, 244) 16%, transparent);
-        border-color: color-mix(in srgb, var(--rgb-state-water, 3, 169, 244) 40%, transparent);
-        color: var(--primary-text-color);
-      }
-
-      .pill-label {
-        font-weight: 500;
-        opacity: 0.85;
-      }
-
-      .pill-state {
-        font-weight: 600;
-      }
+      .sensor-chip.unavailable { opacity: 0.3; }
 
       /* ── Action buttons ── */
       .actions-row {
         display: flex;
         flex-direction: row;
         gap: 0;
-        padding: 8px 16px 4px;
+        padding: 4px 16px 0;
+      }
+
+      .sensors-row + .actions-row {
         margin: 0 4px;
+        padding-left: 12px;
+        padding-right: 12px;
         border-top: 1px solid var(--divider-color, rgba(120, 120, 128, 0.18));
       }
 
@@ -905,50 +681,44 @@ export class PetlibroDockstream2Card
          Small-card layout (container ≤ 460 px — primary target)
          ───────────────────────────────────────────────────────────── */
       @container (max-width: 460px) {
-        .hero                { height: 180px; }
-        .metrics             { padding: 10px 10px 2px; gap: 10px; }
-        .ring-chip           { padding: 6px 8px; gap: 10px; }
-        .ring-wrap           { width: 50px; height: 50px; }
-        .ring-icon ha-icon   { --mdc-icon-size: 17px; }
-        .ring-value          { font-size: 18px; }
-        .ring-label          { font-size: 11px; }
-        .metrics-tiles       { gap: 6px; }
-        .tile                { padding: 8px 4px; gap: 4px; }
-        .tile-icon           { width: 30px; height: 30px; }
-        .tile-icon ha-icon   { --mdc-icon-size: 14px; }
-        .tile-value          { font-size: 12px; }
-        .tile-label          { font-size: 9px; }
-        .pill                { font-size: 10px; padding: 3px 8px; }
-        .pill ha-icon        { --mdc-icon-size: 12px; }
-        .actions-row         { padding: 6px 10px 2px; }
-        .action-btn          { gap: 8px; padding: 10px 10px; }
-        .action-btn-icon     { width: 32px; height: 32px; border-radius: 8px; }
+        .hero                        { height: 165px; }
+        .sensors-row                 { padding: 10px 12px 8px; }
+        .sensor-chip                 { gap: 8px; padding: 0 10px 0 0; }
+        .sensor-chip + .sensor-chip  { padding: 0 10px; }
+        .ring-wrap                   { width: 36px; height: 36px; }
+        .ring-icon ha-icon           { --mdc-icon-size: 13px; }
+        .icon-circle                 { width: 34px; height: 34px; }
+        .icon-circle ha-icon         { --mdc-icon-size: 16px; }
+        .chip-value                  { font-size: 14px; }
+        .chip-unit                   { font-size: 10px; }
+        .chip-label                  { font-size: 10px; }
+        .actions-row                 { padding: 4px 12px 0; }
+        .sensors-row + .actions-row  { padding-left: 8px; padding-right: 8px; }
+        .action-btn                  { gap: 8px; padding: 10px 10px; }
+        .action-btn-icon             { width: 32px; height: 32px; border-radius: 8px; }
         .action-btn-icon ha-state-icon { --mdc-icon-size: 16px; }
-        .action-btn-label    { font-size: 11px; }
+        .action-btn-label            { font-size: 11px; }
       }
 
       /* Fallback for older engines without container queries */
       @media (max-width: 460px) {
-        .hero                { height: 180px; }
-        .metrics             { padding: 10px 10px 2px; gap: 10px; }
-        .ring-chip           { padding: 6px 8px; gap: 10px; }
-        .ring-wrap           { width: 50px; height: 50px; }
-        .ring-icon ha-icon   { --mdc-icon-size: 17px; }
-        .ring-value          { font-size: 18px; }
-        .ring-label          { font-size: 11px; }
-        .metrics-tiles       { gap: 6px; }
-        .tile                { padding: 8px 4px; gap: 4px; }
-        .tile-icon           { width: 30px; height: 30px; }
-        .tile-icon ha-icon   { --mdc-icon-size: 14px; }
-        .tile-value          { font-size: 12px; }
-        .tile-label          { font-size: 9px; }
-        .pill                { font-size: 10px; padding: 3px 8px; }
-        .pill ha-icon        { --mdc-icon-size: 12px; }
-        .actions-row         { padding: 6px 10px 2px; }
-        .action-btn          { gap: 8px; padding: 10px 10px; }
-        .action-btn-icon     { width: 32px; height: 32px; border-radius: 8px; }
+        .hero                        { height: 165px; }
+        .sensors-row                 { padding: 10px 12px 8px; }
+        .sensor-chip                 { gap: 8px; padding: 0 10px 0 0; }
+        .sensor-chip + .sensor-chip  { padding: 0 10px; }
+        .ring-wrap                   { width: 36px; height: 36px; }
+        .ring-icon ha-icon           { --mdc-icon-size: 13px; }
+        .icon-circle                 { width: 34px; height: 34px; }
+        .icon-circle ha-icon         { --mdc-icon-size: 16px; }
+        .chip-value                  { font-size: 14px; }
+        .chip-unit                   { font-size: 10px; }
+        .chip-label                  { font-size: 10px; }
+        .actions-row                 { padding: 4px 12px 0; }
+        .sensors-row + .actions-row  { padding-left: 8px; padding-right: 8px; }
+        .action-btn                  { gap: 8px; padding: 10px 10px; }
+        .action-btn-icon             { width: 32px; height: 32px; border-radius: 8px; }
         .action-btn-icon ha-state-icon { --mdc-icon-size: 16px; }
-        .action-btn-label    { font-size: 11px; }
+        .action-btn-label            { font-size: 11px; }
       }
     `;
   }

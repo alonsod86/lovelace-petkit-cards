@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "secondary_entity": "Secondary entity (optional, vertical only)", "entity_icon": "Primary entity icon (replaces dot)", "secondary_entity_icon": "Secondary entity icon (replaces dot)", "primary_column_title": "Primary column title (optional)", "secondary_column_title": "Secondary column title (optional)", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "events_section": "Event options", "show_idle_events": "Show idle events", "show_event_time": "Show event time", "show_event_duration": "Show event duration", "reverse_order": "Reverse order (oldest first)", "labels_section": "State labels", "unknown_label": "Unknown cat placeholder", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" }, "petlibro_dockstream_2": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "sensors_section": "Sensor chips", "water_level_entity": "Water Level (% — sensor.current_weight_percent)", "water_volume_entity": "Remaining Water Volume (sensor.remaining_water)", "today_water_entity": "Today's Water Consumption (sensor.today_drinking_amount)", "yesterday_water_entity": "Yesterday's Water Consumption (sensor.yesterday_drinking_amount)", "filter_days_entity": "Remaining Filter Days (sensor.remaining_filter_days)", "cleaning_days_entity": "Remaining Cleaning Days (sensor.remaining_cleaning_days)", "battery_entity": "Battery / AC % (sensor.electric_quantity)", "status_section": "Status pills", "power_entity": "Power State (binary_sensor.power_state)", "connectivity_entity": "Wi-Fi Connectivity (binary_sensor.online)", "dispensing_entity": "Water Dispensing State (binary_sensor.water_state)", "mode_entity": "Water Dispensing Mode (select.water_dispensing_mode)", "actions_section": "Action buttons", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "secondary_entity": "Secondary entity (optional, vertical only)", "entity_icon": "Primary entity icon (replaces dot)", "secondary_entity_icon": "Secondary entity icon (replaces dot)", "primary_column_title": "Primary column title (optional)", "secondary_column_title": "Secondary column title (optional)", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "events_section": "Event options", "show_idle_events": "Show idle events", "show_event_time": "Show event time", "show_event_duration": "Show event duration", "reverse_order": "Reverse order (oldest first)", "labels_section": "State labels", "unknown_label": "Unknown cat placeholder", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" }, "petlibro_dockstream_2": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -10371,17 +10371,18 @@ const petlibroDockstream2CardConfigStruct = assign(
     title: optional(string()),
     show_name: optional(boolean()),
     show_state: optional(boolean()),
-    water_level_entity: optional(string()),
-    water_volume_entity: optional(string()),
-    today_water_entity: optional(string()),
-    yesterday_water_entity: optional(string()),
-    filter_days_entity: optional(string()),
-    cleaning_days_entity: optional(string()),
-    battery_entity: optional(string()),
-    power_entity: optional(string()),
-    connectivity_entity: optional(string()),
-    dispensing_entity: optional(string()),
-    mode_entity: optional(string()),
+    sensor_1_entity: optional(string()),
+    sensor_1_name: optional(string()),
+    sensor_1_icon: optional(string()),
+    sensor_2_entity: optional(string()),
+    sensor_2_name: optional(string()),
+    sensor_2_icon: optional(string()),
+    sensor_3_entity: optional(string()),
+    sensor_3_name: optional(string()),
+    sensor_3_icon: optional(string()),
+    sensor_4_entity: optional(string()),
+    sensor_4_name: optional(string()),
+    sensor_4_icon: optional(string()),
     btn_1_entity: optional(string()),
     btn_1_name: optional(string()),
     btn_1_icon: optional(string()),
@@ -10479,7 +10480,7 @@ let PetlibroDockstream2Card = class extends i$2 {
     this._config = config;
   }
   getCardSize() {
-    return 6;
+    return 5;
   }
   // ─── Render ────────────────────────────────────────────────────────────────
   render() {
@@ -10487,21 +10488,29 @@ let PetlibroDockstream2Card = class extends i$2 {
     const cfg = this._config;
     const stateObj = this.hass.states[cfg.entity];
     const picture = cfg.picture || void 0;
+    const sensors = [1, 2, 3, 4].map((n3) => ({
+      pos: n3,
+      entity: cfg[`sensor_${n3}_entity`],
+      name: cfg[`sensor_${n3}_name`],
+      icon: cfg[`sensor_${n3}_icon`]
+    })).filter((s2) => s2.entity);
     const showName = cfg.show_name !== false;
     const showState = cfg.show_state !== false;
     const titleText = cfg.title?.trim() || stateObj?.attributes?.friendly_name || cfg.entity;
-    const badgeSource = this.hass.states[cfg.dispensing_entity ?? ""] ?? this.hass.states[cfg.mode_entity ?? ""] ?? stateObj;
-    const badgeState = badgeSource ? String(badgeSource.state) : "";
     return b`
       <ha-card>
-        ${showName || showState && badgeSource ? b`
+        ${showName || showState && stateObj ? b`
               <div class="card-header">
                 ${showName ? b`<span class="card-title">${titleText}</span>` : A}
-                ${showState && badgeSource ? this._renderStateBadge(badgeState) : A}
+                ${showState && stateObj ? this._renderStateBadge(stateObj) : A}
               </div>
             ` : A}
         ${this._renderHero(picture)}
-        ${this._renderMetrics()}
+        ${sensors.length > 0 ? b`
+              <div class="sensors-row">
+                ${sensors.map((s2) => this._renderSensor(s2.entity, s2.pos, s2.name, s2.icon))}
+              </div>
+            ` : A}
         ${this._renderActions()}
       </ha-card>
     `;
@@ -10512,208 +10521,6 @@ let PetlibroDockstream2Card = class extends i$2 {
     return b`
       <div class="hero" style=${o({ backgroundImage: `url('${imgUrl}')` })}>
         <div class="hero-gradient"></div>
-      </div>
-    `;
-  }
-  // ─── Metrics ──────────────────────────────────────────────────────────────
-  _renderMetrics() {
-    const cfg = this._config;
-    const primary = cfg.water_level_entity ? this._renderRingChipEntity(
-      cfg.water_level_entity,
-      "mdi:water-percent",
-      "Water Level",
-      this._waterPctColor()
-    ) : A;
-    const tiles = [];
-    const tileDefs = [
-      {
-        key: cfg.water_volume_entity,
-        icon: "mdi:water",
-        label: "Remaining Water",
-        accent: "59, 130, 246"
-      },
-      {
-        key: cfg.today_water_entity,
-        icon: "mdi:cup-water",
-        label: "Today",
-        accent: "3, 169, 244"
-      },
-      {
-        key: cfg.yesterday_water_entity,
-        icon: "mdi:cup-water-outline",
-        label: "Yesterday",
-        accent: "156, 163, 175"
-      },
-      {
-        key: cfg.filter_days_entity,
-        icon: "mdi:air-filter",
-        label: "Filter",
-        accent: "76, 175, 80"
-      },
-      {
-        key: cfg.cleaning_days_entity,
-        icon: "mdi:broom",
-        label: "Cleaning",
-        accent: "255, 152, 0"
-      },
-      {
-        key: cfg.battery_entity,
-        icon: "mdi:battery",
-        label: "Battery",
-        accent: "139, 195, 74"
-      }
-    ];
-    for (const def of tileDefs) {
-      if (def.key) {
-        tiles.push(this._renderTileEntity(def.key, def.icon, def.label, def.accent));
-      }
-    }
-    const pills = [];
-    const pillDefs = [
-      { key: cfg.connectivity_entity, icon: "mdi:wifi", label: "Wi-Fi", isBinary: true },
-      { key: cfg.power_entity, icon: "mdi:power-plug", label: "Power", isBinary: true },
-      { key: cfg.dispensing_entity, icon: "mdi:water-pump", label: "Dispensing", isBinary: true },
-      { key: cfg.mode_entity, icon: "mdi:waves", label: "Mode", isBinary: false }
-    ];
-    for (const def of pillDefs) {
-      if (def.key) {
-        pills.push(
-          this._renderPillEntity(def.key, def.icon, def.label, !!def.isBinary)
-        );
-      }
-    }
-    if (primary === A && tiles.length === 0 && pills.length === 0) {
-      return A;
-    }
-    return b`
-      <div class="metrics">
-        ${primary !== A ? b`
-              <div class="metrics-primary">${primary}</div>
-            ` : A}
-        ${tiles.length > 0 ? b`
-              <div class="metrics-tiles">
-                ${tiles.map((t2) => b`<div class="metric-tile">${t2}</div>`)}
-              </div>
-            ` : A}
-        ${pills.length > 0 ? b`
-              <div class="metrics-pills">
-                ${pills.map((p2) => p2)}
-              </div>
-            ` : A}
-      </div>
-    `;
-  }
-  _waterPctColor() {
-    return "var(--rgb-state-water, 3, 169, 244)";
-  }
-  // ─── Chip renderers ───────────────────────────────────────────────────────
-  _renderRingChipEntity(entityId, icon, labelFallback, _rgb) {
-    const stateObj = this.hass.states[entityId];
-    if (!stateObj) return A;
-    const pct = parseFloat(stateObj.state);
-    const label = stateObj.attributes?.friendly_name || labelFallback;
-    return this._renderRing(stateObj, isNaN(pct) ? 0 : pct, label, icon);
-  }
-  _renderRing(stateObj, pct, label, icon) {
-    return b`
-      <div
-        class="ring-chip"
-        role="button"
-        tabindex="0"
-        @click=${() => this._openMoreInfo(stateObj.entity_id)}
-      >
-        <div class="ring-wrap">
-          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle
-              cx="32" cy="32" r="26"
-              stroke="var(--divider-color, rgba(0,0,0,0.12))"
-              stroke-width="3.5"
-            />
-            <circle
-              cx="32" cy="32" r="26"
-              stroke="var(--chip-rgb, var(--rgb-state-water, 3, 169, 244))"
-              stroke-width="3.5"
-              stroke-linecap="round"
-              stroke-dasharray="${ringDash(pct)}"
-              transform="rotate(-90 32 32)"
-            />
-          </svg>
-          <div class="ring-icon">
-            <ha-icon .icon=${icon}></ha-icon>
-          </div>
-        </div>
-        <div class="ring-text">
-          <div class="ring-value">${stateObj.state}<span class="ring-unit">%</span></div>
-          <div class="ring-label">${label}</div>
-        </div>
-      </div>
-    `;
-  }
-  _renderTileEntity(entityId, icon, labelFallback, rgb) {
-    const stateObj = this.hass.states[entityId];
-    if (!stateObj) return A;
-    const unit = stateObj.attributes?.unit_of_measurement ?? "";
-    const label = stateObj.attributes?.friendly_name || labelFallback;
-    const unavailable = stateObj.state === "unavailable" || stateObj.state === "unknown";
-    return b`
-      <div
-        class="tile"
-        style=${o({ "--tile-rgb": rgb })}
-        role="button"
-        tabindex="0"
-        @click=${() => this._openMoreInfo(entityId)}
-      >
-        <div class="tile-icon">
-          <ha-icon .icon=${icon}></ha-icon>
-        </div>
-        <div class="tile-text">
-          <div class="tile-value">
-            ${stateObj.state}${unit ? b`<span class="tile-unit"> ${unit}</span>` : A}
-          </div>
-          <div class="tile-label ${unavailable ? "tile-unavail" : ""}">${label}</div>
-        </div>
-      </div>
-    `;
-  }
-  _renderPillEntity(entityId, icon, labelFallback, isBinary) {
-    const stateObj = this.hass.states[entityId];
-    if (!stateObj) return A;
-    const label = stateObj.attributes?.friendly_name || labelFallback;
-    const s2 = String(stateObj.state);
-    let active = false;
-    if (isBinary) {
-      active = s2.toLowerCase() === "on" || s2.toLowerCase() === "true";
-    } else {
-      active = MODE_STATES.has(s2) && s2 !== "Off";
-    }
-    return b`
-      <div
-        class="pill ${active ? "pill-on" : ""}"
-        role="button"
-        tabindex="0"
-        @click=${() => this._openMoreInfo(entityId)}
-      >
-        <ha-icon .icon=${icon}></ha-icon>
-        <span class="pill-label">${label}</span>
-        <span class="pill-state">${defaultLabel(s2)}</span>
-      </div>
-    `;
-  }
-  // ─── State badge ──────────────────────────────────────────────────────────
-  _renderStateBadge(stateRaw) {
-    const key = stateBadgeKey(stateRaw);
-    const rgb = STATE_RGB[key] ?? DEFAULT_STATE_RGB;
-    const icon = STATE_ICONS[key] ?? DEFAULT_STATE_ICON;
-    const label = defaultLabel(stateRaw);
-    const isActive2 = ACTIVE_STATES.has(key);
-    return b`
-      <div class="state-badge">
-        <span
-          class="state-dot ${isActive2 ? "pulse" : ""}"
-          style="background: rgb(${rgb});"
-        ></span>
-        <ha-icon class="state-icon" .icon=${icon}></ha-icon>
-        <span class="state-label">${label}</span>
       </div>
     `;
   }
@@ -10770,6 +10577,91 @@ let PetlibroDockstream2Card = class extends i$2 {
       </div>
     `;
   }
+  // ─── State badge ──────────────────────────────────────────────────────────
+  _renderStateBadge(stateObj) {
+    const s2 = String(stateObj.state);
+    const key = stateBadgeKey(s2);
+    const rgb = STATE_RGB[key] ?? DEFAULT_STATE_RGB;
+    const icon = STATE_ICONS[key] ?? DEFAULT_STATE_ICON;
+    const label = defaultLabel(s2);
+    const isActive2 = ACTIVE_STATES.has(key);
+    return b`
+      <div class="state-badge">
+        <span
+          class="state-dot ${isActive2 ? "pulse" : ""}"
+          style="background: rgb(${rgb});"
+        ></span>
+        <ha-icon class="state-icon" .icon=${icon}></ha-icon>
+        <span class="state-label">${label}</span>
+      </div>
+    `;
+  }
+  // ─── Sensors ──────────────────────────────────────────────────────────────
+  _renderSensor(entityId, pos, nameOverride, iconOverride) {
+    const stateObj = this.hass.states[entityId];
+    if (!stateObj) {
+      return b`<div class="sensor-chip chip-${pos} unavailable"></div>`;
+    }
+    const unit = stateObj.attributes?.unit_of_measurement ?? "";
+    const label = nameOverride || stateObj.attributes?.friendly_name || entityId;
+    const icon = iconOverride || stateObj.attributes?.icon || "mdi:gauge";
+    if (unit === "%") {
+      const pct = parseFloat(stateObj.state);
+      return this._renderRingChip(stateObj, isNaN(pct) ? 0 : pct, pos, label, icon);
+    }
+    return this._renderIconChip(stateObj, pos, label, icon, unit);
+  }
+  _renderRingChip(stateObj, pct, pos, label, icon) {
+    return b`
+      <div class="sensor-chip chip-${pos}"
+        role="button" tabindex="0"
+        @click=${() => this._openMoreInfo(stateObj.entity_id)}
+      >
+        <div class="ring-wrap">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle
+              cx="32" cy="32" r="26"
+              stroke="var(--divider-color, rgba(0,0,0,0.12))"
+              stroke-width="3.5"
+            />
+            <circle
+              cx="32" cy="32" r="26"
+              stroke="rgb(var(--chip-rgb))"
+              stroke-width="3.5"
+              stroke-linecap="round"
+              stroke-dasharray="${ringDash(pct)}"
+              transform="rotate(-90 32 32)"
+            />
+          </svg>
+          <div class="ring-icon">
+            <ha-icon .icon=${icon}></ha-icon>
+          </div>
+        </div>
+        <div class="chip-text">
+          <div class="chip-value">${stateObj.state}<span class="chip-unit">%</span></div>
+          <div class="chip-label">${label}</div>
+        </div>
+      </div>
+    `;
+  }
+  _renderIconChip(stateObj, pos, label, icon, unit) {
+    return b`
+      <div class="sensor-chip chip-${pos}"
+        role="button" tabindex="0"
+        @click=${() => this._openMoreInfo(stateObj.entity_id)}
+      >
+        <div class="icon-circle">
+          <ha-icon .icon=${icon}></ha-icon>
+        </div>
+        <div class="chip-text">
+          <div class="chip-value">
+            ${stateObj.state}${unit ? b`<span class="chip-unit"> ${unit}</span>` : A}
+          </div>
+          <div class="chip-label">${label}</div>
+        </div>
+      </div>
+    `;
+  }
   _openMoreInfo(entityId) {
     this.dispatchEvent(
       new CustomEvent("hass-more-info", {
@@ -10814,7 +10706,7 @@ let PetlibroDockstream2Card = class extends i$2 {
       .hero {
         position: relative;
         width: 100%;
-        height: 260px;
+        height: 220px;
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
@@ -10827,13 +10719,13 @@ let PetlibroDockstream2Card = class extends i$2 {
         inset: 0;
         background: linear-gradient(
           to bottom,
-          transparent 45%,
-          rgba(0, 0, 0, 0.25) 100%
+          transparent 40%,
+          rgba(0, 0, 0, 0.32) 100%
         );
         pointer-events: none;
       }
 
-      /* ── State badge ── */
+      /* ── Glass state badge ── */
       .state-badge {
         flex-shrink: 0;
         display: inline-flex;
@@ -10876,55 +10768,50 @@ let PetlibroDockstream2Card = class extends i$2 {
         white-space: nowrap;
       }
 
-      /* ── Metrics container ── */
-      .metrics {
-        padding: 14px 16px 4px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .metrics-primary {
-        display: flex;
-        justify-content: center;
-      }
-
-      .metrics-tiles {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
-      }
-
-      .metric-tile { min-width: 0; }
-
-      .metrics-pills {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 8px;
-        padding-top: 2px;
-      }
-
-      /* ── Ring chip (primary metric) ── */
-      .ring-chip {
+      /* ── Sensor strip ── */
+      .sensors-row {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 14px;
-        padding: 8px 16px;
+        padding: 14px 20px 12px;
+        gap: 0;
+      }
+
+      .sensor-chip {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        flex: 1;
+        min-width: 0;
+        padding: 0 16px 0 0;
         cursor: pointer;
         transition: background 120ms ease;
-        border-radius: 14px;
       }
 
-      .ring-chip:hover {
+      .sensor-chip:hover {
         background: rgba(120, 120, 128, 0.07);
+        border-radius: 10px;
       }
 
+      .sensor-chip + .sensor-chip {
+        padding: 0 16px 0 16px;
+        border-left: 1px solid var(--divider-color, rgba(120, 120, 128, 0.2));
+      }
+
+      .sensor-chip:last-child { padding-right: 0; }
+
+      /* Per-slot accent colors */
+      .chip-1 { --chip-rgb: var(--rgb-state-water, 3, 169, 244); }
+      .chip-2 { --chip-rgb: 76, 175, 80; }
+      .chip-3 { --chip-rgb: 255, 152, 0; }
+      .chip-4 { --chip-rgb: 156, 39, 176; }
+
+      /* ── SVG ring chip ── */
       .ring-wrap {
         position: relative;
-        width: 64px;
-        height: 64px;
+        width: 48px;
+        height: 48px;
         flex-shrink: 0;
       }
 
@@ -10936,153 +10823,70 @@ let PetlibroDockstream2Card = class extends i$2 {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--chip-rgb, var(--rgb-state-water, 3, 169, 244));
+        color: rgb(var(--chip-rgb));
       }
 
-      .ring-icon ha-icon { --mdc-icon-size: 22px; }
+      .ring-icon ha-icon { --mdc-icon-size: 17px; }
 
-      .ring-text {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        min-width: 0;
-      }
-
-      .ring-value {
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--primary-text-color);
-        line-height: 1;
-      }
-
-      .ring-unit {
-        font-size: 14px;
-        font-weight: 400;
-        color: var(--secondary-text-color);
-      }
-
-      .ring-label {
-        font-size: 12px;
-        color: var(--secondary-text-color);
-        line-height: 1.2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      /* ── Tile ── */
-      .tile {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 6px;
-        padding: 10px 6px;
-        border-radius: 12px;
-        background: color-mix(in srgb, rgb(var(--tile-rgb, 59, 130, 246)) 8%, transparent);
-        cursor: pointer;
-        transition: background 120ms ease;
-        min-width: 0;
-      }
-
-      .tile:hover {
-        background: color-mix(in srgb, rgb(var(--tile-rgb, 59, 130, 246)) 14%, transparent);
-      }
-
-      .tile-icon {
-        width: 36px;
-        height: 36px;
+      /* ── Icon circle chip ── */
+      .icon-circle {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
         border-radius: 50%;
-        background: color-mix(in srgb, rgb(var(--tile-rgb, 59, 130, 246)) 18%, transparent);
+        background: rgba(var(--chip-rgb), 0.12);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: rgb(var(--tile-rgb, 59, 130, 246));
-        flex-shrink: 0;
+        color: rgb(var(--chip-rgb));
       }
 
-      .tile-icon ha-icon { --mdc-icon-size: 18px; }
+      .icon-circle ha-icon { --mdc-icon-size: 22px; }
 
-      .tile-text {
+      /* ── Chip text ── */
+      .chip-text {
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: 3px;
         min-width: 0;
-        max-width: 100%;
       }
 
-      .tile-value {
-        font-size: 14px;
+      .chip-value {
+        font-size: 18px;
         font-weight: 700;
         color: var(--primary-text-color);
-        line-height: 1.1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        line-height: 1;
       }
 
-      .tile-unit {
-        font-size: 10px;
+      .chip-unit {
+        font-size: 12px;
         font-weight: 400;
         color: var(--secondary-text-color);
       }
 
-      .tile-label {
-        font-size: 10px;
+      .chip-label {
+        font-size: 11px;
         color: var(--secondary-text-color);
         line-height: 1.2;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        max-width: 100%;
       }
 
-      .tile-unavail { opacity: 0.5; }
-
-      /* ── Pills ── */
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 4px 10px;
-        border-radius: 999px;
-        background: var(--secondary-background-color, rgba(120, 120, 128, 0.08));
-        border: 1px solid var(--divider-color, rgba(120, 120, 128, 0.2));
-        color: var(--primary-text-color);
-        font-size: 11px;
-        line-height: 1;
-        cursor: pointer;
-        transition: background 120ms ease;
-      }
-
-      .pill:hover {
-        background: rgba(120, 120, 128, 0.14);
-      }
-
-      .pill ha-icon { --mdc-icon-size: 14px; opacity: 0.85; }
-
-      .pill-on {
-        background: color-mix(in srgb, var(--rgb-state-water, 3, 169, 244) 16%, transparent);
-        border-color: color-mix(in srgb, var(--rgb-state-water, 3, 169, 244) 40%, transparent);
-        color: var(--primary-text-color);
-      }
-
-      .pill-label {
-        font-weight: 500;
-        opacity: 0.85;
-      }
-
-      .pill-state {
-        font-weight: 600;
-      }
+      .sensor-chip.unavailable { opacity: 0.3; }
 
       /* ── Action buttons ── */
       .actions-row {
         display: flex;
         flex-direction: row;
         gap: 0;
-        padding: 8px 16px 4px;
+        padding: 4px 16px 0;
+      }
+
+      .sensors-row + .actions-row {
         margin: 0 4px;
+        padding-left: 12px;
+        padding-right: 12px;
         border-top: 1px solid var(--divider-color, rgba(120, 120, 128, 0.18));
       }
 
@@ -11141,50 +10945,44 @@ let PetlibroDockstream2Card = class extends i$2 {
          Small-card layout (container ≤ 460 px — primary target)
          ───────────────────────────────────────────────────────────── */
       @container (max-width: 460px) {
-        .hero                { height: 180px; }
-        .metrics             { padding: 10px 10px 2px; gap: 10px; }
-        .ring-chip           { padding: 6px 8px; gap: 10px; }
-        .ring-wrap           { width: 50px; height: 50px; }
-        .ring-icon ha-icon   { --mdc-icon-size: 17px; }
-        .ring-value          { font-size: 18px; }
-        .ring-label          { font-size: 11px; }
-        .metrics-tiles       { gap: 6px; }
-        .tile                { padding: 8px 4px; gap: 4px; }
-        .tile-icon           { width: 30px; height: 30px; }
-        .tile-icon ha-icon   { --mdc-icon-size: 14px; }
-        .tile-value          { font-size: 12px; }
-        .tile-label          { font-size: 9px; }
-        .pill                { font-size: 10px; padding: 3px 8px; }
-        .pill ha-icon        { --mdc-icon-size: 12px; }
-        .actions-row         { padding: 6px 10px 2px; }
-        .action-btn          { gap: 8px; padding: 10px 10px; }
-        .action-btn-icon     { width: 32px; height: 32px; border-radius: 8px; }
+        .hero                        { height: 165px; }
+        .sensors-row                 { padding: 10px 12px 8px; }
+        .sensor-chip                 { gap: 8px; padding: 0 10px 0 0; }
+        .sensor-chip + .sensor-chip  { padding: 0 10px; }
+        .ring-wrap                   { width: 36px; height: 36px; }
+        .ring-icon ha-icon           { --mdc-icon-size: 13px; }
+        .icon-circle                 { width: 34px; height: 34px; }
+        .icon-circle ha-icon         { --mdc-icon-size: 16px; }
+        .chip-value                  { font-size: 14px; }
+        .chip-unit                   { font-size: 10px; }
+        .chip-label                  { font-size: 10px; }
+        .actions-row                 { padding: 4px 12px 0; }
+        .sensors-row + .actions-row  { padding-left: 8px; padding-right: 8px; }
+        .action-btn                  { gap: 8px; padding: 10px 10px; }
+        .action-btn-icon             { width: 32px; height: 32px; border-radius: 8px; }
         .action-btn-icon ha-state-icon { --mdc-icon-size: 16px; }
-        .action-btn-label    { font-size: 11px; }
+        .action-btn-label            { font-size: 11px; }
       }
 
       /* Fallback for older engines without container queries */
       @media (max-width: 460px) {
-        .hero                { height: 180px; }
-        .metrics             { padding: 10px 10px 2px; gap: 10px; }
-        .ring-chip           { padding: 6px 8px; gap: 10px; }
-        .ring-wrap           { width: 50px; height: 50px; }
-        .ring-icon ha-icon   { --mdc-icon-size: 17px; }
-        .ring-value          { font-size: 18px; }
-        .ring-label          { font-size: 11px; }
-        .metrics-tiles       { gap: 6px; }
-        .tile                { padding: 8px 4px; gap: 4px; }
-        .tile-icon           { width: 30px; height: 30px; }
-        .tile-icon ha-icon   { --mdc-icon-size: 14px; }
-        .tile-value          { font-size: 12px; }
-        .tile-label          { font-size: 9px; }
-        .pill                { font-size: 10px; padding: 3px 8px; }
-        .pill ha-icon        { --mdc-icon-size: 12px; }
-        .actions-row         { padding: 6px 10px 2px; }
-        .action-btn          { gap: 8px; padding: 10px 10px; }
-        .action-btn-icon     { width: 32px; height: 32px; border-radius: 8px; }
+        .hero                        { height: 165px; }
+        .sensors-row                 { padding: 10px 12px 8px; }
+        .sensor-chip                 { gap: 8px; padding: 0 10px 0 0; }
+        .sensor-chip + .sensor-chip  { padding: 0 10px; }
+        .ring-wrap                   { width: 36px; height: 36px; }
+        .ring-icon ha-icon           { --mdc-icon-size: 13px; }
+        .icon-circle                 { width: 34px; height: 34px; }
+        .icon-circle ha-icon         { --mdc-icon-size: 16px; }
+        .chip-value                  { font-size: 14px; }
+        .chip-unit                   { font-size: 10px; }
+        .chip-label                  { font-size: 10px; }
+        .actions-row                 { padding: 4px 12px 0; }
+        .sensors-row + .actions-row  { padding-left: 8px; padding-right: 8px; }
+        .action-btn                  { gap: 8px; padding: 10px 10px; }
+        .action-btn-icon             { width: 32px; height: 32px; border-radius: 8px; }
         .action-btn-icon ha-state-icon { --mdc-icon-size: 16px; }
-        .action-btn-label    { font-size: 11px; }
+        .action-btn-label            { font-size: 11px; }
       }
     `;
   }
@@ -11407,7 +11205,7 @@ const PETKIT_LITTERBOX_LABELS = [
   "footer_1",
   "footer_2"
 ];
-const computeSchema$2 = memoizeOne(
+const computeSchema$3 = memoizeOne(
   (localize, customLocalize, version) => [
     {
       name: "entity",
@@ -11559,7 +11357,7 @@ let PetkitLitterboxCardEditor = class extends MushroomBaseElement {
       return A;
     }
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema$2(
+    const schema = computeSchema$3(
       this.hass.localize,
       customLocalize,
       this.hass.config.version
@@ -11629,7 +11427,7 @@ const TIMELINE_LABELS = [
   "label_resetting",
   "label_paused"
 ];
-const computeSchema$1 = memoizeOne(
+const computeSchema$2 = memoizeOne(
   (_localize, customLocalize) => [
     {
       name: "entity",
@@ -11794,7 +11592,7 @@ let PetkitLitterboxTimelineCardEditor = class extends MushroomBaseElement {
   render() {
     if (!this.hass || !this._config) return A;
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema$1(this.hass.localize, customLocalize);
+    const schema = computeSchema$2(this.hass.localize, customLocalize);
     return b`
       <ha-form
         .hass=${this.hass}
@@ -11867,7 +11665,7 @@ const DASHBOARD_LABELS = [
   "btn_2_icon",
   "btn_2_icon_color"
 ];
-const computeSchema = memoizeOne(
+const computeSchema$1 = memoizeOne(
   (_localize, customLocalize) => [
     {
       name: "entity",
@@ -12114,7 +11912,7 @@ let PetkitLitterboxDashboardCardEditor = class extends MushroomBaseElement {
   render() {
     if (!this.hass || !this._config) return A;
     const customLocalize = setupCustomlocalize(this.hass);
-    const schema = computeSchema(this.hass.localize, customLocalize);
+    const schema = computeSchema$1(this.hass.localize, customLocalize);
     return b`
       <ha-form
         .hass=${this.hass}
@@ -12141,49 +11939,6 @@ const petkitLitterboxDashboardCardEditor = /* @__PURE__ */ Object.freeze(/* @__P
     return PetkitLitterboxDashboardCardEditor;
   }
 }, Symbol.toStringTag, { value: "Module" }));
-function findDockstream2EntityIds(hass) {
-  if (!hass?.devices || !hass.entities) return null;
-  const MODEL_HINTS = [
-    "dockstream 2 smart fountain",
-    "dockstream 2 smart cordless fountain",
-    "plwf106",
-    "plwf116"
-  ];
-  const NAME_HINTS = ["dockstream 2"];
-  const isDockstream2 = (device) => {
-    const mfr = (device.manufacturer ?? "").toLowerCase();
-    const model = (device.model ?? "").toLowerCase();
-    const name = (device.name ?? "").toLowerCase();
-    if (!mfr.includes("petlibro")) return false;
-    if (MODEL_HINTS.some((h2) => model.includes(h2))) return true;
-    if (model === "" && NAME_HINTS.some((h2) => name.includes(h2))) return true;
-    return false;
-  };
-  const deviceIds = /* @__PURE__ */ new Set();
-  for (const device of Object.values(hass.devices)) {
-    if (isDockstream2(device)) deviceIds.add(device.id);
-  }
-  if (deviceIds.size === 0) return null;
-  const entityIds = /* @__PURE__ */ new Set();
-  for (const entity of Object.values(hass.entities)) {
-    if (entity.device_id && deviceIds.has(entity.device_id)) {
-      entityIds.add(entity.entity_id);
-    }
-  }
-  return entityIds.size > 0 ? entityIds : null;
-}
-function filterDockstream2ByDomains(hass, entityIds, domains) {
-  if (!hass || !entityIds) return void 0;
-  const domainList = Array.isArray(domains) ? domains : typeof domains === "string" ? [domains] : [];
-  const allowed = [];
-  for (const id of entityIds) {
-    const domain = id.split(".", 1)[0];
-    if (domainList.length === 0 || domainList.includes(domain)) {
-      allowed.push(id);
-    }
-  }
-  return allowed.length > 0 ? allowed : void 0;
-}
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __decorateClass = (decorators, target, key, kind) => {
@@ -12199,20 +11954,18 @@ const DOCKSTREAM_2_LABELS = [
   "title",
   "show_name",
   "show_state",
-  "sensors_section",
-  "water_level_entity",
-  "water_volume_entity",
-  "today_water_entity",
-  "yesterday_water_entity",
-  "filter_days_entity",
-  "cleaning_days_entity",
-  "battery_entity",
-  "status_section",
-  "power_entity",
-  "connectivity_entity",
-  "dispensing_entity",
-  "mode_entity",
-  "actions_section",
+  "sensor_1_entity",
+  "sensor_1_name",
+  "sensor_1_icon",
+  "sensor_2_entity",
+  "sensor_2_name",
+  "sensor_2_icon",
+  "sensor_3_entity",
+  "sensor_3_name",
+  "sensor_3_icon",
+  "sensor_4_entity",
+  "sensor_4_name",
+  "sensor_4_icon",
   "btn_1_entity",
   "btn_1_name",
   "btn_1_icon",
@@ -12222,143 +11975,134 @@ const DOCKSTREAM_2_LABELS = [
   "btn_2_icon",
   "btn_2_icon_color"
 ];
-function buildSchema(customLocalize, dockstreamEntityIds, hass) {
-  const domainIds = (domains) => filterDockstream2ByDomains(hass, dockstreamEntityIds, domains);
-  const anyEntity = { entity: {} };
-  return [
+const computeSchema = memoizeOne(
+  (_localize, customLocalize) => [
     {
       name: "entity",
-      selector: {
-        entity: {
-          domain: PETLIBRO_DOCKSTREAM_2_STATE_DOMAINS,
-          include_entities: domainIds(PETLIBRO_DOCKSTREAM_2_STATE_DOMAINS)
-        }
-      }
+      selector: { entity: { domain: PETLIBRO_DOCKSTREAM_2_STATE_DOMAINS } }
     },
     { name: "picture", selector: { text: {} } },
     { name: "title", selector: { text: {} } },
     { name: "show_name", selector: { boolean: {} } },
     { name: "show_state", selector: { boolean: {} } },
-    // ── Sensors ──────────────────────────────────────────────────────
+    // ── Sensor slot 1 ──────────────────────────────────────────────────────
     {
       type: "expandable",
-      name: "sensors_section",
+      name: "sensor_1_section",
       flatten: true,
-      icon: "mdi:water-percent",
+      icon: "mdi:numeric-1-circle-outline",
       title: customLocalize(
-        "editor.card.petlibro_dockstream_2.sensors_section"
+        "editor.card.petlibro_dockstream_2.sensor_1_section"
       ),
       schema: [
+        { name: "sensor_1_entity", selector: { entity: {} } },
+        { name: "sensor_1_name", selector: { text: {} } },
         {
-          name: "water_level_entity",
-          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
-        },
-        {
-          name: "water_volume_entity",
-          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
-        },
-        {
-          name: "today_water_entity",
-          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
-        },
-        {
-          name: "yesterday_water_entity",
-          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
-        },
-        {
-          name: "filter_days_entity",
-          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
-        },
-        {
-          name: "cleaning_days_entity",
-          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
-        },
-        {
-          name: "battery_entity",
-          selector: { entity: { domain: ["sensor"], include_entities: domainIds(["sensor"]) } }
+          name: "sensor_1_icon",
+          selector: { icon: {} },
+          context: { icon_entity: "sensor_1_entity" }
         }
       ]
     },
-    // ── Status (binary_sensor + select) ───────────────────────────────
+    // ── Sensor slot 2 ──────────────────────────────────────────────────────
     {
       type: "expandable",
-      name: "status_section",
+      name: "sensor_2_section",
       flatten: true,
-      icon: "mdi:information-outline",
+      icon: "mdi:numeric-2-circle-outline",
       title: customLocalize(
-        "editor.card.petlibro_dockstream_2.status_section"
+        "editor.card.petlibro_dockstream_2.sensor_2_section"
       ),
       schema: [
+        { name: "sensor_2_entity", selector: { entity: {} } },
+        { name: "sensor_2_name", selector: { text: {} } },
         {
-          name: "power_entity",
-          selector: { entity: { domain: ["binary_sensor"], include_entities: domainIds(["binary_sensor"]) } }
-        },
-        {
-          name: "connectivity_entity",
-          selector: { entity: { domain: ["binary_sensor"], include_entities: domainIds(["binary_sensor"]) } }
-        },
-        {
-          name: "dispensing_entity",
-          selector: { entity: { domain: ["binary_sensor"], include_entities: domainIds(["binary_sensor"]) } }
-        },
-        {
-          name: "mode_entity",
-          selector: { entity: { domain: ["select"], include_entities: domainIds(["select"]) } }
+          name: "sensor_2_icon",
+          selector: { icon: {} },
+          context: { icon_entity: "sensor_2_entity" }
         }
       ]
     },
-    // ── Action buttons ───────────────────────────────────────────────
+    // ── Sensor slot 3 ──────────────────────────────────────────────────────
     {
       type: "expandable",
-      name: "actions_section",
+      name: "sensor_3_section",
+      flatten: true,
+      icon: "mdi:numeric-3-circle-outline",
+      title: customLocalize(
+        "editor.card.petlibro_dockstream_2.sensor_3_section"
+      ),
+      schema: [
+        { name: "sensor_3_entity", selector: { entity: {} } },
+        { name: "sensor_3_name", selector: { text: {} } },
+        {
+          name: "sensor_3_icon",
+          selector: { icon: {} },
+          context: { icon_entity: "sensor_3_entity" }
+        }
+      ]
+    },
+    // ── Sensor slot 4 ──────────────────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "sensor_4_section",
+      flatten: true,
+      icon: "mdi:numeric-4-circle-outline",
+      title: customLocalize(
+        "editor.card.petlibro_dockstream_2.sensor_4_section"
+      ),
+      schema: [
+        { name: "sensor_4_entity", selector: { entity: {} } },
+        { name: "sensor_4_name", selector: { text: {} } },
+        {
+          name: "sensor_4_icon",
+          selector: { icon: {} },
+          context: { icon_entity: "sensor_4_entity" }
+        }
+      ]
+    },
+    // ── Action button 1 ────────────────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "btn_1_section",
       flatten: true,
       icon: "mdi:gesture-tap-button",
       title: customLocalize(
-        "editor.card.petlibro_dockstream_2.actions_section"
+        "editor.card.petlibro_dockstream_2.btn_1_section"
       ),
       schema: [
+        { name: "btn_1_entity", selector: { entity: {} } },
+        { name: "btn_1_name", selector: { text: {} } },
         {
-          type: "expandable",
-          name: "btn_1_section",
-          flatten: true,
-          icon: "mdi:numeric-1-circle-outline",
-          title: customLocalize(
-            "editor.card.petlibro_dockstream_2.btn_1_section"
-          ),
-          schema: [
-            { name: "btn_1_entity", selector: anyEntity },
-            { name: "btn_1_name", selector: { text: {} } },
-            {
-              name: "btn_1_icon",
-              selector: { icon: {} },
-              context: { icon_entity: "btn_1_entity" }
-            },
-            { name: "btn_1_icon_color", selector: { text: {} } }
-          ]
+          name: "btn_1_icon",
+          selector: { icon: {} },
+          context: { icon_entity: "btn_1_entity" }
         },
+        { name: "btn_1_icon_color", selector: { text: {} } }
+      ]
+    },
+    // ── Action button 2 ────────────────────────────────────────────────────
+    {
+      type: "expandable",
+      name: "btn_2_section",
+      flatten: true,
+      icon: "mdi:gesture-tap-button",
+      title: customLocalize(
+        "editor.card.petlibro_dockstream_2.btn_2_section"
+      ),
+      schema: [
+        { name: "btn_2_entity", selector: { entity: {} } },
+        { name: "btn_2_name", selector: { text: {} } },
         {
-          type: "expandable",
-          name: "btn_2_section",
-          flatten: true,
-          icon: "mdi:numeric-2-circle-outline",
-          title: customLocalize(
-            "editor.card.petlibro_dockstream_2.btn_2_section"
-          ),
-          schema: [
-            { name: "btn_2_entity", selector: anyEntity },
-            { name: "btn_2_name", selector: { text: {} } },
-            {
-              name: "btn_2_icon",
-              selector: { icon: {} },
-              context: { icon_entity: "btn_2_entity" }
-            },
-            { name: "btn_2_icon_color", selector: { text: {} } }
-          ]
-        }
+          name: "btn_2_icon",
+          selector: { icon: {} },
+          context: { icon_entity: "btn_2_entity" }
+        },
+        { name: "btn_2_icon_color", selector: { text: {} } }
       ]
     }
-  ];
-}
+  ]
+);
 let PetlibroDockstream2CardEditor = class extends MushroomBaseElement {
   constructor() {
     super(...arguments);
@@ -12388,8 +12132,7 @@ let PetlibroDockstream2CardEditor = class extends MushroomBaseElement {
   render() {
     if (!this.hass || !this._config) return A;
     const customLocalize = setupCustomlocalize(this.hass);
-    const dockstreamEntityIds = findDockstream2EntityIds(this.hass);
-    const schema = buildSchema(customLocalize, dockstreamEntityIds, this.hass);
+    const schema = computeSchema(this.hass.localize, customLocalize);
     return b`
       <ha-form
         .hass=${this.hass}
@@ -12404,9 +12147,6 @@ let PetlibroDockstream2CardEditor = class extends MushroomBaseElement {
     fireEvent(this, "config-changed", { config: ev.detail.value });
   }
 };
-__decorateClass([
-  n$1({ attribute: false })
-], PetlibroDockstream2CardEditor.prototype, "hass", 2);
 __decorateClass([
   r()
 ], PetlibroDockstream2CardEditor.prototype, "_config", 2);
