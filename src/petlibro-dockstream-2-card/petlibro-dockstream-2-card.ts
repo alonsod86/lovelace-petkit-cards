@@ -207,6 +207,14 @@ export class PetlibroDockstream2Card
       (cfg.arm_bottom_entity && cfg.arm_bottom_visible !== false);
 
     if (hasArms) {
+      const armEntries: Array<{ position: "top" | "bottom"; entityId: string }> = [];
+      if (cfg.arm_top_entity && cfg.arm_top_visible !== false) {
+        armEntries.push({ position: "top", entityId: cfg.arm_top_entity });
+      }
+      if (cfg.arm_bottom_entity && cfg.arm_bottom_visible !== false) {
+        armEntries.push({ position: "bottom", entityId: cfg.arm_bottom_entity });
+      }
+
       return html`
         <div class="hero hero-device-with-arms">
           <div
@@ -214,12 +222,15 @@ export class PetlibroDockstream2Card
             style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
           ></div>
           <div class="hero-device-arms">
-            ${cfg.arm_top_entity && cfg.arm_top_visible !== false
-              ? this._renderArm("top", cfg.arm_top_entity)
-              : nothing}
-            ${cfg.arm_bottom_entity && cfg.arm_bottom_visible !== false
-              ? this._renderArm("bottom", cfg.arm_bottom_entity)
-              : nothing}
+            ${armEntries.map(
+              (a) => html`
+                <div
+                  class="arm-connector arm-connector-${a.position}"
+                  aria-hidden="true"
+                ></div>
+                ${this._renderArm(a.position, a.entityId)}
+              `
+            )}
           </div>
         </div>
       `;
@@ -548,26 +559,6 @@ export class PetlibroDockstream2Card
         display: none;
       }
 
-      /* ── Arm connector lines ──
-         Drawn as pseudo-elements on the arms column so they can extend
-         leftward into the image column without needing overflow:visible.
-         Each line starts at the arm column's left edge (left: 0) and
-         extends a fixed width into the image area. The vertical position
-         matches the badge's 33% / 67% offset. */
-      .hero-device-arms::before,
-      .hero-device-arms::after {
-        content: '';
-        position: absolute;
-        left: -26px;
-        width: 26px;
-        height: 2px;
-        background: rgba(255, 255, 255, 0.9);
-        pointer-events: none;
-        z-index: 2;
-      }
-      .hero-device-arms::before { top: calc(33%); }
-      .hero-device-arms::after  { top: calc(67%); }
-
       /* ── Arm connectors ── */
       .hero-arm {
         position: absolute;
@@ -576,6 +567,20 @@ export class PetlibroDockstream2Card
       }
       .hero-arm-top    { top: calc(33% - 18px); }
       .hero-arm-bottom { top: calc(67% - 18px); }
+
+      /* Horizontal connector line: spans the arm column and overlaps slightly
+         into the image column so it visually touches the fountain edge
+         regardless of the transparent padding in the PNG. */
+      .arm-connector {
+        position: absolute;
+        left: -8px;
+        right: 88px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.55);
+        pointer-events: none;
+      }
+      .arm-connector-top    { top: calc(33% - 4px); }
+      .arm-connector-bottom { top: calc(67% - 4px); }
 
       .arm-badge {
         background: rgba(0, 0, 0, 0.38);
