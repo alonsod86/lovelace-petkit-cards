@@ -4400,7 +4400,7 @@ var IntlMessageFormat = class IntlMessageFormat2 {
   }
 };
 const card = { "not_found": "Entity not found" };
-const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "secondary_entity": "Secondary entity (optional, vertical only)", "entity_icon": "Primary entity icon (replaces dot)", "secondary_entity_icon": "Secondary entity icon (replaces dot)", "primary_column_title": "Primary column title (optional)", "secondary_column_title": "Secondary column title (optional)", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "events_section": "Event options", "show_idle_events": "Show idle events", "show_event_time": "Show event time", "show_event_duration": "Show event duration", "reverse_order": "Reverse order (oldest first)", "labels_section": "State labels", "unknown_label": "Unknown cat placeholder", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" }, "petlibro_dockstream_2": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
+const editor = { "card": { "generic": { "entity": "Entity", "color": "Color", "content_info": "Content", "fill_container": "Fill container", "icon_animation": "Animate icon when active?", "icon_color": "Icon color", "icon_type": "Icon type", "layout": "Layout", "primary_info": "Primary information", "secondary_info": "Secondary information", "use_entity_picture": "Use entity picture?", "collapsible_controls": "Collapse controls when off", "picture": "Picture" }, "petkit_litterbox": { "actions": "Action buttons", "icon_animation": "Animate icon while active", "active_states": "Active states (override)", "scoop_entity": "Scoop (button or script)", "deodorize_entity": "Deodorize (button or script)", "level_litter_entity": "Level litter (button or script)", "maintenance_entity": "Maintenance (button or script)", "footer_1": "Footer item 1", "footer_2": "Footer item 2 (optional)", "actions_list": { "scoop": "Scoop", "deodorize": "Deodorize", "level_litter": "Level litter", "maintenance": "Maintenance mode" } }, "petkit_litterbox_timeline": { "layout": "Layout", "hours_to_show": "History window", "secondary_entity": "Secondary entity (optional, vertical only)", "entity_icon": "Primary entity icon (replaces dot)", "secondary_entity_icon": "Secondary entity icon (replaces dot)", "primary_column_title": "Primary column title (optional)", "secondary_column_title": "Secondary column title (optional)", "layout_vertical": "Vertical", "layout_horizontal": "Horizontal", "header_section": "Header", "header_title": "Custom title", "show_header_icon": "Show icon", "show_header_title": "Show title", "show_header_hours": "Show hours badge", "events_section": "Event options", "show_idle_events": "Show idle events", "show_event_time": "Show event time", "show_event_duration": "Show event duration", "reverse_order": "Reverse order (oldest first)", "labels_section": "State labels", "unknown_label": "Unknown cat placeholder", "label_idle": "Idle", "label_cleaning": "Cleaning", "label_scooping": "Scooping", "label_dumping": "Dumping", "label_leveling": "Leveling", "label_odor_removal": "Odor removal", "label_deodorizing": "Deodorizing", "label_maintenance": "Maintenance", "label_refreshing": "Refreshing", "label_resetting": "Resetting", "label_paused": "Paused" }, "petkit_litterbox_dashboard": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "camera_section": "Camera panel", "camera_entity": "Camera entity", "camera_mode": "Camera mode", "camera_mode_snapshot": "Snapshot (latest image)", "camera_mode_stream": "Live stream", "camera_size": "Camera panel width", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon" }, "petlibro_dockstream_2": { "picture": "Device image URL", "title": "Card title (overrides entity name)", "show_name": "Show title", "show_state": "Show state badge", "arm_section": "Sensor arms (device image right side)", "arm_top_entity": "Upper arm entity (upper third)", "arm_top_name": "Upper arm label override", "arm_top_visible": "Show upper arm", "arm_bottom_entity": "Lower arm entity (lower third)", "arm_bottom_name": "Lower arm label override", "arm_bottom_visible": "Show lower arm", "sensor_1_section": "Sensor slot 1", "sensor_1_entity": "Entity", "sensor_1_name": "Label override", "sensor_1_icon": "Icon", "sensor_2_section": "Sensor slot 2", "sensor_2_entity": "Entity", "sensor_2_name": "Label override", "sensor_2_icon": "Icon", "sensor_3_section": "Sensor slot 3", "sensor_3_entity": "Entity", "sensor_3_name": "Label override", "sensor_3_icon": "Icon", "sensor_4_section": "Sensor slot 4", "sensor_4_entity": "Entity", "sensor_4_name": "Label override", "sensor_4_icon": "Icon", "btn_1_section": "Action button 1", "btn_1_entity": "Entity (button / script / switch)", "btn_1_name": "Label override", "btn_1_icon": "Icon", "btn_1_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))", "btn_2_section": "Action button 2", "btn_2_entity": "Entity (button / script / switch)", "btn_2_name": "Label override", "btn_2_icon": "Icon", "btn_2_icon_color": "Icon color (any CSS color: #ff6432, red, rgb(...))" } }, "form": { "icon_type_picker": { "values": { "default": "Default type", "entity-picture": "Entity picture", "icon": "Icon", "none": "None" } }, "info_picker": { "values": { "default": "Default information", "last-changed": "Last Changed", "last-updated": "Last Updated", "name": "Name", "none": "None", "state": "State" } }, "layout_picker": { "values": { "default": "Default layout", "horizontal": "Horizontal layout", "vertical": "Vertical layout" } } } };
 const en = {
   card,
   editor
@@ -10371,6 +10371,12 @@ const petlibroDockstream2CardConfigStruct = assign(
     title: optional(string()),
     show_name: optional(boolean()),
     show_state: optional(boolean()),
+    arm_top_entity: optional(string()),
+    arm_top_name: optional(string()),
+    arm_top_visible: optional(boolean()),
+    arm_bottom_entity: optional(string()),
+    arm_bottom_name: optional(string()),
+    arm_bottom_visible: optional(boolean()),
     sensor_1_entity: optional(string()),
     sensor_1_name: optional(string()),
     sensor_1_icon: optional(string()),
@@ -10518,9 +10524,49 @@ let PetlibroDockstream2Card = class extends i$2 {
   // ─── Hero ─────────────────────────────────────────────────────────────────
   _renderHero(picture) {
     const imgUrl = picture ?? PETLIBRO_DOCKSTREAM_2_IMAGE_URL;
+    const cfg = this._config;
+    const hasArms = cfg.arm_top_entity && cfg.arm_top_visible !== false || cfg.arm_bottom_entity && cfg.arm_bottom_visible !== false;
+    if (hasArms) {
+      return b`
+        <div class="hero hero-device-with-arms">
+          <div
+            class="hero-device-img"
+            style=${o({ backgroundImage: `url('${imgUrl}')` })}
+          ></div>
+          <div class="hero-device-arms">
+            ${cfg.arm_top_entity && cfg.arm_top_visible !== false ? this._renderArm("top", cfg.arm_top_entity) : A}
+            ${cfg.arm_bottom_entity && cfg.arm_bottom_visible !== false ? this._renderArm("bottom", cfg.arm_bottom_entity) : A}
+          </div>
+        </div>
+      `;
+    }
     return b`
       <div class="hero" style=${o({ backgroundImage: `url('${imgUrl}')` })}>
         <div class="hero-gradient"></div>
+      </div>
+    `;
+  }
+  _renderArm(position, entityId) {
+    const stateObj = this.hass?.states[entityId];
+    if (!stateObj) return b``;
+    const value = stateObj.state;
+    const unit = stateObj.attributes.unit_of_measurement ?? "";
+    const cfg = this._config;
+    const customName = position === "top" ? cfg.arm_top_name : cfg.arm_bottom_name;
+    const name = customName || stateObj.attributes.friendly_name || entityId;
+    return b`
+      <div class="hero-arm hero-arm-${position}">
+        <div
+          class="arm-badge"
+          role="button" tabindex="0"
+          @click=${() => this._openMoreInfo(entityId)}
+        >
+          <span class="arm-name">${name}</span>
+          <div class="arm-val-row">
+            <span class="arm-value">${value}</span
+            >${unit ? b`<span class="arm-unit"> ${unit}</span>` : A}
+          </div>
+        </div>
       </div>
     `;
   }
@@ -10724,6 +10770,81 @@ let PetlibroDockstream2Card = class extends i$2 {
         );
         pointer-events: none;
       }
+
+      /* ── Hero with arms (no camera variant) ── */
+      .hero.hero-device-with-arms {
+        justify-content: center;
+      }
+      .hero-device-with-arms {
+        display: flex;
+        flex-direction: row;
+        background: none !important;
+      }
+      .hero-device-img {
+        flex: 1;
+        min-width: 0;
+        background-size: contain;
+        background-position: left center;
+        background-repeat: no-repeat;
+        background-color: var(--ha-card-background, var(--card-background-color, #111));
+      }
+      .hero.hero-device-with-arms .hero-device-img {
+        flex: 0 1 250px;
+        background-position: right center;
+      }
+      .hero-device-arms {
+        position: relative;
+        width: 120px;
+        flex-shrink: 0;
+      }
+      .hero-device-arms:not(:has(.hero-arm)) {
+        display: none;
+      }
+
+      /* ── Arm connectors ── */
+      .hero-arm {
+        position: absolute;
+        right: 8px;
+        pointer-events: none;
+      }
+      .hero-arm-top    { top: calc(33% - 18px); }
+      .hero-arm-bottom { top: calc(67% - 18px); }
+
+      .arm-badge {
+        background: rgba(0, 0, 0, 0.38);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 10px;
+        padding: 3px 8px;
+        color: rgba(255, 255, 255, 0.95);
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        gap: 1px;
+        max-width: 76px;
+        cursor: pointer;
+        transition: background 120ms ease;
+        pointer-events: auto;
+      }
+
+      .arm-badge:hover {
+        background: rgba(0, 0, 0, 0.55);
+        border-color: rgba(255, 255, 255, 0.35);
+      }
+      .arm-name {
+        font-size: 10px;
+        font-weight: 400;
+        opacity: 0.7;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
+      }
+      .arm-val-row { line-height: 1.3; }
+      .arm-value   { font-size: 12px; font-weight: 600; }
+      .arm-unit    { font-size: 10px; opacity: 0.75; }
 
       /* ── Glass state badge ── */
       .state-badge {
@@ -11954,6 +12075,13 @@ const DOCKSTREAM_2_LABELS = [
   "title",
   "show_name",
   "show_state",
+  "arm_section",
+  "arm_top_entity",
+  "arm_top_name",
+  "arm_top_visible",
+  "arm_bottom_entity",
+  "arm_bottom_name",
+  "arm_bottom_visible",
   "sensor_1_entity",
   "sensor_1_name",
   "sensor_1_icon",
@@ -11985,6 +12113,24 @@ const computeSchema = memoizeOne(
     { name: "title", selector: { text: {} } },
     { name: "show_name", selector: { boolean: {} } },
     { name: "show_state", selector: { boolean: {} } },
+    // ── Sensor arms (right side of device image) ────────────────────────
+    {
+      type: "expandable",
+      name: "arm_section",
+      flatten: true,
+      icon: "mdi:arrow-right-bold",
+      title: customLocalize(
+        "editor.card.petlibro_dockstream_2.arm_section"
+      ),
+      schema: [
+        { name: "arm_top_entity", selector: { entity: {} } },
+        { name: "arm_top_name", selector: { text: {} } },
+        { name: "arm_top_visible", selector: { boolean: {} } },
+        { name: "arm_bottom_entity", selector: { entity: {} } },
+        { name: "arm_bottom_name", selector: { text: {} } },
+        { name: "arm_bottom_visible", selector: { boolean: {} } }
+      ]
+    },
     // ── Sensor slot 1 ──────────────────────────────────────────────────────
     {
       type: "expandable",
@@ -12127,7 +12273,11 @@ let PetlibroDockstream2CardEditor = class extends MushroomBaseElement {
   }
   setConfig(config) {
     assert(config, petlibroDockstream2CardConfigStruct);
-    this._config = config;
+    this._config = {
+      arm_top_visible: true,
+      arm_bottom_visible: true,
+      ...config
+    };
   }
   render() {
     if (!this.hass || !this._config) return A;

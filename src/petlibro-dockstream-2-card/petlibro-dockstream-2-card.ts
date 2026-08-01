@@ -200,9 +200,66 @@ export class PetlibroDockstream2Card
 
   private _renderHero(picture: string | undefined): TemplateResult {
     const imgUrl = picture ?? PETLIBRO_DOCKSTREAM_2_IMAGE_URL;
+    const cfg = this._config;
+
+    const hasArms =
+      (cfg.arm_top_entity && cfg.arm_top_visible !== false) ||
+      (cfg.arm_bottom_entity && cfg.arm_bottom_visible !== false);
+
+    if (hasArms) {
+      return html`
+        <div class="hero hero-device-with-arms">
+          <div
+            class="hero-device-img"
+            style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}
+          ></div>
+          <div class="hero-device-arms">
+            ${cfg.arm_top_entity && cfg.arm_top_visible !== false
+              ? this._renderArm("top", cfg.arm_top_entity)
+              : nothing}
+            ${cfg.arm_bottom_entity && cfg.arm_bottom_visible !== false
+              ? this._renderArm("bottom", cfg.arm_bottom_entity)
+              : nothing}
+          </div>
+        </div>
+      `;
+    }
+
     return html`
       <div class="hero" style=${styleMap({ backgroundImage: `url('${imgUrl}')` })}>
         <div class="hero-gradient"></div>
+      </div>
+    `;
+  }
+
+  private _renderArm(
+    position: "top" | "bottom",
+    entityId: string
+  ): TemplateResult {
+    const stateObj = this.hass?.states[entityId];
+    if (!stateObj) return html``;
+    const value = stateObj.state;
+    const unit = (stateObj.attributes.unit_of_measurement as string) ?? "";
+    const cfg = this._config;
+    const customName =
+      position === "top" ? cfg.arm_top_name : cfg.arm_bottom_name;
+    const name =
+      customName ||
+      (stateObj.attributes.friendly_name as string) ||
+      entityId;
+    return html`
+      <div class="hero-arm hero-arm-${position}">
+        <div
+          class="arm-badge"
+          role="button" tabindex="0"
+          @click=${() => this._openMoreInfo(entityId)}
+        >
+          <span class="arm-name">${name}</span>
+          <div class="arm-val-row">
+            <span class="arm-value">${value}</span
+            >${unit ? html`<span class="arm-unit"> ${unit}</span>` : nothing}
+          </div>
+        </div>
       </div>
     `;
   }
@@ -460,6 +517,81 @@ export class PetlibroDockstream2Card
         );
         pointer-events: none;
       }
+
+      /* ── Hero with arms (no camera variant) ── */
+      .hero.hero-device-with-arms {
+        justify-content: center;
+      }
+      .hero-device-with-arms {
+        display: flex;
+        flex-direction: row;
+        background: none !important;
+      }
+      .hero-device-img {
+        flex: 1;
+        min-width: 0;
+        background-size: contain;
+        background-position: left center;
+        background-repeat: no-repeat;
+        background-color: var(--ha-card-background, var(--card-background-color, #111));
+      }
+      .hero.hero-device-with-arms .hero-device-img {
+        flex: 0 1 250px;
+        background-position: right center;
+      }
+      .hero-device-arms {
+        position: relative;
+        width: 120px;
+        flex-shrink: 0;
+      }
+      .hero-device-arms:not(:has(.hero-arm)) {
+        display: none;
+      }
+
+      /* ── Arm connectors ── */
+      .hero-arm {
+        position: absolute;
+        right: 8px;
+        pointer-events: none;
+      }
+      .hero-arm-top    { top: calc(33% - 18px); }
+      .hero-arm-bottom { top: calc(67% - 18px); }
+
+      .arm-badge {
+        background: rgba(0, 0, 0, 0.38);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 10px;
+        padding: 3px 8px;
+        color: rgba(255, 255, 255, 0.95);
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        gap: 1px;
+        max-width: 76px;
+        cursor: pointer;
+        transition: background 120ms ease;
+        pointer-events: auto;
+      }
+
+      .arm-badge:hover {
+        background: rgba(0, 0, 0, 0.55);
+        border-color: rgba(255, 255, 255, 0.35);
+      }
+      .arm-name {
+        font-size: 10px;
+        font-weight: 400;
+        opacity: 0.7;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
+      }
+      .arm-val-row { line-height: 1.3; }
+      .arm-value   { font-size: 12px; font-weight: 600; }
+      .arm-unit    { font-size: 10px; opacity: 0.75; }
 
       /* ── Glass state badge ── */
       .state-badge {

@@ -385,10 +385,14 @@ const dock2Base = {
   sensor_4_entity: 'sensor.dockstream2_battery',
 };
 
-// 1. Full configuration, four sensor chips + two action buttons
+// 1. Full configuration, four sensor chips + two action buttons + arms
 document.getElementById('dock2-1').setConfig({
   ...dock2Base,
   title: 'Dockstream 2 (Cordless)',
+  arm_top_entity: 'sensor.dockstream2_filter_days',
+  arm_top_name: 'Filter',
+  arm_bottom_entity: 'sensor.dockstream2_cleaning_days',
+  arm_bottom_name: 'Cleaning',
   btn_1_entity: 'button.dockstream2_filter_reset',
   btn_1_name: 'Filter Reset',
   btn_1_icon: 'mdi:air-filter',

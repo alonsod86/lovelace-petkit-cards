@@ -22,6 +22,13 @@ const DOCKSTREAM_2_LABELS = [
   "title",
   "show_name",
   "show_state",
+  "arm_section",
+  "arm_top_entity",
+  "arm_top_name",
+  "arm_top_visible",
+  "arm_bottom_entity",
+  "arm_bottom_name",
+  "arm_bottom_visible",
   "sensor_1_entity",
   "sensor_1_name",
   "sensor_1_icon",
@@ -57,6 +64,24 @@ const computeSchema = memoizeOne(
     { name: "title", selector: { text: {} } },
     { name: "show_name", selector: { boolean: {} } },
     { name: "show_state", selector: { boolean: {} } },
+    // ── Sensor arms (right side of device image) ────────────────────────
+    {
+      type: "expandable",
+      name: "arm_section",
+      flatten: true,
+      icon: "mdi:arrow-right-bold",
+      title: customLocalize(
+        "editor.card.petlibro_dockstream_2.arm_section"
+      ),
+      schema: [
+        { name: "arm_top_entity",    selector: { entity: {} } },
+        { name: "arm_top_name",      selector: { text: {} } },
+        { name: "arm_top_visible",   selector: { boolean: {} } },
+        { name: "arm_bottom_entity", selector: { entity: {} } },
+        { name: "arm_bottom_name",   selector: { text: {} } },
+        { name: "arm_bottom_visible",selector: { boolean: {} } },
+      ],
+    },
     // ── Sensor slot 1 ──────────────────────────────────────────────────────
     {
       type: "expandable",
@@ -190,7 +215,12 @@ export class PetlibroDockstream2CardEditor
 
   public setConfig(config: PetlibroDockstream2CardConfig): void {
     assert(config, petlibroDockstream2CardConfigStruct);
-    this._config = config;
+    // Default visibility booleans to true so the toggle renders as ON when unset
+    this._config = {
+      arm_top_visible: true,
+      arm_bottom_visible: true,
+      ...config,
+    };
   }
 
   private _computeLabel = (schema: HaFormSchema) => {

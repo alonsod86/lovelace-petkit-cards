@@ -27,6 +27,13 @@ export interface PetlibroDockstream2CardConfig extends LovelaceCardConfig {
   title?: string;
   show_name?: boolean;
   show_state?: boolean;
+  /** Sensor arm connectors (right side of the device image). */
+  arm_top_entity?: string;
+  arm_top_name?: string;
+  arm_top_visible?: boolean;
+  arm_bottom_entity?: string;
+  arm_bottom_name?: string;
+  arm_bottom_visible?: boolean;
   /** Sensor chip slots 1–4 (flat prefixed fields). */
   sensor_1_entity?: string;
   sensor_1_name?: string;
@@ -61,6 +68,12 @@ export const petlibroDockstream2CardConfigStruct = assign(
     title: optional(string()),
     show_name: optional(boolean()),
     show_state: optional(boolean()),
+    arm_top_entity: optional(string()),
+    arm_top_name: optional(string()),
+    arm_top_visible: optional(boolean()),
+    arm_bottom_entity: optional(string()),
+    arm_bottom_name: optional(string()),
+    arm_bottom_visible: optional(boolean()),
     sensor_1_entity: optional(string()),
     sensor_1_name: optional(string()),
     sensor_1_icon: optional(string()),
