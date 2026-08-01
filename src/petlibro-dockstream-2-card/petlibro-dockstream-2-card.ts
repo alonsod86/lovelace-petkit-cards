@@ -514,6 +514,13 @@ export class PetlibroDockstream2Card
         overflow: hidden;
       }
 
+      /* When arms are present the connector line must extend into the arm
+         column, which lives outside the image's column. Disable clipping so
+         it can be drawn. */
+      .hero.hero-device-with-arms {
+        overflow: visible;
+      }
+
       .hero-gradient {
         position: absolute;
         inset: 0;
@@ -574,9 +581,10 @@ export class PetlibroDockstream2Card
         position: absolute;
         right: -22px;
         width: 22px;
-        height: 1px;
-        background: rgba(255, 255, 255, 0.55);
+        height: 2px;
+        background: rgba(255, 255, 255, 0.85);
         pointer-events: none;
+        z-index: 2;
       }
       .arm-connector-top    { top: calc(33%); }
       .arm-connector-bottom { top: calc(67%); }
