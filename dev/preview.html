@@ -69,6 +69,13 @@
   <mushroom-petkit-litterbox-card id="card4"></mushroom-petkit-litterbox-card>
 </div>
 
+<h2>Petlibro Dockstream 2 Card — Preview</h2>
+<div class="grid">
+  <mushroom-petlibro-dockstream-2-card id="dock2-1"></mushroom-petlibro-dockstream-2-card>
+  <mushroom-petlibro-dockstream-2-card id="dock2-2"></mushroom-petlibro-dockstream-2-card>
+  <mushroom-petlibro-dockstream-2-card id="dock2-3"></mushroom-petlibro-dockstream-2-card>
+</div>
+
 <script>
 /* ── Mock HA custom elements (stubs for elements not in our bundle) ── */
 
@@ -252,6 +259,73 @@ const hass = {
       state: 'cleaning',
       attributes: { friendly_name: 'TURBO CAGADERO (cleaning)', icon: 'mdi:cat' },
     },
+
+    // ── Petlibro Dockstream 2 (cordless PLWF116) mock states ──
+    'sensor.dockstream2_weight_percent': {
+      entity_id: 'sensor.dockstream2_weight_percent',
+      state: '78',
+      attributes: { friendly_name: 'Current Weight Percent', icon: 'mdi:water-percent', unit_of_measurement: '%', device_class: 'battery' },
+    },
+    'sensor.dockstream2_remaining_water': {
+      entity_id: 'sensor.dockstream2_remaining_water',
+      state: '1850',
+      attributes: { friendly_name: 'Remaining Water Volume', icon: 'mdi:water', unit_of_measurement: 'mL' },
+    },
+    'sensor.dockstream2_today_water': {
+      entity_id: 'sensor.dockstream2_today_water',
+      state: '420',
+      attributes: { friendly_name: "Today's Water Consumption", icon: 'mdi:cup-water', unit_of_measurement: 'mL' },
+    },
+    'sensor.dockstream2_yesterday_water': {
+      entity_id: 'sensor.dockstream2_yesterday_water',
+      state: '510',
+      attributes: { friendly_name: "Yesterday's Water Consumption", icon: 'mdi:cup-water-outline', unit_of_measurement: 'mL' },
+    },
+    'sensor.dockstream2_filter_days': {
+      entity_id: 'sensor.dockstream2_filter_days',
+      state: '18',
+      attributes: { friendly_name: 'Remaining Filter Days', icon: 'mdi:air-filter', unit_of_measurement: 'd', device_class: 'duration' },
+    },
+    'sensor.dockstream2_cleaning_days': {
+      entity_id: 'sensor.dockstream2_cleaning_days',
+      state: '6',
+      attributes: { friendly_name: 'Remaining Cleaning Days', icon: 'mdi:broom', unit_of_measurement: 'd', device_class: 'duration' },
+    },
+    'sensor.dockstream2_battery': {
+      entity_id: 'sensor.dockstream2_battery',
+      state: '92',
+      attributes: { friendly_name: 'Battery / AC %', icon: 'mdi:battery', unit_of_measurement: '%', device_class: 'battery' },
+    },
+    'binary_sensor.dockstream2_power': {
+      entity_id: 'binary_sensor.dockstream2_power',
+      state: 'on',
+      attributes: { friendly_name: 'Power State', icon: 'mdi:power-plug', device_class: 'plug' },
+    },
+    'binary_sensor.dockstream2_online': {
+      entity_id: 'binary_sensor.dockstream2_online',
+      state: 'on',
+      attributes: { friendly_name: 'Wi-Fi', icon: 'mdi:wifi', device_class: 'connectivity' },
+    },
+    'binary_sensor.dockstream2_water_state': {
+      entity_id: 'binary_sensor.dockstream2_water_state',
+      state: 'on',
+      attributes: { friendly_name: 'Water Dispensing State', icon: 'mdi:water', device_class: 'moisture' },
+    },
+    'select.dockstream2_mode': {
+      entity_id: 'select.dockstream2_mode',
+      state: 'Flowing Water (Constant)',
+      attributes: { friendly_name: 'Water Dispensing Mode', icon: 'mdi:waves-arrow-right', options: ['Flowing Water (Constant)','Sensor-Activated (Near)','Sensor-Activated (Far)','Off'] },
+    },
+    'button.dockstream2_filter_reset': {
+      entity_id: 'button.dockstream2_filter_reset',
+      state: 'unknown',
+      attributes: { friendly_name: 'Filter Reset', icon: 'mdi:air-filter' },
+    },
+    'button.dockstream2_cleaning_reset': {
+      entity_id: 'button.dockstream2_cleaning_reset',
+      state: 'unknown',
+      attributes: { friendly_name: 'Cleaning Reset', icon: 'mdi:broom' },
+    },
   },
   callService: (domain, service, data) => {
     console.log('callService', domain, service, data);
@@ -298,6 +372,67 @@ document.getElementById('card4').setConfig({
   footer_entity_1: 'binary_sensor.turbo_cagadero_camera_light',
 });
 document.getElementById('card4').hass = hass;
+
+// ── Petlibro Dockstream 2 previews ────────────────────────────────
+const dock2Base = {
+  type: 'custom:mushroom-petlibro-dockstream-2-card',
+  entity: 'sensor.dockstream2_weight_percent',
+  show_name: true,
+  show_state: true,
+  water_level_entity: 'sensor.dockstream2_weight_percent',
+  water_volume_entity: 'sensor.dockstream2_remaining_water',
+  today_water_entity: 'sensor.dockstream2_today_water',
+  yesterday_water_entity: 'sensor.dockstream2_yesterday_water',
+  filter_days_entity: 'sensor.dockstream2_filter_days',
+  cleaning_days_entity: 'sensor.dockstream2_cleaning_days',
+  battery_entity: 'sensor.dockstream2_battery',
+  power_entity: 'binary_sensor.dockstream2_power',
+  connectivity_entity: 'binary_sensor.dockstream2_online',
+  dispensing_entity: 'binary_sensor.dockstream2_water_state',
+  mode_entity: 'select.dockstream2_mode',
+};
+
+// 1. Full configuration, all sensors + actions
+document.getElementById('dock2-1').setConfig({
+  ...dock2Base,
+  title: 'Dockstream 2 (Cordless)',
+  btn_1_entity: 'button.dockstream2_filter_reset',
+  btn_1_name: 'Filter Reset',
+  btn_1_icon: 'mdi:air-filter',
+  btn_2_entity: 'button.dockstream2_cleaning_reset',
+  btn_2_name: 'Cleaning Reset',
+  btn_2_icon: 'mdi:broom',
+});
+document.getElementById('dock2-1').hass = hass;
+
+// 2. Minimal: only primary ring + status pills + dispensing mode
+document.getElementById('dock2-2').setConfig({
+  ...dock2Base,
+  title: 'Dockstream 2 (Minimal)',
+  today_water_entity: undefined,
+  yesterday_water_entity: undefined,
+  cleaning_days_entity: undefined,
+  battery_entity: undefined,
+  btn_1_entity: 'button.dockstream2_filter_reset',
+  btn_1_name: 'Reset Filter',
+});
+document.getElementById('dock2-2').hass = hass;
+
+// 3. Low-water scenario (warning state, low filter)
+hass.states['sensor.dockstream2_weight_percent'].state = '12';
+hass.states['sensor.dockstream2_filter_days'].state = '2';
+hass.states['select.dockstream2_mode'].state = 'Sensor-Activated (Near)';
+document.getElementById('dock2-3').setConfig({
+  ...dock2Base,
+  title: 'Dockstream 2 (Low Water)',
+  today_water_entity: undefined,
+  yesterday_water_entity: undefined,
+  cleaning_days_entity: undefined,
+  battery_entity: undefined,
+  power_entity: undefined,
+  connectivity_entity: undefined,
+});
+document.getElementById('dock2-3').hass = hass;
 
 /* ── Theme toggle ─────────────────────────────────────────────────── */
 let dark = true;
